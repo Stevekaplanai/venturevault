@@ -36,11 +36,62 @@ jobs:
         env:
           CI: false
 
-      - name: Remove existing android folder
-        run: rm -rf android
+      - name: Create cordova plugins folder
+        run: |
+          mkdir -p android/capacitor-cordova-android-plugins/src/main/java
+          cat > android/capacitor-cordova-android-plugins/build.gradle << 'EOF'
+          ext {
+              cordovaAndroidVersion = project.hasProperty('cordovaAndroidVersion') ? rootProject.ext.cordovaAndroidVersion : '10.1.1'
+          }
 
-      - name: Add Android platform fresh
-        run: npx cap add android
+          buildscript {
+              repositories {
+                  google()
+                  mavenCentral()
+              }
+              dependencies {
+                  classpath 'com.android.tools.build:gradle:8.2.1'
+              }
+          }
+
+          apply plugin: 'com.android.library'
+
+          android {
+              namespace 'capacitor.cordova.android.plugins'
+              compileSdkVersion project.hasProperty('compileSdkVersion') ? rootProject.ext.compileSdkVersion : 34
+              defaultConfig {
+                  minSdkVersion project.hasProperty('minSdkVersion') ? rootProject.ext.minSdkVersion : 22
+                  targetSdkVersion project.hasProperty('targetSdkVersion') ? rootProject.ext.targetSdkVersion : 34
+              }
+              lintOptions {
+                  abortOnError false
+              }
+              compileOptions {
+                  sourceCompatibility JavaVersion.VERSION_17
+                  targetCompatibility JavaVersion.VERSION_17
+              }
+          }
+
+          repositories {
+              google()
+              mavenCentral()
+              flatDir {
+                  dirs 'src/main/libs', 'libs'
+              }
+          }
+
+          dependencies {
+          }
+          EOF
+
+      - name: Create cordova plugins manifest
+        run: |
+          mkdir -p android/capacitor-cordova-android-plugins/src/main
+          cat > android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml << 'EOF'
+          <?xml version='1.0' encoding='utf-8'?>
+          <manifest package="capacitor.cordova.android.plugins">
+          </manifest>
+          EOF
 
       - name: Sync Capacitor
         run: npx cap sync android
@@ -51,13 +102,6 @@ jobs:
       - name: Build debug APK
         working-directory: android
         run: ./gradlew assembleDebug --no-daemon
-
-      - name: Find and upload APK
-        run: |
-          APK_PATH=$(find android -name "*.apk" -type f | head -1)
-          echo "APK found at: $APK_PATH"
-          echo "apk_path=$APK_PATH" >> $GITHUB_OUTPUT
-        id: find_apk
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
