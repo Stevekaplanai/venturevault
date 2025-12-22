@@ -50,21 +50,30 @@ export function PricingPage() {
     <div className="py-12">
       <div className="container mx-auto px-4">
         {/* Header */}
-        <div className="text-center mb-16">
-          <Badge className="mb-4 bg-gradient-to-r from-green-500 to-emerald-500">
-            <Heart className="h-3 w-3 mr-1" />
-            100% Free Forever
-          </Badge>
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">
-            One Plan.{" "}
-            <span className="bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
-              Completely Free.
-            </span>
-          </h1>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Everything you need to discover and validate your next startup idea.
-            No tiers, no limits, no credit card required.
-          </p>
+        <div className="grid md:grid-cols-2 gap-8 items-center mb-16">
+          <div className="text-center md:text-left">
+            <Badge className="mb-4 bg-gradient-to-r from-green-500 to-emerald-500">
+              <Heart className="h-3 w-3 mr-1" />
+              100% Free Forever
+            </Badge>
+            <h1 className="text-4xl md:text-5xl font-bold mb-6">
+              One Plan.{" "}
+              <span className="bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
+                Completely Free.
+              </span>
+            </h1>
+            <p className="text-lg text-muted-foreground">
+              Everything you need to discover and validate your next startup idea.
+              No tiers, no limits, no credit card required.
+            </p>
+          </div>
+          <div className="hidden md:flex justify-center">
+            <img
+              src="/images/pricing.png"
+              alt="Free startup tools"
+              className="w-full max-w-sm"
+            />
+          </div>
         </div>
 
         {/* Pricing Cards - 2 column layout */}

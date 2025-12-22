@@ -60,23 +60,32 @@ export function DiscoverPage() {
     <div className="py-8">
       <div className="container mx-auto px-4">
         {/* Hero */}
-        <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-2 rounded-full border bg-background px-4 py-1.5 text-sm mb-6">
-            <Sparkles className="h-4 w-4 text-purple-500" />
-            <span>Real-Time Discovery</span>
+        <div className="grid md:grid-cols-2 gap-8 items-center mb-12">
+          <div className="text-center md:text-left">
+            <div className="inline-flex items-center gap-2 rounded-full border bg-background px-4 py-1.5 text-sm mb-6">
+              <Sparkles className="h-4 w-4 text-purple-500" />
+              <span>Real-Time Discovery</span>
+            </div>
+
+            <h1 className="text-4xl md:text-5xl font-bold mb-6">
+              Discover{" "}
+              <span className="bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent">
+                What's Trending
+              </span>
+            </h1>
+
+            <p className="text-lg text-muted-foreground">
+              Stay ahead of the curve with real-time RSS feeds from top tech sources
+              and trending startup topics powered by search data.
+            </p>
           </div>
-
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">
-            Discover{" "}
-            <span className="bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent">
-              What's Trending
-            </span>
-          </h1>
-
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Stay ahead of the curve with real-time RSS feeds from top tech sources
-            and trending startup topics powered by search data.
-          </p>
+          <div className="hidden md:flex justify-center">
+            <img
+              src="/images/discover.png"
+              alt="Discover trending topics and news"
+              className="w-full max-w-md rounded-2xl shadow-lg"
+            />
+          </div>
         </div>
 
         <div className="grid lg:grid-cols-3 gap-8">

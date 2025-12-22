@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { Link, useLocation, useNavigate } from "react-router-dom"
-import { Vault, Sparkles, Menu, User, LogOut, X } from "lucide-react"
+import { Vault, Sparkles, Menu, User, LogOut, X, Bookmark } from "lucide-react"
 import { Button } from "./ui/button"
 import { useAuth } from "../contexts/AuthContext"
 
@@ -61,6 +61,16 @@ export function Header() {
             <div className="h-8 w-8 animate-pulse rounded-full bg-muted" />
           ) : user ? (
             <div className="flex items-center gap-2">
+              <Link to="/saved">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className={`gap-2 ${isActive('/saved') ? 'text-purple-600' : 'text-muted-foreground hover:text-foreground'}`}
+                >
+                  <Bookmark className="h-4 w-4" />
+                  Saved
+                </Button>
+              </Link>
               <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-muted">
                 <div className="h-6 w-6 rounded-full bg-gradient-to-br from-purple-500 to-indigo-500 flex items-center justify-center">
                   <User className="h-3.5 w-3.5 text-white" />
@@ -139,6 +149,15 @@ export function Header() {
                       {user.email}
                     </span>
                   </div>
+                  <Link to="/saved" onClick={closeMobileMenu}>
+                    <Button
+                      variant="outline"
+                      className="w-full justify-start gap-2"
+                    >
+                      <Bookmark className="h-4 w-4" />
+                      Saved Ideas
+                    </Button>
+                  </Link>
                   <Button
                     variant="outline"
                     className="w-full justify-start gap-2"
