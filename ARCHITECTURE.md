@@ -62,7 +62,7 @@ SERPAPI_KEY=your_key_here
 
 **Recommended**: Google Gemini API (you already have this!)
 ```
-GEMINI_API_KEY=AIzaSyD90sSLr7kjbaRF_ul-IhB7tJmnAzp8Amk
+GEMINI_API_KEY=your-gemini-api-key-here
 ```
 
 ---
@@ -209,7 +209,7 @@ VITE_SUPABASE_URL=https://your-project.supabase.co
 VITE_SUPABASE_ANON_KEY=your-anon-key
 
 # Google Gemini AI (FREE - 1500 req/day)
-GEMINI_API_KEY=AIzaSyD90sSLr7kjbaRF_ul-IhB7tJmnAzp8Amk
+GEMINI_API_KEY=your-gemini-api-key-here
 
 # SerpAPI for Google Trends (FREE - 100 searches/month)
 SERPAPI_KEY=your-serpapi-key
