@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { Toaster } from 'sonner'
 import { AuthProvider } from './contexts/AuthContext'
 import { Header } from './components/Header'
 import { Footer } from './components/Footer'
@@ -26,6 +27,17 @@ function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
+        <Toaster
+          position="top-center"
+          richColors
+          toastOptions={{
+            style: {
+              background: 'hsl(var(--background))',
+              border: '1px solid hsl(var(--border))',
+              color: 'hsl(var(--foreground))'
+            }
+          }}
+        />
         <div className="min-h-screen flex flex-col">
           <Header />
           <main className="flex-1">

@@ -1,17 +1,29 @@
 import { Link } from "react-router-dom"
-import { Vault, Twitter, Github, Linkedin } from "lucide-react"
+import { Vault, Twitter, Github, Linkedin, Mail, Sparkles } from "lucide-react"
 import { NewsletterSignup } from "./NewsletterSignup"
 
 export function Footer() {
   return (
     <footer className="border-t bg-muted/30">
       {/* Newsletter Banner */}
-      <div className="bg-gradient-to-r from-purple-600 to-indigo-600 py-12">
-        <div className="container mx-auto px-4">
+      <div className="relative overflow-hidden bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-600 py-12 md:py-16">
+        {/* Animated background pattern */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,white_1px,transparent_1px)] bg-[length:24px_24px]" />
+        </div>
+
+        <div className="container mx-auto px-4 relative">
           <div className="max-w-2xl mx-auto text-center">
-            <h3 className="text-2xl font-bold text-white mb-2">Get a Startup Idea Every Morning</h3>
-            <p className="text-purple-100 mb-6">
-              Join founders receiving curated ideas with market analysis, directly in your inbox.
+            <div className="inline-flex items-center gap-2 rounded-full bg-white/20 backdrop-blur px-4 py-1.5 text-sm text-white mb-4">
+              <Sparkles className="h-4 w-4 animate-pulse" />
+              <span>Join 1,000+ Founders</span>
+              <Mail className="h-4 w-4" />
+            </div>
+            <h3 className="text-2xl md:text-3xl font-bold text-white mb-3">
+              Get a Startup Idea Every Morning
+            </h3>
+            <p className="text-purple-100 mb-6 text-sm md:text-base">
+              Curated ideas with market analysis, customer personas, and 90-day playbooks.
             </p>
             <NewsletterSignup variant="inline" source="footer" />
           </div>
@@ -19,11 +31,11 @@ export function Footer() {
       </div>
 
       <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           {/* Brand */}
-          <div className="md:col-span-1">
-            <Link to="/" className="flex items-center gap-2 mb-4">
-              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-purple-600 to-indigo-600">
+          <div className="col-span-2 md:col-span-1">
+            <Link to="/" className="flex items-center gap-2 mb-4 group">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-purple-600 to-indigo-600 transition-transform duration-300 group-hover:scale-110">
                 <Vault className="h-5 w-5 text-white" />
               </div>
               <div className="flex flex-col">
@@ -31,77 +43,131 @@ export function Footer() {
                 <span className="text-[10px] text-muted-foreground -mt-1">Free Forever</span>
               </div>
             </Link>
-            <p className="text-sm text-muted-foreground mb-4">
+            <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
               Your vault of validated startup ideas. Discover, analyze, and launch
-              your next venture with AI-powered insights. 100% free, forever.
+              your next venture with AI-powered insights.
             </p>
-            <div className="flex gap-4">
+            <div className="flex gap-3">
               <a
                 href="https://twitter.com/venturevault"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-foreground transition-colors"
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-muted/50 text-muted-foreground hover:bg-purple-100 hover:text-purple-600 dark:hover:bg-purple-900/30 transition-all duration-300 hover:scale-110"
                 aria-label="Follow us on Twitter"
               >
-                <Twitter className="h-5 w-5" />
+                <Twitter className="h-4 w-4" />
               </a>
               <a
                 href="https://github.com/venturevault"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-foreground transition-colors"
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-muted/50 text-muted-foreground hover:bg-gray-100 hover:text-gray-900 dark:hover:bg-gray-800 transition-all duration-300 hover:scale-110"
                 aria-label="View our GitHub"
               >
-                <Github className="h-5 w-5" />
+                <Github className="h-4 w-4" />
               </a>
               <a
                 href="https://linkedin.com/company/venturevault"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-foreground transition-colors"
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-muted/50 text-muted-foreground hover:bg-blue-100 hover:text-blue-600 dark:hover:bg-blue-900/30 transition-all duration-300 hover:scale-110"
                 aria-label="Connect on LinkedIn"
               >
-                <Linkedin className="h-5 w-5" />
+                <Linkedin className="h-4 w-4" />
               </a>
             </div>
           </div>
 
-          {/* Links */}
+          {/* Links - Explore */}
           <div>
-            <h4 className="font-semibold mb-4">Explore</h4>
-            <ul className="space-y-2 text-sm text-muted-foreground">
-              <li><Link to="/browse" className="hover:text-foreground transition-colors">Browse Ideas</Link></li>
-              <li><Link to="/ai-research" className="hover:text-foreground transition-colors">AI Research</Link></li>
-              <li><Link to="/trending" className="hover:text-foreground transition-colors">Trending Ideas</Link></li>
-              <li><Link to="/blog" className="hover:text-foreground transition-colors">Blog</Link></li>
+            <h4 className="font-semibold mb-4 text-sm uppercase tracking-wider text-muted-foreground">Explore</h4>
+            <ul className="space-y-3 text-sm">
+              <li>
+                <Link to="/browse" className="text-muted-foreground hover:text-purple-600 transition-colors duration-300 flex items-center gap-1 group">
+                  <span className="group-hover:translate-x-1 transition-transform duration-300">Browse Ideas</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/ai-research" className="text-muted-foreground hover:text-purple-600 transition-colors duration-300 flex items-center gap-1 group">
+                  <span className="group-hover:translate-x-1 transition-transform duration-300">AI Research</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/trending" className="text-muted-foreground hover:text-purple-600 transition-colors duration-300 flex items-center gap-1 group">
+                  <span className="group-hover:translate-x-1 transition-transform duration-300">Trending Ideas</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/blog" className="text-muted-foreground hover:text-purple-600 transition-colors duration-300 flex items-center gap-1 group">
+                  <span className="group-hover:translate-x-1 transition-transform duration-300">Blog</span>
+                </Link>
+              </li>
             </ul>
           </div>
 
-          <div>
-            <h4 className="font-semibold mb-4">Categories</h4>
-            <ul className="space-y-2 text-sm text-muted-foreground">
-              <li><Link to="/browse?category=AI/ML" className="hover:text-foreground transition-colors">AI & Machine Learning</Link></li>
-              <li><Link to="/browse?category=FinTech" className="hover:text-foreground transition-colors">FinTech</Link></li>
-              <li><Link to="/browse?category=HealthTech" className="hover:text-foreground transition-colors">HealthTech</Link></li>
-              <li><Link to="/browse?category=EdTech" className="hover:text-foreground transition-colors">EdTech</Link></li>
-              <li><Link to="/browse?category=SaaS" className="hover:text-foreground transition-colors">SaaS</Link></li>
+          {/* Links - Categories */}
+          <div className="hidden md:block">
+            <h4 className="font-semibold mb-4 text-sm uppercase tracking-wider text-muted-foreground">Categories</h4>
+            <ul className="space-y-3 text-sm">
+              <li>
+                <Link to="/browse?category=AI/ML" className="text-muted-foreground hover:text-purple-600 transition-colors duration-300 flex items-center gap-1 group">
+                  <span className="group-hover:translate-x-1 transition-transform duration-300">AI & Machine Learning</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/browse?category=FinTech" className="text-muted-foreground hover:text-purple-600 transition-colors duration-300 flex items-center gap-1 group">
+                  <span className="group-hover:translate-x-1 transition-transform duration-300">FinTech</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/browse?category=HealthTech" className="text-muted-foreground hover:text-purple-600 transition-colors duration-300 flex items-center gap-1 group">
+                  <span className="group-hover:translate-x-1 transition-transform duration-300">HealthTech</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/browse?category=SaaS" className="text-muted-foreground hover:text-purple-600 transition-colors duration-300 flex items-center gap-1 group">
+                  <span className="group-hover:translate-x-1 transition-transform duration-300">SaaS</span>
+                </Link>
+              </li>
             </ul>
           </div>
 
+          {/* Links - Company */}
           <div>
-            <h4 className="font-semibold mb-4">Company</h4>
-            <ul className="space-y-2 text-sm text-muted-foreground">
-              <li><Link to="/about" className="hover:text-foreground transition-colors">About</Link></li>
-              <li><Link to="/roadmap" className="hover:text-foreground transition-colors">Roadmap</Link></li>
-              <li><Link to="/pricing" className="hover:text-foreground transition-colors">Pricing</Link></li>
-              <li><Link to="/privacy" className="hover:text-foreground transition-colors">Privacy</Link></li>
-              <li><Link to="/terms" className="hover:text-foreground transition-colors">Terms</Link></li>
+            <h4 className="font-semibold mb-4 text-sm uppercase tracking-wider text-muted-foreground">Company</h4>
+            <ul className="space-y-3 text-sm">
+              <li>
+                <Link to="/about" className="text-muted-foreground hover:text-purple-600 transition-colors duration-300 flex items-center gap-1 group">
+                  <span className="group-hover:translate-x-1 transition-transform duration-300">About</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/roadmap" className="text-muted-foreground hover:text-purple-600 transition-colors duration-300 flex items-center gap-1 group">
+                  <span className="group-hover:translate-x-1 transition-transform duration-300">Roadmap</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/privacy" className="text-muted-foreground hover:text-purple-600 transition-colors duration-300 flex items-center gap-1 group">
+                  <span className="group-hover:translate-x-1 transition-transform duration-300">Privacy</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/terms" className="text-muted-foreground hover:text-purple-600 transition-colors duration-300 flex items-center gap-1 group">
+                  <span className="group-hover:translate-x-1 transition-transform duration-300">Terms</span>
+                </Link>
+              </li>
             </ul>
           </div>
         </div>
 
-        <div className="mt-12 pt-8 border-t text-center text-sm text-muted-foreground">
-          <p>&copy; {new Date().getFullYear()} VentureVault.space • Free Forever • Built with shadcn/ui</p>
+        <div className="mt-12 pt-8 border-t flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
+          <p>&copy; {new Date().getFullYear()} VentureVault.space</p>
+          <p className="flex items-center gap-2">
+            <span>Free Forever</span>
+            <span className="text-purple-500">•</span>
+            <span>Built with love</span>
+            <span className="animate-pulse">💜</span>
+          </p>
         </div>
       </div>
     </footer>
