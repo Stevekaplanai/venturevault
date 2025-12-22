@@ -29,3 +29,8 @@ dist-ssr
 *.sw?
 
 .vercel
+
+# Android
+android/local.properties
+*.apk
+*.keystore
