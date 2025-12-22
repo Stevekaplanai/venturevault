@@ -67,12 +67,24 @@ export function IdeaCard({
     if (!isLoggedIn || isLoading) return
 
     setIsLoading(true)
-    if (isSaved) {
-      await unsaveIdea(id)
-      setIsSaved(false)
-    } else {
-      await saveIdea(id)
-      setIsSaved(true)
+    try {
+      if (isSaved) {
+        const result = await unsaveIdea(id)
+        if (result.error) {
+          console.error('Error unsaving idea:', result.error)
+        } else {
+          setIsSaved(false)
+        }
+      } else {
+        const result = await saveIdea(id)
+        if (result.error) {
+          console.error('Error saving idea:', result.error)
+        } else {
+          setIsSaved(true)
+        }
+      }
+    } catch (error) {
+      console.error('Bookmark error:', error)
     }
     setIsLoading(false)
   }
