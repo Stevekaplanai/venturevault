@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import { useSearchParams, Link } from "react-router-dom"
 import {
   Brain, Search, BarChart3, FileText, Sparkles, ArrowRight, Loader2,
-  TrendingUp, Users, DollarSign, Target, Zap, CheckCircle2, AlertTriangle,
+  TrendingUp, Target, Zap, CheckCircle2, AlertTriangle,
   Building2, Lightbulb, ArrowUpRight, PieChart, Globe, Shield, Rocket
 } from "lucide-react"
 import { Button } from "../components/ui/button"
