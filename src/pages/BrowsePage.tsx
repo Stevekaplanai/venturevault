@@ -65,12 +65,36 @@ export function BrowsePage() {
   return (
     <div className="py-8">
       <div className="container mx-auto px-4">
-        {/* Page Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold mb-2">Browse Startup Ideas</h1>
-          <p className="text-muted-foreground">
-            Explore {ideas.length} validated startup ideas with AI-powered market analysis
-          </p>
+        {/* Page Header with Image */}
+        <div className="grid md:grid-cols-2 gap-8 items-center mb-12">
+          <div>
+            <h1 className="text-3xl md:text-4xl font-bold mb-4">Browse Startup Ideas</h1>
+            <p className="text-lg text-muted-foreground mb-4">
+              Explore {ideas.length}+ validated startup ideas with AI-powered market analysis.
+              Filter by category, search by keyword, or discover trending opportunities.
+            </p>
+            <div className="flex flex-wrap gap-3 text-sm text-muted-foreground">
+              <span className="flex items-center gap-1">
+                <span className="h-2 w-2 rounded-full bg-green-500"></span>
+                Real-time trending data
+              </span>
+              <span className="flex items-center gap-1">
+                <span className="h-2 w-2 rounded-full bg-purple-500"></span>
+                AI-analyzed markets
+              </span>
+              <span className="flex items-center gap-1">
+                <span className="h-2 w-2 rounded-full bg-blue-500"></span>
+                Updated weekly
+              </span>
+            </div>
+          </div>
+          <div className="hidden md:flex justify-center">
+            <img
+              src="/images/browse.png"
+              alt="Browse startup ideas"
+              className="w-64 h-64 object-contain"
+            />
+          </div>
         </div>
 
         {/* Search and Filters */}
