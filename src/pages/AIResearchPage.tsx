@@ -11,21 +11,29 @@ const features = [
     icon: Search,
     title: "Market Research",
     description: "Get comprehensive market analysis including TAM, SAM, and SOM calculations with real data sources.",
+    prompt: "Analyze the market size and opportunity for ",
+    placeholder: "e.g., AI-powered legal tech solutions",
   },
   {
     icon: BarChart3,
     title: "Competitor Analysis",
     description: "Identify key competitors, analyze their strengths and weaknesses, and find market gaps.",
+    prompt: "Compare and analyze competitors in the ",
+    placeholder: "e.g., project management software space",
   },
   {
     icon: Brain,
     title: "Trend Prediction",
     description: "AI-powered forecasting to understand where your market is heading in 2-5 years.",
+    prompt: "Predict trends and future outlook for ",
+    placeholder: "e.g., sustainable fashion marketplace",
   },
   {
     icon: FileText,
     title: "Business Model Canvas",
     description: "Auto-generated business model with revenue streams, cost structure, and key metrics.",
+    prompt: "Generate a business model canvas for ",
+    placeholder: "e.g., B2B SaaS analytics platform",
   },
 ]
 
@@ -216,18 +224,36 @@ Focus on underserved segments with high growth potential. Consider a freemium mo
           </Card>
         )}
 
-        {/* Features */}
+        {/* Features - Clickable Research Types */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
           {features.map((feature, index) => (
-            <Card key={index} className="group hover:shadow-md transition-all">
+            <Card
+              key={index}
+              className="group hover:shadow-lg hover:border-purple-300 dark:hover:border-purple-700 transition-all cursor-pointer"
+              onClick={() => {
+                setQuery(feature.prompt)
+                window.scrollTo({ top: 0, behavior: 'smooth' })
+                // Focus the input after scrolling
+                setTimeout(() => {
+                  const input = document.querySelector('input[type="text"]') as HTMLInputElement
+                  if (input) {
+                    input.focus()
+                    input.setSelectionRange(input.value.length, input.value.length)
+                  }
+                }, 300)
+              }}
+            >
               <CardHeader className="pb-2">
-                <div className="h-10 w-10 rounded-lg bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center mb-2 group-hover:bg-purple-200 dark:group-hover:bg-purple-900/50 transition-colors">
+                <div className="h-10 w-10 rounded-lg bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center mb-2 group-hover:bg-purple-200 dark:group-hover:bg-purple-900/50 transition-colors group-hover:scale-110">
                   <feature.icon className="h-5 w-5 text-purple-600" />
                 </div>
-                <CardTitle className="text-base">{feature.title}</CardTitle>
+                <CardTitle className="text-base group-hover:text-purple-600 transition-colors">{feature.title}</CardTitle>
               </CardHeader>
               <CardContent>
                 <CardDescription>{feature.description}</CardDescription>
+                <p className="text-xs text-purple-500 mt-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                  Click to try → {feature.placeholder}
+                </p>
               </CardContent>
             </Card>
           ))}
