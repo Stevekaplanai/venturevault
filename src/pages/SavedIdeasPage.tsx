@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { Link, useNavigate } from "react-router-dom"
+import { Link } from "react-router-dom"
 import { Bookmark, Loader2, LogIn } from "lucide-react"
 import { Button } from "../components/ui/button"
 import { IdeaCard } from "../components/IdeaCard"
@@ -7,7 +7,6 @@ import { getSavedIdeas, getCurrentUser } from "../lib/supabase"
 import { ideas } from "../data/ideas"
 
 export function SavedIdeasPage() {
-  const navigate = useNavigate()
   const [savedIdeaIds, setSavedIdeaIds] = useState<string[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [isLoggedIn, setIsLoggedIn] = useState(false)
