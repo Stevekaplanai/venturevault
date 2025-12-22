@@ -330,7 +330,7 @@ export function RoadmapPage() {
               <Textarea
                 placeholder="Describe your feature idea..."
                 value={suggestion}
-                onChange={(e) => setSuggestion(e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setSuggestion(e.target.value)}
                 className="flex-1 bg-background"
                 rows={3}
               />

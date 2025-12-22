@@ -3,7 +3,7 @@ import { useParams, Link, useNavigate } from "react-router-dom"
 import {
   ArrowLeft, TrendingUp, Users, DollarSign, Target, Clock,
   Zap, CheckCircle2, Code2, Building2, BarChart3, Lightbulb,
-  Share2, Bookmark, Check, Copy
+  Share2, Bookmark, Check
 } from "lucide-react"
 import { Button } from "../components/ui/button"
 import { Badge } from "../components/ui/badge"
