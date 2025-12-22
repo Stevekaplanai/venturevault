@@ -1,8 +1,10 @@
+import { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
-import { TrendingUp, Users, DollarSign, Zap, ArrowRight } from "lucide-react"
+import { TrendingUp, Users, DollarSign, Zap, ArrowRight, Bookmark, BookmarkCheck } from "lucide-react"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "./ui/card"
 import { Badge } from "./ui/badge"
 import { Button } from "./ui/button"
+import { saveIdea, unsaveIdea, isIdeaSaved, getCurrentUser } from "../lib/supabase"
 
 interface IdeaCardProps {
   id: string
@@ -14,6 +16,7 @@ interface IdeaCardProps {
   potentialRevenue: string
   trending?: boolean
   tags: string[]
+  showBookmark?: boolean
 }
 
 function getScoreColor(score: number) {
@@ -38,7 +41,42 @@ export function IdeaCard({
   potentialRevenue,
   trending = false,
   tags,
+  showBookmark = true,
 }: IdeaCardProps) {
+  const [isSaved, setIsSaved] = useState(false)
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+
+  useEffect(() => {
+    async function checkStatus() {
+      const { user } = await getCurrentUser()
+      setIsLoggedIn(!!user)
+      if (user) {
+        const saved = await isIdeaSaved(id)
+        setIsSaved(saved)
+      }
+    }
+    if (showBookmark) {
+      checkStatus()
+    }
+  }, [id, showBookmark])
+
+  const handleBookmark = async (e: React.MouseEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+    if (!isLoggedIn || isLoading) return
+
+    setIsLoading(true)
+    if (isSaved) {
+      await unsaveIdea(id)
+      setIsSaved(false)
+    } else {
+      await saveIdea(id)
+      setIsSaved(true)
+    }
+    setIsLoading(false)
+  }
+
   return (
     <Card className="group hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
       <CardHeader className="pb-3">
@@ -48,12 +86,32 @@ export function IdeaCard({
               {category}
             </Badge>
           </Link>
-          {trending && (
-            <Badge variant="default" className="gap-1 bg-gradient-to-r from-purple-500 to-pink-500">
-              <Zap className="h-3 w-3" />
-              Trending
-            </Badge>
-          )}
+          <div className="flex items-center gap-2">
+            {trending && (
+              <Badge variant="default" className="gap-1 bg-gradient-to-r from-purple-500 to-pink-500">
+                <Zap className="h-3 w-3" />
+                Trending
+              </Badge>
+            )}
+            {showBookmark && isLoggedIn && (
+              <button
+                onClick={handleBookmark}
+                disabled={isLoading}
+                className={`p-1.5 rounded-full transition-colors ${
+                  isSaved
+                    ? 'text-purple-600 bg-purple-100 dark:bg-purple-900/30'
+                    : 'text-muted-foreground hover:text-purple-600 hover:bg-purple-50 dark:hover:bg-purple-900/20'
+                }`}
+                title={isSaved ? 'Remove from saved' : 'Save idea'}
+              >
+                {isSaved ? (
+                  <BookmarkCheck className="h-4 w-4" />
+                ) : (
+                  <Bookmark className="h-4 w-4" />
+                )}
+              </button>
+            )}
+          </div>
         </div>
         <Link to={`/idea/${id}`}>
           <CardTitle className="text-lg leading-tight mt-2 hover:text-purple-600 transition-colors cursor-pointer">

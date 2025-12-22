@@ -85,3 +85,84 @@ export interface ResearchHistory {
   result: string
   created_at: string
 }
+
+// Bookmark functions
+export async function saveIdea(ideaId: string) {
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) return { error: new Error('Not authenticated') }
+
+  const { data, error } = await supabase
+    .from('saved_ideas')
+    .insert({ user_id: user.id, idea_id: ideaId })
+    .select()
+    .single()
+
+  return { data, error }
+}
+
+export async function unsaveIdea(ideaId: string) {
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) return { error: new Error('Not authenticated') }
+
+  const { error } = await supabase
+    .from('saved_ideas')
+    .delete()
+    .eq('user_id', user.id)
+    .eq('idea_id', ideaId)
+
+  return { error }
+}
+
+export async function getSavedIdeas() {
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) return { data: [], error: null }
+
+  const { data, error } = await supabase
+    .from('saved_ideas')
+    .select('idea_id')
+    .eq('user_id', user.id)
+
+  return { data: data?.map(d => d.idea_id) || [], error }
+}
+
+export async function isIdeaSaved(ideaId: string) {
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) return false
+
+  const { data } = await supabase
+    .from('saved_ideas')
+    .select('id')
+    .eq('user_id', user.id)
+    .eq('idea_id', ideaId)
+    .single()
+
+  return !!data
+}
+
+// Research history functions
+export async function saveResearch(query: string, result: object) {
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) return { error: new Error('Not authenticated') }
+
+  const { data, error } = await supabase
+    .from('research_history')
+    .insert({ user_id: user.id, query, result })
+    .select()
+    .single()
+
+  return { data, error }
+}
+
+export async function getResearchHistory() {
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) return { data: [], error: null }
+
+  const { data, error } = await supabase
+    .from('research_history')
+    .select('*')
+    .eq('user_id', user.id)
+    .order('created_at', { ascending: false })
+    .limit(20)
+
+  return { data: data || [], error }
+}
