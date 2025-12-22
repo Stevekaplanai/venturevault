@@ -155,7 +155,7 @@ export function TermsPage() {
               For questions about these Terms, please contact us at:
             </p>
             <p className="text-muted-foreground">
-              <strong>Email:</strong> legal@venturevault.space
+              <strong>Email:</strong> steve@gtmvp.com
             </p>
           </section>
         </div>

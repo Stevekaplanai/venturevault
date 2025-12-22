@@ -157,7 +157,7 @@ export function PricingPage() {
               </ul>
             </CardContent>
             <CardFooter className="pt-4">
-              <a href="mailto:enterprise@venturevault.space" className="w-full">
+              <a href="mailto:steve@gtmvp.com?subject=VentureVault Enterprise Inquiry" className="w-full">
                 <Button
                   size="lg"
                   variant="outline"

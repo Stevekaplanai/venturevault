@@ -12,6 +12,8 @@ export function Hero() {
     e.preventDefault()
     if (searchQuery.trim()) {
       navigate(`/browse?q=${encodeURIComponent(searchQuery.trim())}`)
+    } else {
+      navigate('/browse')
     }
   }
 
