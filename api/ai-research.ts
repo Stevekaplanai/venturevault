@@ -49,46 +49,140 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   try {
-    const prompt = `You are a startup market research analyst. Analyze the following startup idea or market query and provide a comprehensive analysis.
+    const prompt = `You are a world-class startup market research analyst with access to comprehensive market data. Conduct DEEP, THOROUGH research on the following query. This is NOT surface-level analysis - provide the depth of a $50,000 consulting report.
 
 Query: "${query}"
 
-Please provide your analysis in the following markdown format:
+## RESEARCH METHODOLOGY
+Think step-by-step. First identify what industry this falls under, then analyze each aspect comprehensively. Use specific numbers, cite realistic market data, and provide actionable insights.
 
-## Market Overview
-[Provide a brief overview of the market opportunity]
+Provide your analysis in this detailed format:
 
-## Market Size
-- **TAM (Total Addressable Market):** [estimate with reasoning]
-- **SAM (Serviceable Available Market):** [estimate]
-- **SOM (Serviceable Obtainable Market):** [realistic target]
+## Executive Summary
+[3-4 sentences capturing the key opportunity, main challenge, and verdict]
 
-## Competitive Landscape
-[List 3-5 main competitors and their market position]
+## Market Deep Dive
 
-## Key Opportunities
-1. [Opportunity 1]
-2. [Opportunity 2]
-3. [Opportunity 3]
+### Total Addressable Market (TAM)
+- **Global market size:** [specific number with year, e.g., "$47.2B in 2024"]
+- **Calculation methodology:** [explain how you arrived at this - top-down or bottom-up]
+- **Primary market segments:** [break down by segment with percentages]
 
-## Potential Risks
-1. [Risk 1]
-2. [Risk 2]
-3. [Risk 3]
+### Serviceable Available Market (SAM)
+- **Regional focus:** [specific markets and their sizes]
+- **Target segment value:** [realistic number]
+- **Penetration assumptions:** [what % of TAM is actually serviceable]
 
-## Growth Drivers
-[What factors are driving growth in this market?]
+### Serviceable Obtainable Market (SOM)
+- **Year 1 realistic target:** [specific number]
+- **Year 3 target:** [growth projection]
+- **Market share assumption:** [realistic % for new entrant]
 
-## Recommendations
-[Strategic recommendations for entering this market]
+### Market Growth Analysis
+- **Historical CAGR (2019-2024):** [percentage]
+- **Projected CAGR (2024-2030):** [percentage]
+- **Key inflection points:** [what events could accelerate/decelerate growth]
 
-## Startup Idea Score
-[Rate this idea from 1-100 based on market potential, competition, and feasibility]
+## Competitive Intelligence
 
-Be specific with numbers and data where possible. If you're estimating, clearly indicate it.`
+### Tier 1 Competitors (Market Leaders)
+For each competitor, provide:
+| Competitor | Est. Revenue | Market Share | Key Strength | Key Weakness | Pricing |
+|------------|--------------|--------------|--------------|--------------|---------|
+[Fill with 3-4 major players]
+
+### Tier 2 Competitors (Emerging/Niche)
+[3-4 smaller players or startups to watch]
+
+### Competitive Moat Analysis
+- **Barriers to entry:** [High/Medium/Low with explanation]
+- **Switching costs:** [for customers]
+- **Network effects potential:** [if applicable]
+- **Defensibility strategies:** [what can protect market position]
+
+## Customer Analysis
+
+### Primary Customer Persona
+- **Title/Role:** [specific job title]
+- **Company size:** [employee count/revenue]
+- **Pain intensity:** [1-10 scale with justification]
+- **Budget authority:** [typical budget range]
+- **Buying cycle:** [days/weeks/months]
+
+### Secondary Customer Persona
+[Same format]
+
+### Customer Acquisition
+- **Primary channels:** [ranked by effectiveness]
+- **Estimated CAC by channel:** [specific ranges]
+- **Time to first customer:** [realistic timeline]
+
+## Financial Analysis
+
+### Unit Economics Model
+- **Average Contract Value (ACV):** [range]
+- **Customer Acquisition Cost (CAC):** [range with channel breakdown]
+- **Lifetime Value (LTV):** [calculation with assumptions]
+- **LTV:CAC Ratio:** [target and benchmark]
+- **Payback Period:** [months]
+- **Gross Margin:** [percentage]
+
+### Funding Landscape
+- **Recent funding rounds in space:** [2-3 examples with amounts]
+- **Active investors:** [VCs investing in this category]
+- **Typical seed round:** [range for this market]
+- **Path to profitability:** [bootstrappable or requires funding]
+
+## Risk Assessment
+
+### Critical Risks (could kill the business)
+1. **[Risk name]:** [Description] | **Mitigation:** [Strategy]
+2. **[Risk name]:** [Description] | **Mitigation:** [Strategy]
+
+### Moderate Risks (significant but manageable)
+1. **[Risk name]:** [Description] | **Mitigation:** [Strategy]
+2. **[Risk name]:** [Description] | **Mitigation:** [Strategy]
+
+### Market Timing
+- **Why now?** [What's changed that makes this timely]
+- **Window of opportunity:** [How long before market matures]
+
+## Strategic Recommendations
+
+### Go-to-Market Strategy
+1. **Beachhead market:** [Specific niche to start]
+2. **Initial positioning:** [One-sentence positioning statement]
+3. **First 100 customers:** [Specific acquisition strategy]
+4. **Pricing strategy:** [Recommended model with reasoning]
+
+### Differentiation Playbook
+- **Positioning against leaders:** [How to compete without competing head-on]
+- **Unique value proposition:** [What can you own that others can't]
+- **Feature priorities for MVP:** [Top 3-5 features]
+
+### 90-Day Action Plan
+- **Days 1-30:** [Validation activities]
+- **Days 31-60:** [MVP development]
+- **Days 61-90:** [Launch activities]
+
+## Verdict
+
+### Opportunity Score: [X/100]
+- Market Attractiveness: [X/25]
+- Competition Level: [X/25] (higher = less competition = better)
+- Execution Feasibility: [X/25]
+- Timing: [X/25]
+
+### Final Recommendation
+[GO / CONDITIONAL GO / RECONSIDER / PASS]
+
+[2-3 sentences with your honest assessment of whether this is worth pursuing and why]
+
+---
+*Analysis generated with market data through 2024. Estimates based on available public information and industry benchmarks.*`
 
     const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=${GEMINI_API_KEY}`,
       {
         method: 'POST',
         headers: {
@@ -99,10 +193,10 @@ Be specific with numbers and data where possible. If you're estimating, clearly 
             parts: [{ text: prompt }]
           }],
           generationConfig: {
-            temperature: 0.7,
-            topK: 40,
+            temperature: 0.8,
+            topK: 64,
             topP: 0.95,
-            maxOutputTokens: 2048,
+            maxOutputTokens: 8192,
           }
         })
       }
@@ -123,7 +217,7 @@ Be specific with numbers and data where possible. If you're estimating, clearly 
         query,
         analysis,
       },
-      model: 'gemini-2.0-flash',
+      model: 'gemini-2.0-flash-exp',
       timestamp: new Date().toISOString()
     }
 

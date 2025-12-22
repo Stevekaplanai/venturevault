@@ -3,13 +3,18 @@ import { useParams, Link, useNavigate } from "react-router-dom"
 import {
   ArrowLeft, TrendingUp, Users, DollarSign, Target, Clock,
   Zap, CheckCircle2, Code2, Building2, BarChart3, Lightbulb,
-  Share2, Bookmark, Check
+  Share2, Bookmark, Check, User, Calendar, FileText
 } from "lucide-react"
 import { Button } from "../components/ui/button"
 import { Badge } from "../components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../components/ui/tabs"
 import { getIdeaById, ideas } from "../data/ideas"
 import { IdeaCard } from "../components/IdeaCard"
+import { CustomerPersonas } from "../components/idea-detail/CustomerPersonas"
+import { ExecutionPlan } from "../components/idea-detail/ExecutionPlan"
+import { UnitEconomics } from "../components/idea-detail/UnitEconomics"
+import { LandingPageCopy } from "../components/idea-detail/LandingPageCopy"
 
 function getScoreColor(score: number) {
   if (score >= 80) return "text-green-600"
@@ -101,6 +106,9 @@ export function IdeaDetailPage() {
     .filter((i) => i.category === idea.category && i.id !== idea.id)
     .slice(0, 3)
 
+  // Check if enhanced data exists
+  const hasEnhancedData = idea.customerPersonas || idea.playbook || idea.unitEconomics || idea.landingPageCopy
+
   return (
     <div className="py-8">
       <div className="container mx-auto px-4">
@@ -123,6 +131,12 @@ export function IdeaDetailPage() {
                 <Badge className="gap-1 bg-gradient-to-r from-purple-500 to-pink-500">
                   <Zap className="h-3 w-3" />
                   Trending
+                </Badge>
+              )}
+              {hasEnhancedData && (
+                <Badge className="gap-1 bg-gradient-to-r from-green-500 to-emerald-500">
+                  <Lightbulb className="h-3 w-3" />
+                  Enhanced Analysis
                 </Badge>
               )}
             </div>
@@ -213,136 +227,188 @@ export function IdeaDetailPage() {
           </Card>
         </div>
 
-        {/* Details Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-          {/* Problem & Solution */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-base">
-                <Target className="h-5 w-5 text-purple-500" />
-                Problem Solved
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-muted-foreground">{idea.problemSolved}</p>
-            </CardContent>
-          </Card>
+        {/* Tabbed Content */}
+        <Tabs defaultValue="overview" className="mb-12">
+          <TabsList className="grid w-full grid-cols-2 md:grid-cols-5 h-auto gap-1 p-1">
+            <TabsTrigger value="overview" className="gap-2 py-2">
+              <BarChart3 className="h-4 w-4" />
+              <span className="hidden sm:inline">Overview</span>
+            </TabsTrigger>
+            <TabsTrigger value="customers" className="gap-2 py-2">
+              <User className="h-4 w-4" />
+              <span className="hidden sm:inline">Customers</span>
+            </TabsTrigger>
+            <TabsTrigger value="execution" className="gap-2 py-2">
+              <Calendar className="h-4 w-4" />
+              <span className="hidden sm:inline">90-Day Plan</span>
+            </TabsTrigger>
+            <TabsTrigger value="financials" className="gap-2 py-2">
+              <DollarSign className="h-4 w-4" />
+              <span className="hidden sm:inline">Financials</span>
+            </TabsTrigger>
+            <TabsTrigger value="marketing" className="gap-2 py-2">
+              <FileText className="h-4 w-4" />
+              <span className="hidden sm:inline">Marketing</span>
+            </TabsTrigger>
+          </TabsList>
 
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-base">
-                <Users className="h-5 w-5 text-blue-500" />
-                Target Audience
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-muted-foreground">{idea.targetAudience}</p>
-            </CardContent>
-          </Card>
+          {/* Overview Tab */}
+          <TabsContent value="overview" className="mt-6">
+            {/* Details Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2 text-base">
+                    <Target className="h-5 w-5 text-purple-500" />
+                    Problem Solved
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground">{idea.problemSolved}</p>
+                </CardContent>
+              </Card>
 
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-base">
-                <DollarSign className="h-5 w-5 text-green-500" />
-                Monetization
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ul className="space-y-1">
-                {idea.monetizationModel.map((model, i) => (
-                  <li key={i} className="text-muted-foreground text-sm flex items-start gap-2">
-                    <CheckCircle2 className="h-4 w-4 text-green-500 mt-0.5 shrink-0" />
-                    {model}
-                  </li>
-                ))}
-              </ul>
-            </CardContent>
-          </Card>
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2 text-base">
+                    <Users className="h-5 w-5 text-blue-500" />
+                    Target Audience
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground">{idea.targetAudience}</p>
+                </CardContent>
+              </Card>
 
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-base">
-                <Building2 className="h-5 w-5 text-orange-500" />
-                Key Competitors
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="flex flex-wrap gap-2">
-                {idea.keyCompetitors.map((competitor) => (
-                  <Badge key={competitor} variant="outline">
-                    {competitor}
-                  </Badge>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2 text-base">
+                    <DollarSign className="h-5 w-5 text-green-500" />
+                    Monetization
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <ul className="space-y-1">
+                    {idea.monetizationModel.map((model, i) => (
+                      <li key={i} className="text-muted-foreground text-sm flex items-start gap-2">
+                        <CheckCircle2 className="h-4 w-4 text-green-500 mt-0.5 shrink-0" />
+                        {model}
+                      </li>
+                    ))}
+                  </ul>
+                </CardContent>
+              </Card>
 
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-base">
-                <CheckCircle2 className="h-5 w-5 text-indigo-500" />
-                MVP Features
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ul className="space-y-1">
-                {idea.mvpFeatures.map((feature, i) => (
-                  <li key={i} className="text-muted-foreground text-sm flex items-start gap-2">
-                    <CheckCircle2 className="h-4 w-4 text-indigo-500 mt-0.5 shrink-0" />
-                    {feature}
-                  </li>
-                ))}
-              </ul>
-            </CardContent>
-          </Card>
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2 text-base">
+                    <Building2 className="h-5 w-5 text-orange-500" />
+                    Key Competitors
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex flex-wrap gap-2">
+                    {idea.keyCompetitors.map((competitor) => (
+                      <Badge key={competitor} variant="outline">
+                        {competitor}
+                      </Badge>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
 
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-base">
-                <Code2 className="h-5 w-5 text-cyan-500" />
-                Tech Stack
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="flex flex-wrap gap-2">
-                {idea.techStack.map((tech) => (
-                  <Badge key={tech} variant="secondary">
-                    {tech}
-                  </Badge>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-        </div>
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2 text-base">
+                    <CheckCircle2 className="h-5 w-5 text-indigo-500" />
+                    MVP Features
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <ul className="space-y-1">
+                    {idea.mvpFeatures.map((feature, i) => (
+                      <li key={i} className="text-muted-foreground text-sm flex items-start gap-2">
+                        <CheckCircle2 className="h-4 w-4 text-indigo-500 mt-0.5 shrink-0" />
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
+                </CardContent>
+              </Card>
 
-        {/* Investment & Timeline */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-          <Card className="bg-gradient-to-br from-purple-50 to-indigo-50 dark:from-purple-950/20 dark:to-indigo-950/20">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Clock className="h-5 w-5 text-purple-500" />
-                Time to MVP
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-3xl font-bold text-purple-600">{idea.timeToMVP}</p>
-              <p className="text-muted-foreground mt-2">With a focused development team</p>
-            </CardContent>
-          </Card>
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2 text-base">
+                    <Code2 className="h-5 w-5 text-cyan-500" />
+                    Tech Stack
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex flex-wrap gap-2">
+                    {idea.techStack.map((tech) => (
+                      <Badge key={tech} variant="secondary">
+                        {tech}
+                      </Badge>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
 
-          <Card className="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-950/20 dark:to-emerald-950/20">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <DollarSign className="h-5 w-5 text-green-500" />
-                Initial Investment
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-3xl font-bold text-green-600">{idea.initialInvestment}</p>
-              <p className="text-muted-foreground mt-2">For MVP development and initial launch</p>
-            </CardContent>
-          </Card>
-        </div>
+            {/* Investment & Timeline */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <Card className="bg-gradient-to-br from-purple-50 to-indigo-50 dark:from-purple-950/20 dark:to-indigo-950/20">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Clock className="h-5 w-5 text-purple-500" />
+                    Time to MVP
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-3xl font-bold text-purple-600">{idea.timeToMVP}</p>
+                  <p className="text-muted-foreground mt-2">With a focused development team</p>
+                </CardContent>
+              </Card>
+
+              <Card className="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-950/20 dark:to-emerald-950/20">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <DollarSign className="h-5 w-5 text-green-500" />
+                    Initial Investment
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-3xl font-bold text-green-600">{idea.initialInvestment}</p>
+                  <p className="text-muted-foreground mt-2">For MVP development and initial launch</p>
+                </CardContent>
+              </Card>
+            </div>
+          </TabsContent>
+
+          {/* Customers Tab */}
+          <TabsContent value="customers" className="mt-6">
+            <CustomerPersonas personas={idea.customerPersonas || []} />
+          </TabsContent>
+
+          {/* Execution Tab */}
+          <TabsContent value="execution" className="mt-6">
+            <ExecutionPlan playbook={idea.playbook!} timeToMVP={idea.timeToMVP} />
+          </TabsContent>
+
+          {/* Financials Tab */}
+          <TabsContent value="financials" className="mt-6">
+            <UnitEconomics
+              unitEconomics={idea.unitEconomics!}
+              potentialRevenue={idea.potentialRevenue}
+              initialInvestment={idea.initialInvestment}
+            />
+          </TabsContent>
+
+          {/* Marketing Tab */}
+          <TabsContent value="marketing" className="mt-6">
+            <LandingPageCopy landingPageCopy={idea.landingPageCopy!} title={idea.title} />
+          </TabsContent>
+        </Tabs>
 
         {/* Related Ideas */}
         {relatedIdeas.length > 0 && (
