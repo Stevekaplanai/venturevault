@@ -241,11 +241,22 @@ Focus on underserved segments with high growth potential. Consider a freemium mo
             All completely free on VentureVault.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700">
+            <Button
+              size="lg"
+              className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700"
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            >
               <Sparkles className="h-4 w-4 mr-2" />
               Start Free Research
             </Button>
-            <Button size="lg" variant="outline">
+            <Button
+              size="lg"
+              variant="outline"
+              onClick={() => {
+                setQuery("Analyze the market opportunity for AI-powered productivity tools")
+                window.scrollTo({ top: 0, behavior: 'smooth' })
+              }}
+            >
               View Sample Report
               <ArrowRight className="h-4 w-4 ml-2" />
             </Button>
