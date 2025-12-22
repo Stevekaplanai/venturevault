@@ -141,17 +141,20 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       }
     }
 
-    // Log the send
-    await supabase
-      .from('email_logs')
-      .insert({
-        type: 'daily_newsletter',
-        idea_id: idea.id,
-        sent_count: sentCount,
-        failed_count: failedCount,
-        sent_at: new Date().toISOString()
-      })
-      .catch(() => {}) // Don't fail if logging fails
+    // Log the send (don't fail if logging fails)
+    try {
+      await supabase
+        .from('email_logs')
+        .insert({
+          type: 'daily_newsletter',
+          idea_id: idea.id,
+          sent_count: sentCount,
+          failed_count: failedCount,
+          sent_at: new Date().toISOString()
+        })
+    } catch {
+      // Ignore logging errors
+    }
 
     return res.status(200).json({
       success: true,
