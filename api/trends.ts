@@ -3,11 +3,12 @@
 
 import type { VercelRequest, VercelResponse } from '@vercel/node'
 
-interface TrendingSearch {
+interface SerpAPITrend {
   query: string
-  formattedTraffic: string
-  relatedQueries: { query: string }[]
-  articles: { title: string; url: string }[]
+  search_volume?: number
+  increase_percentage?: number
+  categories?: { id: number; name: string }[]
+  trend_breakdown?: string[]
 }
 
 interface TrendingTopic {
@@ -18,11 +19,19 @@ interface TrendingTopic {
   articles: { title: string; url: string }[]
 }
 
+function formatTraffic(volume?: number): string {
+  if (!volume) return '100K+ searches'
+  if (volume >= 1000000) return `${(volume / 1000000).toFixed(0)}M+ searches`
+  if (volume >= 1000) return `${(volume / 1000).toFixed(0)}K+ searches`
+  return `${volume}+ searches`
+}
+
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   // CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS')
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type')
+  res.setHeader('Cache-Control', 's-maxage=300, stale-while-revalidate=600')
 
   if (req.method === 'OPTIONS') {
     return res.status(200).end()
@@ -35,9 +44,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   try {
-    // Fetch trending searches from SerpAPI
+    // Fetch trending searches from SerpAPI (new endpoint format)
     const response = await fetch(
-      `https://serpapi.com/search.json?engine=google_trends_trending_now&frequency=realtime&geo=US&cat=all&api_key=${SERPAPI_KEY}`
+      `https://serpapi.com/search.json?engine=google_trends_trending_now&geo=US&api_key=${SERPAPI_KEY}`
     )
 
     if (!response.ok) {
@@ -46,18 +55,15 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     const data = await response.json()
 
-    // Transform the data to our format
-    const trendingTopics: TrendingTopic[] = (data.realtime_searches || data.trending_searches || [])
-      .slice(0, 10)
-      .map((item: TrendingSearch, index: number) => ({
-        term: item.query || `Trend ${index + 1}`,
-        traffic: item.formattedTraffic || '100K+ searches',
-        category: categorizeQuery(item.query || ''),
-        relatedQueries: (item.relatedQueries || []).slice(0, 3).map((q: { query: string }) => q.query),
-        articles: (item.articles || []).slice(0, 2).map((a: { title: string; url: string }) => ({
-          title: a.title,
-          url: a.url
-        }))
+    // Transform the new API format to our format
+    const trendingTopics: TrendingTopic[] = (data.trending_searches || [])
+      .slice(0, 15)
+      .map((item: SerpAPITrend) => ({
+        term: item.query,
+        traffic: formatTraffic(item.search_volume),
+        category: item.categories?.[0]?.name || categorizeQuery(item.query),
+        relatedQueries: (item.trend_breakdown || []).slice(0, 5),
+        articles: []
       }))
 
     return res.status(200).json({
