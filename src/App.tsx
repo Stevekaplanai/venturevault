@@ -19,6 +19,8 @@ import { TermsPage } from './pages/TermsPage'
 import { SavedIdeasPage } from './pages/SavedIdeasPage'
 import { RoadmapPage } from './pages/RoadmapPage'
 import { IdeaGeneratorPage } from './pages/IdeaGeneratorPage'
+import { BlogPage } from './pages/BlogPage'
+import { BlogPostPage } from './pages/BlogPostPage'
 
 function App() {
   return (
@@ -45,6 +47,8 @@ function App() {
               <Route path="/saved" element={<SavedIdeasPage />} />
               <Route path="/roadmap" element={<RoadmapPage />} />
               <Route path="/idea-generator" element={<IdeaGeneratorPage />} />
+              <Route path="/blog" element={<BlogPage />} />
+              <Route path="/blog/:slug" element={<BlogPostPage />} />
             </Routes>
           </main>
           <Footer />

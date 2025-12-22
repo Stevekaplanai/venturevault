@@ -25,7 +25,7 @@ export function Header() {
     { path: "/idea-generator", label: "Generate" },
     { path: "/ai-research", label: "AI Research" },
     { path: "/trending", label: "Trending" },
-    { path: "/discover", label: "Discover" },
+    { path: "/blog", label: "Blog" },
   ]
 
   return (

@@ -1,9 +1,23 @@
 import { Link } from "react-router-dom"
 import { Vault, Twitter, Github, Linkedin } from "lucide-react"
+import { NewsletterSignup } from "./NewsletterSignup"
 
 export function Footer() {
   return (
     <footer className="border-t bg-muted/30">
+      {/* Newsletter Banner */}
+      <div className="bg-gradient-to-r from-purple-600 to-indigo-600 py-12">
+        <div className="container mx-auto px-4">
+          <div className="max-w-2xl mx-auto text-center">
+            <h3 className="text-2xl font-bold text-white mb-2">Get a Startup Idea Every Morning</h3>
+            <p className="text-purple-100 mb-6">
+              Join founders receiving curated ideas with market analysis, directly in your inbox.
+            </p>
+            <NewsletterSignup variant="inline" source="footer" />
+          </div>
+        </div>
+      </div>
+
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand */}
@@ -59,7 +73,7 @@ export function Footer() {
               <li><Link to="/browse" className="hover:text-foreground transition-colors">Browse Ideas</Link></li>
               <li><Link to="/ai-research" className="hover:text-foreground transition-colors">AI Research</Link></li>
               <li><Link to="/trending" className="hover:text-foreground transition-colors">Trending Ideas</Link></li>
-              <li><Link to="/discover" className="hover:text-foreground transition-colors">Discover</Link></li>
+              <li><Link to="/blog" className="hover:text-foreground transition-colors">Blog</Link></li>
             </ul>
           </div>
 
