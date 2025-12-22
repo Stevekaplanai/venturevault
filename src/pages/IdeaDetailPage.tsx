@@ -1,8 +1,9 @@
+import { useState } from "react"
 import { useParams, Link, useNavigate } from "react-router-dom"
 import {
   ArrowLeft, TrendingUp, Users, DollarSign, Target, Clock,
   Zap, CheckCircle2, Code2, Building2, BarChart3, Lightbulb,
-  Share2, Bookmark
+  Share2, Bookmark, Check, Copy
 } from "lucide-react"
 import { Button } from "../components/ui/button"
 import { Badge } from "../components/ui/badge"
@@ -26,6 +27,64 @@ export function IdeaDetailPage() {
   const { id } = useParams()
   const navigate = useNavigate()
   const idea = getIdeaById(id || "")
+  const [copied, setCopied] = useState(false)
+  const [saved, setSaved] = useState(() => {
+    const savedIdeas = JSON.parse(localStorage.getItem("venturevault-saved") || "[]")
+    return savedIdeas.includes(id)
+  })
+
+  const handleShare = async () => {
+    const shareUrl = window.location.href
+    const shareData = {
+      title: idea?.title || "VentureVault Idea",
+      text: idea?.description || "Check out this startup idea on VentureVault",
+      url: shareUrl,
+    }
+
+    // Try native share first (mobile)
+    if (navigator.share) {
+      try {
+        await navigator.share(shareData)
+        return
+      } catch (err) {
+        // User cancelled or error, fall back to clipboard
+      }
+    }
+
+    // Fall back to clipboard
+    try {
+      await navigator.clipboard.writeText(shareUrl)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    } catch (err) {
+      // Fallback for older browsers
+      const textArea = document.createElement("textarea")
+      textArea.value = shareUrl
+      document.body.appendChild(textArea)
+      textArea.select()
+      document.execCommand("copy")
+      document.body.removeChild(textArea)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    }
+  }
+
+  const handleSave = () => {
+    const savedIdeas = JSON.parse(localStorage.getItem("venturevault-saved") || "[]")
+    if (saved) {
+      const updated = savedIdeas.filter((savedId: string) => savedId !== id)
+      localStorage.setItem("venturevault-saved", JSON.stringify(updated))
+    } else {
+      savedIdeas.push(id)
+      localStorage.setItem("venturevault-saved", JSON.stringify(savedIdeas))
+    }
+    setSaved(!saved)
+  }
+
+  const handleBuild = () => {
+    // Navigate to AI Research with the idea pre-filled
+    navigate(`/ai-research?idea=${encodeURIComponent(idea?.title || "")}`)
+  }
 
   if (!idea) {
     return (
@@ -79,16 +138,28 @@ export function IdeaDetailPage() {
             </div>
 
             <div className="flex gap-3">
-              <Button className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700">
+              <Button
+                className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700"
+                onClick={handleBuild}
+              >
                 <Lightbulb className="h-4 w-4 mr-2" />
                 Start Building This
               </Button>
-              <Button variant="outline">
-                <Bookmark className="h-4 w-4 mr-2" />
-                Save
+              <Button variant={saved ? "secondary" : "outline"} onClick={handleSave}>
+                {saved ? (
+                  <>
+                    <Check className="h-4 w-4 mr-2" />
+                    Saved
+                  </>
+                ) : (
+                  <>
+                    <Bookmark className="h-4 w-4 mr-2" />
+                    Save
+                  </>
+                )}
               </Button>
-              <Button variant="outline" size="icon">
-                <Share2 className="h-4 w-4" />
+              <Button variant="outline" size="icon" onClick={handleShare}>
+                {copied ? <Check className="h-4 w-4 text-green-500" /> : <Share2 className="h-4 w-4" />}
               </Button>
             </div>
           </div>

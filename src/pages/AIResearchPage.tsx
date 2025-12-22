@@ -1,4 +1,5 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { useSearchParams } from "react-router-dom"
 import { Brain, Search, BarChart3, FileText, Sparkles, ArrowRight, Loader2 } from "lucide-react"
 import { Button } from "../components/ui/button"
 import { Input } from "../components/ui/input"
@@ -36,9 +37,18 @@ const exampleQueries = [
 ]
 
 export function AIResearchPage() {
+  const [searchParams] = useSearchParams()
   const [query, setQuery] = useState("")
   const [isLoading, setIsLoading] = useState(false)
   const [result, setResult] = useState<string | null>(null)
+
+  // Pre-fill query from URL parameter (e.g., from "Start Building This" button)
+  useEffect(() => {
+    const ideaParam = searchParams.get("idea")
+    if (ideaParam) {
+      setQuery(`How do I build a startup for: ${ideaParam}`)
+    }
+  }, [searchParams])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
