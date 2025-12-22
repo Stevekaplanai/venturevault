@@ -1,112 +1,22 @@
 name: Build Android APK
 
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
+      - uses: nicolo-ribaudo/pwabuilder-android-github-action@v1
         with:
-          node-version: '20'
-          cache: 'npm'
-
-      - name: Set up JDK 17
-        uses: actions/setup-java@v4
-        with:
-          java-version: '17'
-          distribution: 'temurin'
-
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build web assets
-        run: npm run build
-        env:
-          CI: false
-
-      - name: Create cordova plugins folder
-        run: |
-          mkdir -p android/capacitor-cordova-android-plugins/src/main/java
-          cat > android/capacitor-cordova-android-plugins/build.gradle << 'EOF'
-          ext {
-              cordovaAndroidVersion = project.hasProperty('cordovaAndroidVersion') ? rootProject.ext.cordovaAndroidVersion : '10.1.1'
-          }
-
-          buildscript {
-              repositories {
-                  google()
-                  mavenCentral()
-              }
-              dependencies {
-                  classpath 'com.android.tools.build:gradle:8.2.1'
-              }
-          }
-
-          apply plugin: 'com.android.library'
-
-          android {
-              namespace 'capacitor.cordova.android.plugins'
-              compileSdkVersion project.hasProperty('compileSdkVersion') ? rootProject.ext.compileSdkVersion : 34
-              defaultConfig {
-                  minSdkVersion project.hasProperty('minSdkVersion') ? rootProject.ext.minSdkVersion : 22
-                  targetSdkVersion project.hasProperty('targetSdkVersion') ? rootProject.ext.targetSdkVersion : 34
-              }
-              lintOptions {
-                  abortOnError false
-              }
-              compileOptions {
-                  sourceCompatibility JavaVersion.VERSION_17
-                  targetCompatibility JavaVersion.VERSION_17
-              }
-          }
-
-          repositories {
-              google()
-              mavenCentral()
-              flatDir {
-                  dirs 'src/main/libs', 'libs'
-              }
-          }
-
-          dependencies {
-          }
-          EOF
-
-      - name: Create cordova plugins manifest
-        run: |
-          mkdir -p android/capacitor-cordova-android-plugins/src/main
-          cat > android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml << 'EOF'
-          <?xml version='1.0' encoding='utf-8'?>
-          <manifest package="capacitor.cordova.android.plugins">
-          </manifest>
-          EOF
-
-      - name: Sync Capacitor
-        run: npx cap sync android
-
-      - name: Make gradlew executable
-        run: chmod +x android/gradlew
-
-      - name: Build debug APK
-        working-directory: android
-        run: ./gradlew assembleDebug --no-daemon
+          pwa-url: https://venturevault.vercel.app
+          package-name: space.venturevault.app
+          app-name: VentureVault
+          icon-url: https://venturevault.vercel.app/app-icon.png
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: venturevault-debug-apk
-          path: android/app/build/outputs/apk/debug/app-debug.apk
+          name: venturevault-apk
+          path: ./*.apk
           retention-days: 30
-          if-no-files-found: warn
