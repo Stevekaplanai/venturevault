@@ -1,70 +1,33 @@
 import { Link } from "react-router-dom"
-import { CheckCircle2, Sparkles, Zap, Crown, Heart } from "lucide-react"
+import { CheckCircle2, Sparkles, Crown, Heart, Building2, Users, Shield, Headphones, Zap, Database, Lock, Globe } from "lucide-react"
 import { Button } from "../components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../components/ui/card"
 import { Badge } from "../components/ui/badge"
 
-const plans = [
-  {
-    name: "Free Forever",
-    price: "$0",
-    period: "forever",
-    description: "Everything you need to discover and validate your next big idea",
-    icon: Heart,
-    color: "from-green-500 to-emerald-500",
-    features: [
-      "Access to all 50+ startup ideas",
-      "Full idea analysis & metrics",
-      "AI Research Agent",
-      "Market size calculations",
-      "Competitor analysis",
-      "Tech stack recommendations",
-      "MVP feature lists",
-      "Community access",
-    ],
-    cta: "Get Started Free",
-    popular: true,
-  },
-  {
-    name: "Pro",
-    price: "$0",
-    period: "forever",
-    description: "For serious entrepreneurs who want more",
-    icon: Zap,
-    color: "from-purple-500 to-indigo-500",
-    features: [
-      "Everything in Free",
-      "Save unlimited ideas",
-      "Export to PDF/Notion",
-      "Custom idea requests",
-      "Priority AI research",
-      "Early access to new features",
-      "Direct support",
-      "API access",
-    ],
-    cta: "Get Started Free",
-    popular: false,
-  },
-  {
-    name: "Enterprise",
-    price: "$0",
-    period: "forever",
-    description: "For teams and organizations",
-    icon: Crown,
-    color: "from-amber-500 to-orange-500",
-    features: [
-      "Everything in Pro",
-      "Team collaboration",
-      "Custom idea database",
-      "White-label reports",
-      "Dedicated AI research",
-      "Custom integrations",
-      "SLA support",
-      "Training sessions",
-    ],
-    cta: "Get Started Free",
-    popular: false,
-  },
+const freeFeatures = [
+  "Access to all 50+ validated startup ideas",
+  "Full idea analysis & market metrics",
+  "AI Research Agent powered by Gemini",
+  "Real-time Google Trends data",
+  "Market size & TAM calculations",
+  "Competitor landscape analysis",
+  "Tech stack recommendations",
+  "MVP feature roadmaps",
+  "Save & organize unlimited ideas",
+  "Export to PDF & Notion",
+  "Community access",
+  "No credit card required",
+]
+
+const enterpriseFeatures = [
+  { icon: Users, text: "Unlimited team members & collaboration" },
+  { icon: Database, text: "Private custom idea database for your org" },
+  { icon: Shield, text: "SSO/SAML authentication & advanced security" },
+  { icon: Building2, text: "White-label reports with your branding" },
+  { icon: Zap, text: "Dedicated AI research capacity & priority queue" },
+  { icon: Globe, text: "Custom API access & integrations" },
+  { icon: Lock, text: "Data residency & compliance options" },
+  { icon: Headphones, text: "Dedicated success manager & 24/7 SLA support" },
 ]
 
 const faqs = [
@@ -73,16 +36,12 @@ const faqs = [
     answer: "Yes! VentureVault is 100% free and will remain free forever. We believe everyone should have access to quality startup idea validation tools."
   },
   {
-    question: "How do you make money if it's free?",
-    answer: "We're building VentureVault as an open resource for entrepreneurs. In the future, we may offer optional premium features, but the core platform will always be free."
-  },
-  {
-    question: "Can I request custom startup ideas?",
-    answer: "Absolutely! You can submit requests for specific industries or problem spaces, and our AI will generate custom ideas for you."
+    question: "What's included in Enterprise?",
+    answer: "Enterprise is designed for venture studios, accelerators, and innovation teams who need custom solutions, team collaboration, white-label reports, and dedicated support. Contact us for a custom quote."
   },
   {
     question: "How accurate is the AI research?",
-    answer: "Our AI research agent uses real-time data from multiple sources including market reports, competitor websites, and industry publications. While no analysis is perfect, we strive for high accuracy."
+    answer: "Our AI research agent uses real-time data from multiple sources including Google Trends, market reports, and industry publications. While no analysis is perfect, we continuously improve accuracy."
   },
 ]
 
@@ -94,68 +53,113 @@ export function PricingPage() {
         <div className="text-center mb-16">
           <Badge className="mb-4 bg-gradient-to-r from-green-500 to-emerald-500">
             <Heart className="h-3 w-3 mr-1" />
-            100% Free
+            100% Free Forever
           </Badge>
           <h1 className="text-4xl md:text-5xl font-bold mb-6">
-            Simple Pricing:{" "}
+            One Plan.{" "}
             <span className="bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
-              Free Forever
+              Completely Free.
             </span>
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            We believe startup validation tools should be accessible to everyone.
-            That's why VentureVault is completely free, with no hidden fees or credit card required.
+            Everything you need to discover and validate your next startup idea.
+            No tiers, no limits, no credit card required.
           </p>
         </div>
 
-        {/* Pricing Cards */}
-        <div className="grid md:grid-cols-3 gap-8 mb-20">
-          {plans.map((plan) => (
-            <Card
-              key={plan.name}
-              className={`relative ${plan.popular ? 'border-green-500 shadow-lg scale-105' : ''}`}
-            >
-              {plan.popular && (
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-                  <Badge className="bg-gradient-to-r from-green-500 to-emerald-500 px-4 py-1">
-                    Most Popular
-                  </Badge>
-                </div>
-              )}
-              <CardHeader className="text-center pt-8">
-                <div className={`mx-auto h-12 w-12 rounded-xl bg-gradient-to-r ${plan.color} flex items-center justify-center mb-4`}>
-                  <plan.icon className="h-6 w-6 text-white" />
-                </div>
-                <CardTitle className="text-2xl">{plan.name}</CardTitle>
-                <div className="mt-4">
-                  <span className="text-4xl font-bold">{plan.price}</span>
-                  <span className="text-muted-foreground">/{plan.period}</span>
-                </div>
-                <CardDescription className="mt-2">{plan.description}</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-3">
-                  {plan.features.map((feature) => (
-                    <li key={feature} className="flex items-start gap-2">
-                      <CheckCircle2 className="h-5 w-5 text-green-500 shrink-0 mt-0.5" />
-                      <span className="text-sm">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-              <CardFooter>
-                <Link to="/signup" className="w-full">
-                  <Button
-                    className={`w-full ${plan.popular ? 'bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600' : ''}`}
-                    variant={plan.popular ? 'default' : 'outline'}
-                  >
-                    <Sparkles className="h-4 w-4 mr-2" />
-                    {plan.cta}
-                  </Button>
-                </Link>
-              </CardFooter>
-            </Card>
-          ))}
+        {/* Pricing Cards - 2 column layout */}
+        <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto mb-20">
+
+          {/* Free Plan */}
+          <Card className="relative border-green-500 shadow-xl">
+            <div className="absolute -top-4 left-1/2 -translate-x-1/2">
+              <Badge className="bg-gradient-to-r from-green-500 to-emerald-500 px-4 py-1 text-sm">
+                For Everyone
+              </Badge>
+            </div>
+            <CardHeader className="text-center pt-10">
+              <div className="mx-auto h-16 w-16 rounded-2xl bg-gradient-to-r from-green-500 to-emerald-500 flex items-center justify-center mb-4">
+                <Heart className="h-8 w-8 text-white" />
+              </div>
+              <CardTitle className="text-3xl">Free Forever</CardTitle>
+              <div className="mt-4">
+                <span className="text-5xl font-bold">$0</span>
+                <span className="text-muted-foreground text-lg">/forever</span>
+              </div>
+              <CardDescription className="mt-3 text-base">
+                Full access to all features. No strings attached.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="pt-2">
+              <ul className="space-y-3">
+                {freeFeatures.map((feature) => (
+                  <li key={feature} className="flex items-start gap-3">
+                    <CheckCircle2 className="h-5 w-5 text-green-500 shrink-0 mt-0.5" />
+                    <span>{feature}</span>
+                  </li>
+                ))}
+              </ul>
+            </CardContent>
+            <CardFooter className="pt-4">
+              <Link to="/signup" className="w-full">
+                <Button
+                  size="lg"
+                  className="w-full text-lg py-6 bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600"
+                >
+                  <Sparkles className="h-5 w-5 mr-2" />
+                  Get Started Free
+                </Button>
+              </Link>
+            </CardFooter>
+          </Card>
+
+          {/* Enterprise Plan */}
+          <Card className="relative border-amber-500/50 bg-gradient-to-b from-amber-50/50 to-orange-50/30 dark:from-amber-950/20 dark:to-orange-950/10">
+            <div className="absolute -top-4 left-1/2 -translate-x-1/2">
+              <Badge className="bg-gradient-to-r from-amber-500 to-orange-500 px-4 py-1 text-sm">
+                For Organizations
+              </Badge>
+            </div>
+            <CardHeader className="text-center pt-10">
+              <div className="mx-auto h-16 w-16 rounded-2xl bg-gradient-to-r from-amber-500 to-orange-500 flex items-center justify-center mb-4">
+                <Crown className="h-8 w-8 text-white" />
+              </div>
+              <CardTitle className="text-3xl">Enterprise</CardTitle>
+              <div className="mt-4">
+                <span className="text-3xl font-bold">Custom Pricing</span>
+              </div>
+              <CardDescription className="mt-3 text-base">
+                For venture studios, accelerators & innovation teams
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="pt-2">
+              <p className="text-sm text-muted-foreground mb-4 text-center font-medium">
+                Everything in Free, plus:
+              </p>
+              <ul className="space-y-4">
+                {enterpriseFeatures.map((feature) => (
+                  <li key={feature.text} className="flex items-start gap-3">
+                    <div className="h-8 w-8 rounded-lg bg-gradient-to-r from-amber-500/20 to-orange-500/20 flex items-center justify-center shrink-0">
+                      <feature.icon className="h-4 w-4 text-amber-600 dark:text-amber-400" />
+                    </div>
+                    <span className="pt-1">{feature.text}</span>
+                  </li>
+                ))}
+              </ul>
+            </CardContent>
+            <CardFooter className="pt-4">
+              <a href="mailto:enterprise@venturevault.space" className="w-full">
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="w-full text-lg py-6 border-amber-500 text-amber-700 dark:text-amber-400 hover:bg-amber-500/10"
+                >
+                  <Building2 className="h-5 w-5 mr-2" />
+                  Contact Us
+                </Button>
+              </a>
+            </CardFooter>
+          </Card>
         </div>
 
         {/* FAQ */}
