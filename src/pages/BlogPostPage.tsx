@@ -1,12 +1,12 @@
 import { useParams, Link, useNavigate } from "react-router-dom"
 import { ArrowLeft, Calendar, Clock, User, Share2, Twitter, Linkedin, Copy, Check } from "lucide-react"
-import { useState } from "react"
+import React, { useState } from "react"
 import { Button } from "../components/ui/button"
 import { Badge } from "../components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card"
 import { BlogCard } from "../components/BlogCard"
 import { NewsletterSignup } from "../components/NewsletterSignup"
-import { getBlogPostBySlug, getRelatedPosts, type BlogPost } from "../data/blog-posts"
+import { getBlogPostBySlug, getRelatedPosts } from "../data/blog-posts"
 
 function getCategoryColor(category: string) {
   switch (category) {
@@ -51,7 +51,7 @@ function formatDate(dateString: string) {
 // Simple markdown renderer for headings, lists, bold, etc.
 function renderMarkdown(content: string) {
   const lines = content.split('\n')
-  const elements: JSX.Element[] = []
+  const elements: React.ReactElement[] = []
   let currentList: string[] = []
   let listType: 'ul' | 'ol' | null = null
   let key = 0
