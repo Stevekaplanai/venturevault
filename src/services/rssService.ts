@@ -1,5 +1,5 @@
 // RSS Feed Service for VentureVault
-// Fetches startup news from various sources
+// Fetches startup news via our Edge Function
 
 export interface RSSItem {
   title: string
@@ -17,62 +17,52 @@ export interface TrendingTopic {
   relatedQueries: string[]
 }
 
-// Popular RSS feeds for startup/tech news
-const RSS_FEEDS = [
-  { url: 'https://techcrunch.com/feed/', source: 'TechCrunch', category: 'Tech News' },
-  { url: 'https://www.producthunt.com/feed', source: 'Product Hunt', category: 'Product Launch' },
-  { url: 'https://news.ycombinator.com/rss', source: 'Hacker News', category: 'Tech Community' },
-  { url: 'https://feeds.feedburner.com/venturebeat/SZYF', source: 'VentureBeat', category: 'Tech News' },
-  { url: 'https://www.wired.com/feed/rss', source: 'Wired', category: 'Tech & Culture' },
-]
-
-// CORS proxy for client-side RSS fetching
-const CORS_PROXY = 'https://api.allorigins.win/raw?url='
-
-export async function fetchRSSFeed(feedUrl: string, source: string, category: string): Promise<RSSItem[]> {
-  try {
-    const response = await fetch(`${CORS_PROXY}${encodeURIComponent(feedUrl)}`)
-    if (!response.ok) throw new Error('Failed to fetch RSS feed')
-
-    const text = await response.text()
-    const parser = new DOMParser()
-    const xml = parser.parseFromString(text, 'text/xml')
-
-    const items = xml.querySelectorAll('item')
-    const rssFeed: RSSItem[] = []
-
-    items.forEach((item, index) => {
-      if (index < 10) { // Limit to 10 items per feed
-        rssFeed.push({
-          title: item.querySelector('title')?.textContent || '',
-          link: item.querySelector('link')?.textContent || '',
-          pubDate: item.querySelector('pubDate')?.textContent || '',
-          description: item.querySelector('description')?.textContent?.replace(/<[^>]*>/g, '').slice(0, 200) || '',
-          source,
-          category,
-        })
-      }
-    })
-
-    return rssFeed
-  } catch (error) {
-    console.error(`Error fetching RSS from ${source}:`, error)
-    return []
-  }
+// Fallback RSS data when API is unavailable
+function getFallbackRSSItems(): RSSItem[] {
+  return [
+    {
+      title: 'Latest AI Trends Reshaping Startup Landscape',
+      link: '#',
+      pubDate: new Date().toISOString(),
+      source: 'VentureVault',
+      description: 'Discover the latest trends in AI and how they are creating new startup opportunities.',
+      category: 'Tech News'
+    },
+    {
+      title: 'Top 10 SaaS Ideas for 2025',
+      link: '#',
+      pubDate: new Date().toISOString(),
+      source: 'VentureVault',
+      description: 'Explore the most promising SaaS business ideas that are gaining traction.',
+      category: 'Product Launch'
+    },
+  ]
 }
 
 export async function fetchAllRSSFeeds(): Promise<RSSItem[]> {
-  const feedPromises = RSS_FEEDS.map(feed =>
-    fetchRSSFeed(feed.url, feed.source, feed.category)
-  )
+  try {
+    // Use our Vercel Edge Function
+    const apiUrl = import.meta.env.PROD
+      ? '/api/rss'
+      : 'http://localhost:3000/api/rss'
 
-  const allFeeds = await Promise.all(feedPromises)
-  const combined = allFeeds.flat()
+    const response = await fetch(apiUrl)
 
-  // Sort by date (most recent first)
-  return combined.sort((a, b) =>
-    new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime()
-  )
+    if (!response.ok) {
+      throw new Error('Failed to fetch RSS feeds')
+    }
+
+    const result = await response.json()
+
+    if (result.success && result.data) {
+      return result.data
+    }
+
+    throw new Error('Invalid response format')
+  } catch (error) {
+    console.error('Error fetching RSS feeds:', error)
+    return getFallbackRSSItems()
+  }
 }
 
 // Fetch real Google Trends data via our API (SerpAPI backend)
