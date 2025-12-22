@@ -18,6 +18,7 @@ import { PrivacyPage } from './pages/PrivacyPage'
 import { TermsPage } from './pages/TermsPage'
 import { SavedIdeasPage } from './pages/SavedIdeasPage'
 import { RoadmapPage } from './pages/RoadmapPage'
+import { IdeaGeneratorPage } from './pages/IdeaGeneratorPage'
 
 function App() {
   return (
@@ -43,6 +44,7 @@ function App() {
               <Route path="/terms" element={<TermsPage />} />
               <Route path="/saved" element={<SavedIdeasPage />} />
               <Route path="/roadmap" element={<RoadmapPage />} />
+              <Route path="/idea-generator" element={<IdeaGeneratorPage />} />
             </Routes>
           </main>
           <Footer />

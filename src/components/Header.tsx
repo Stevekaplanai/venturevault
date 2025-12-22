@@ -22,10 +22,10 @@ export function Header() {
 
   const navLinks = [
     { path: "/browse", label: "Browse Ideas" },
+    { path: "/idea-generator", label: "Generate" },
     { path: "/ai-research", label: "AI Research" },
     { path: "/trending", label: "Trending" },
     { path: "/discover", label: "Discover" },
-    { path: "/pricing", label: "Pricing" },
   ]
 
   return (

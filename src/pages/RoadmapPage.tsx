@@ -72,7 +72,7 @@ const initialFeatures: Feature[] = [
     id: "idea-generator",
     title: "AI Idea Generator",
     description: "Generate new startup ideas based on trends, skills, and market gaps",
-    status: "planned",
+    status: "in-progress",
     category: "AI Features",
     votes: 156,
     icon: Sparkles
