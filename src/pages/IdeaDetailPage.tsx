@@ -1,20 +1,24 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useParams, Link, useNavigate } from "react-router-dom"
 import {
   ArrowLeft, TrendingUp, Users, DollarSign, Target, Clock,
   Zap, CheckCircle2, Code2, Building2, BarChart3, Lightbulb,
-  Share2, Bookmark, Check, User, Calendar, FileText
+  Share2, Bookmark, Check, User, Calendar, FileText, Loader2
 } from "lucide-react"
 import { Button } from "../components/ui/button"
 import { Badge } from "../components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../components/ui/tabs"
-import { getIdeaById, ideas } from "../data/ideas"
+import type { StartupIdea } from "../data/ideas"
 import { IdeaCard } from "../components/IdeaCard"
 import { CustomerPersonas } from "../components/idea-detail/CustomerPersonas"
 import { ExecutionPlan } from "../components/idea-detail/ExecutionPlan"
 import { UnitEconomics } from "../components/idea-detail/UnitEconomics"
 import { LandingPageCopy } from "../components/idea-detail/LandingPageCopy"
+
+const API_BASE = import.meta.env.PROD
+  ? ''
+  : 'https://venturevaultspace.vercel.app'
 
 function getScoreColor(score: number) {
   if (score >= 80) return "text-green-600"
@@ -31,12 +35,44 @@ function getCompetitionColor(level: string) {
 export function IdeaDetailPage() {
   const { id } = useParams()
   const navigate = useNavigate()
-  const idea = getIdeaById(id || "")
+  const [idea, setIdea] = useState<StartupIdea | null>(null)
+  const [relatedIdeas, setRelatedIdeas] = useState<StartupIdea[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
   const [copied, setCopied] = useState(false)
   const [saved, setSaved] = useState(() => {
     const savedIdeas = JSON.parse(localStorage.getItem("venturevault-saved") || "[]")
     return savedIdeas.includes(id)
   })
+
+  // Fetch idea from API
+  useEffect(() => {
+    async function fetchIdea() {
+      if (!id) return
+      setLoading(true)
+      setError(null)
+      try {
+        const response = await fetch(`${API_BASE}/api/idea/${id}`)
+        if (!response.ok) {
+          if (response.status === 404) {
+            setError('Idea not found')
+          } else {
+            throw new Error('Failed to fetch idea')
+          }
+          return
+        }
+        const data = await response.json()
+        setIdea(data.idea)
+        setRelatedIdeas(data.relatedIdeas || [])
+      } catch (err) {
+        console.error('Error fetching idea:', err)
+        setError(err instanceof Error ? err.message : 'Failed to load idea')
+      } finally {
+        setLoading(false)
+      }
+    }
+    fetchIdea()
+  }, [id])
 
   const handleShare = async () => {
     const shareUrl = window.location.href
@@ -91,20 +127,24 @@ export function IdeaDetailPage() {
     navigate(`/ai-research?idea=${encodeURIComponent(idea?.title || "")}`)
   }
 
-  if (!idea) {
+  if (loading) {
     return (
       <div className="container mx-auto px-4 py-16 text-center">
-        <h1 className="text-2xl font-bold mb-4">Idea Not Found</h1>
-        <p className="text-muted-foreground mb-6">The idea you're looking for doesn't exist.</p>
-        <Button onClick={() => navigate("/browse")}>Browse All Ideas</Button>
+        <Loader2 className="h-8 w-8 animate-spin text-primary mx-auto mb-4" />
+        <p className="text-muted-foreground">Loading idea...</p>
       </div>
     )
   }
 
-  // Get related ideas (same category, excluding current)
-  const relatedIdeas = ideas
-    .filter((i) => i.category === idea.category && i.id !== idea.id)
-    .slice(0, 3)
+  if (error || !idea) {
+    return (
+      <div className="container mx-auto px-4 py-16 text-center">
+        <h1 className="text-2xl font-bold mb-4">Idea Not Found</h1>
+        <p className="text-muted-foreground mb-6">{error || "The idea you're looking for doesn't exist."}</p>
+        <Button onClick={() => navigate("/browse")}>Browse All Ideas</Button>
+      </div>
+    )
+  }
 
   // Check if enhanced data exists
   const hasEnhancedData = idea.customerPersonas || idea.playbook || idea.unitEconomics || idea.landingPageCopy

@@ -1,28 +1,63 @@
-import { useState, useMemo } from "react"
+import { useState, useMemo, useEffect } from "react"
 import { useSearchParams } from "react-router-dom"
-import { Search, Filter, SortAsc, Grid, List } from "lucide-react"
+import { Search, Filter, SortAsc, Grid, List, Loader2 } from "lucide-react"
 import { Button } from "../components/ui/button"
 import { Input } from "../components/ui/input"
 import { Badge } from "../components/ui/badge"
 import { IdeaCard } from "../components/IdeaCard"
-import { ideas, categories, searchIdeas } from "../data/ideas"
+import { categories } from "../data/ideas"
+import type { StartupIdea } from "../data/ideas"
+
+const API_URL = import.meta.env.PROD
+  ? '/api/ideas'
+  : 'https://venturevaultspace.vercel.app/api/ideas'
 
 export function BrowsePage() {
   const [searchParams, setSearchParams] = useSearchParams()
   const initialCategory = searchParams.get("category") || "All"
   const initialQuery = searchParams.get("q") || ""
 
+  const [ideas, setIdeas] = useState<StartupIdea[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
   const [activeCategory, setActiveCategory] = useState(initialCategory)
   const [searchQuery, setSearchQuery] = useState(initialQuery)
   const [sortBy, setSortBy] = useState<"score" | "trending" | "recent">("score")
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid")
+
+  // Fetch ideas from API
+  useEffect(() => {
+    async function fetchIdeas() {
+      setLoading(true)
+      setError(null)
+      try {
+        const response = await fetch(API_URL)
+        if (!response.ok) {
+          throw new Error('Failed to fetch ideas')
+        }
+        const data = await response.json()
+        setIdeas(data.ideas || [])
+      } catch (err) {
+        console.error('Error fetching ideas:', err)
+        setError(err instanceof Error ? err.message : 'Failed to load ideas')
+      } finally {
+        setLoading(false)
+      }
+    }
+    fetchIdeas()
+  }, [])
 
   const filteredIdeas = useMemo(() => {
     let result = ideas
 
     // Filter by search query
     if (searchQuery) {
-      result = searchIdeas(searchQuery)
+      const query = searchQuery.toLowerCase()
+      result = result.filter((idea) =>
+        idea.title.toLowerCase().includes(query) ||
+        idea.description.toLowerCase().includes(query) ||
+        idea.tags?.some((tag) => tag.toLowerCase().includes(query))
+      )
     }
 
     // Filter by category
@@ -40,7 +75,7 @@ export function BrowsePage() {
       }
       return b.marketScore - a.marketScore
     })
-  }, [activeCategory, searchQuery, sortBy])
+  }, [ideas, activeCategory, searchQuery, sortBy])
 
   const handleCategoryChange = (category: string) => {
     setActiveCategory(category)
@@ -70,7 +105,7 @@ export function BrowsePage() {
           <div>
             <h1 className="text-3xl md:text-4xl font-bold mb-4">Browse Startup Ideas</h1>
             <p className="text-lg text-muted-foreground mb-4">
-              Explore {ideas.length}+ validated startup ideas with AI-powered market analysis.
+              Explore {loading ? '...' : ideas.length}+ validated startup ideas with AI-powered market analysis.
               Filter by category, search by keyword, or discover trending opportunities.
             </p>
             <div className="flex flex-wrap gap-3 text-sm text-muted-foreground">
@@ -182,7 +217,19 @@ export function BrowsePage() {
         </div>
 
         {/* Ideas Grid */}
-        {filteredIdeas.length > 0 ? (
+        {loading ? (
+          <div className="flex justify-center items-center py-16">
+            <Loader2 className="h-8 w-8 animate-spin text-primary" />
+            <span className="ml-2 text-muted-foreground">Loading ideas...</span>
+          </div>
+        ) : error ? (
+          <div className="text-center py-16">
+            <p className="text-xl text-red-500 mb-4">{error}</p>
+            <Button onClick={() => window.location.reload()}>
+              Try Again
+            </Button>
+          </div>
+        ) : filteredIdeas.length > 0 ? (
           <div className={viewMode === "grid"
             ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
             : "flex flex-col gap-4"

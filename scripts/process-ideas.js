@@ -1,8 +1,12 @@
 // Script to process raw ideas through the enhance-idea API
 // Run with: node scripts/process-ideas.js
 
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const API_URL = 'https://venturevaultspace.vercel.app/api/enhance-idea';
 const RAW_IDEAS_FILE = path.join(__dirname, 'raw-ideas.json');
