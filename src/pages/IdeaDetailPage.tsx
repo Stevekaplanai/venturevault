@@ -52,7 +52,7 @@ export function IdeaDetailPage() {
       setLoading(true)
       setError(null)
       try {
-        const response = await fetch(`${API_BASE}/api/idea/${id}`)
+        const response = await fetch(`${API_BASE}/api/get-idea/${id}`)
         if (!response.ok) {
           if (response.status === 404) {
             setError('Idea not found')

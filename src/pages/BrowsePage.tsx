@@ -9,8 +9,8 @@ import { categories } from "../data/ideas"
 import type { StartupIdea } from "../data/ideas"
 
 const API_URL = import.meta.env.PROD
-  ? '/api/ideas'
-  : 'https://venturevaultspace.vercel.app/api/ideas'
+  ? '/api/get-ideas'
+  : 'https://venturevaultspace.vercel.app/api/get-ideas'
 
 export function BrowsePage() {
   const [searchParams, setSearchParams] = useSearchParams()
