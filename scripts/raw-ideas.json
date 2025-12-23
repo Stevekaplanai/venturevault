@@ -1,0 +1,154 @@
+{
+  "ideas": [
+    {
+      "title": "Unified Game Launcher",
+      "description": "A lightweight desktop app that consolidates all game launchers (Steam, Epic Games, GOG, Xbox, PlayStation) into a single unified interface. Users are tired of having 5+ launchers running just to play their games. Features include unified library view, quick launch, and minimal resource usage.",
+      "source": "r/SideProject",
+      "upvotes": 131
+    },
+    {
+      "title": "UI Component Library Marketplace",
+      "description": "An open-source React component library with 100+ free, ready-to-use components. Includes a Pro version with 140+ premium blocks, templates, and a drag-and-drop template builder. Made $1.5k in 6 months with 400+ users.",
+      "source": "r/SideProject",
+      "upvotes": 91
+    },
+    {
+      "title": "Cross-Platform Content Bookmark Manager",
+      "description": "A tool that pulls saved posts from Instagram, TikTok, LinkedIn, and X into one place, auto-organizes them, and shows patterns in what you actually consume over time. Solves the problem of saving content and never revisiting it.",
+      "source": "r/SideProject",
+      "upvotes": 2
+    },
+    {
+      "title": "Multiplayer Browser Game Platform",
+      "description": "A unique version of Chrome Dinosaur game that's ad-free and lets you compete with friends, coworkers, or anyone. Features private lobbies for friendly competitions, personal leaderboards, and quick games for deciding who goes first.",
+      "source": "r/SideProject",
+      "upvotes": 3
+    },
+    {
+      "title": "Embeddable Web Agents",
+      "description": "AI agents that can be embedded on websites to actually perform actions, not just answer FAQs. Website owners drop in a script tag, and visitors get an AI that can book appointments, add items to cart, navigate complex interfaces. Uses DOM understanding, no screenshots.",
+      "source": "r/Startups",
+      "upvotes": 2
+    },
+    {
+      "title": "Validated Startup Ideas Database",
+      "description": "A SaaS that finds validated startup ideas by scraping Reddit discussions, G2/Capterra negative reviews, Upwork job postings, and app store complaints to see what users actually want built. Reached $4k MRR with 10,000 signups.",
+      "source": "r/SaaS",
+      "upvotes": 33
+    },
+    {
+      "title": "Marketing Engineering Platform",
+      "description": "An AI-powered marketing automation platform that treats marketing as an engineering problem. Features include infinite creative loop for ad variations, adaptive budget allocation, LTV signal hunting, dynamic real-time quizzes, behavioral activation, and programmatic personal video.",
+      "source": "r/SaaS",
+      "upvotes": 96
+    },
+    {
+      "title": "AI Skincare Coach",
+      "description": "A skincare assistant app with routine tracker, product shelf management via photo recognition, and AI coaching. Helps users stay consistent with their skincare routines and answers skincare questions.",
+      "source": "r/Startups",
+      "upvotes": 0
+    },
+    {
+      "title": "NSFW Subreddit Search Engine",
+      "description": "A search engine and directory of NSFW subreddits. Solves the problem that subreddit names are unsearchable (words clubbed together) and nothing is indexed. Got 120k visitors in 30 days with no marketing.",
+      "source": "r/Entrepreneur",
+      "upvotes": 33
+    },
+    {
+      "title": "AI Video Moment Extractor",
+      "description": "An app that processes thousands of videos to extract best moments for physical albums. Uses Apple Vision Framework and CoreML for face matching. Upload video, select a face photo, and it finds all frames with that person.",
+      "source": "r/indiehackers",
+      "upvotes": 2
+    },
+    {
+      "title": "UI Element Picker Chrome Extension",
+      "description": "A Chrome extension that lets you pick any UI elements from any website in a single click and gives its full HTML/CSS code. Got 140+ users in a week. Useful for developers who want to quickly copy design patterns.",
+      "source": "r/indiehackers",
+      "upvotes": 3
+    },
+    {
+      "title": "Enterprise Social Media API",
+      "description": "A unified social media API for enterprise that handles posting, scheduling, and analytics across all major platforms. Built for developers who need to integrate social media into their products.",
+      "source": "r/indiehackers",
+      "upvotes": 12
+    },
+    {
+      "title": "Template-First AI Photo Generator",
+      "description": "An AI photo tool built around ready-made templates instead of prompt engineering. Pick a template, generate, done. No guessing, no trial-and-error. Includes photo resolution upscaling.",
+      "source": "r/indiehackers",
+      "upvotes": 1
+    },
+    {
+      "title": "Customer Interview Aggregator",
+      "description": "A tool to handle customer interviews scattered across Google Meet, Zoom recordings, WhatsApp chats, Slack messages. Accumulates everything in one place with AI summaries and insights extraction.",
+      "source": "r/indiehackers",
+      "upvotes": 1
+    },
+    {
+      "title": "AI Support Buffer for Indie Devs",
+      "description": "An AI that handles L1 support automatically based on your docs. Filters out transactional queries (How do I, Where is, Do you support) and only shows tickets that matter: Bugs, Feature Requests, and High-Value Sales questions. Protects developer flow state.",
+      "source": "r/indiehackers",
+      "upvotes": 4
+    },
+    {
+      "title": "Build in Public Content Strategy",
+      "description": "A playbook and toolkit for the Build in Public strategy on social media. Includes exact script structure, posting organization, editing process, copy templates, fonts, and music recommendations for video content.",
+      "source": "r/SaaS",
+      "upvotes": 13
+    },
+    {
+      "title": "SaaS Directory Submission Service",
+      "description": "A curated list and service for submitting SaaS products to 150+ directories. Gets featured in 'Top 10' lists and generates backlinks for SEO. Includes DA 30+ sites and templates for efficient submission.",
+      "source": "r/SaaS",
+      "upvotes": 14
+    },
+    {
+      "title": "Founder WhatsApp Community Platform",
+      "description": "A curated WhatsApp group for founders to talk openly about building customers, growth, mistakes, and execution. No promo, no pitching, no spam. Slowly onboarding to maintain quality.",
+      "source": "r/SaaS",
+      "upvotes": 66
+    },
+    {
+      "title": "Cloud Cost Calculator for Startups",
+      "description": "A tool to quickly estimate cloud compute costs for new business ideas before building. Helps founders validate if their pricing model is viable by calculating hosting/running costs based on expected usage patterns.",
+      "source": "r/Startups",
+      "upvotes": 1
+    },
+    {
+      "title": "AI Answer Engine Optimization Tool",
+      "description": "A tool to track and boost brand visibility in AI chatbot answers (ChatGPT, Gemini, etc). Monitors whether your brand is mentioned in AI responses and helps optimize for 'Answer Engine Optimization' (AEO) instead of traditional SEO.",
+      "source": "r/Entrepreneur",
+      "upvotes": 34
+    },
+    {
+      "title": "Meeting Transcript Auto-Sync",
+      "description": "Automatically transcribes every Zoom call, generates summaries and next steps, then auto-syncs to customer database in Notion. Creates a central repo for all meeting notes accessible to the whole team.",
+      "source": "r/Entrepreneur",
+      "upvotes": 105
+    },
+    {
+      "title": "Cold Email Personalization at Scale",
+      "description": "A tool for founders doing their own sales to balance personalization with volume. Currently takes 25-30 min per email (find lead, research, write). Needs to reduce time while maintaining quality.",
+      "source": "r/Startups",
+      "upvotes": 16
+    },
+    {
+      "title": "Handyman Business Management",
+      "description": "Software for small handyman/home repair businesses to manage jobs, scheduling, and prevent burnout. Helps solo operators or small teams scale without sacrificing work-life balance.",
+      "source": "r/Entrepreneur",
+      "upvotes": 117
+    },
+    {
+      "title": "Auto Dismantling Industry Software",
+      "description": "Business service software for the multi-billion dollar auto dismantling industry. Targets customers who rarely check emails, don't have patience for phone calls, and prefer face-to-face sales.",
+      "source": "r/Entrepreneur",
+      "upvotes": 3
+    },
+    {
+      "title": "Invoicing and Inventory Management",
+      "description": "A tool for businesses that handle inventory to manage stock tracking, invoicing, and reordering as they scale. Solves the pain of juggling multiple systems.",
+      "source": "r/Entrepreneur",
+      "upvotes": 3
+    }
+  ]
+}
