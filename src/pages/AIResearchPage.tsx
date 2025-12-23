@@ -537,11 +537,11 @@ export function AIResearchPage() {
               <CardContent className="py-12 text-center">
                 <h2 className="text-2xl font-bold mb-4">Or Browse Pre-Validated Ideas</h2>
                 <p className="text-muted-foreground mb-6 max-w-xl mx-auto">
-                  Explore our curated collection of 50+ startup ideas with full market analysis already done.
+                  Explore our curated collection of startup ideas with full market analysis already done.
                 </p>
                 <Link to="/browse">
                   <Button size="lg" className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700">
-                    Browse {ideas.length}+ Ideas
+                    Browse Ideas
                     <ArrowRight className="h-4 w-4 ml-2" />
                   </Button>
                 </Link>

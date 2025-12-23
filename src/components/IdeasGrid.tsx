@@ -28,7 +28,7 @@ export function IdeasGrid() {
           <div>
             <h2 className="text-2xl font-bold mb-2">Explore Startup Ideas</h2>
             <p className="text-muted-foreground">
-              Browse {ideas.length} validated ideas with AI-powered market analysis
+              Browse validated ideas with AI-powered market analysis
             </p>
           </div>
           <div className="flex items-center gap-2">
@@ -76,7 +76,7 @@ export function IdeasGrid() {
         <div className="mt-10 text-center">
           <Link to="/browse">
             <Button variant="outline" size="lg" className="gap-2">
-              View All {ideas.length} Ideas
+              View All Ideas
               <ArrowRight className="h-4 w-4" />
             </Button>
           </Link>

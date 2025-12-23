@@ -105,7 +105,7 @@ export function BrowsePage() {
           <div>
             <h1 className="text-3xl md:text-4xl font-bold mb-4">Browse Startup Ideas</h1>
             <p className="text-lg text-muted-foreground mb-4">
-              Explore {loading ? '...' : ideas.length}+ validated startup ideas with AI-powered market analysis.
+              Explore validated startup ideas with AI-powered market analysis.
               Filter by category, search by keyword, or discover trending opportunities.
             </p>
             <div className="flex flex-wrap gap-3 text-sm text-muted-foreground">
@@ -200,20 +200,8 @@ export function BrowsePage() {
               onClick={() => handleCategoryChange(category)}
             >
               {category}
-              {category !== "All" && (
-                <span className="ml-1 text-xs opacity-70">
-                  ({ideas.filter((i) => i.category === category).length})
-                </span>
-              )}
             </Badge>
           ))}
-        </div>
-
-        {/* Results count */}
-        <div className="mb-4 text-sm text-muted-foreground">
-          Showing {filteredIdeas.length} of {ideas.length} ideas
-          {searchQuery && <span> for "{searchQuery}"</span>}
-          {activeCategory !== "All" && <span> in {activeCategory}</span>}
         </div>
 
         {/* Ideas Grid */}

@@ -271,7 +271,7 @@ export function BlogPostPage() {
               <CardContent className="p-8 text-center">
                 <h3 className="text-2xl font-bold mb-3">Ready to Build Your Startup?</h3>
                 <p className="text-muted-foreground mb-6">
-                  Browse 65+ validated startup ideas with market analysis, customer personas, and 90-day playbooks.
+                  Browse validated startup ideas with market analysis, customer personas, and 90-day playbooks.
                 </p>
                 <div className="flex flex-wrap justify-center gap-4">
                   <Link to="/browse">
@@ -321,7 +321,7 @@ export function BlogPostPage() {
                     to="/browse"
                     className="flex items-center justify-between p-3 rounded-lg hover:bg-muted/50 transition-colors"
                   >
-                    <span className="font-medium">Browse 65+ Ideas</span>
+                    <span className="font-medium">Browse Ideas</span>
                     <Badge variant="secondary">Free</Badge>
                   </Link>
                   <Link

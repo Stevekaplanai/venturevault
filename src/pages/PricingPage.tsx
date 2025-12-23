@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Badge } from "../components/ui/badge"
 
 const freeFeatures = [
-  "Access to all 50+ validated startup ideas",
+  "Access to all validated startup ideas",
   "Full idea analysis & market metrics",
   "AI Research Agent powered by Gemini",
   "Real-time Google Trends data",

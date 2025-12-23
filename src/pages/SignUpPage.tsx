@@ -7,7 +7,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { signUp, signInWithGoogle, signInWithGitHub } from "../lib/supabase"
 
 const benefits = [
-  "Access to 50+ validated startup ideas",
+  "Access to validated startup ideas",
   "AI-powered market research",
   "Save and organize your favorites",
   "100% free, forever",

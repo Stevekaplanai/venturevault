@@ -33,7 +33,7 @@ Every great company starts with an idea. But finding that idea—and validating 
 
 ## What You Get (100% Free)
 
-- **65+ Validated Ideas** with detailed market analysis
+- **Validated Ideas** with detailed market analysis
 - **AI Research Tool** powered by Google's Gemini for deep market insights
 - **Customer Personas** for every idea
 - **90-Day Playbooks** to go from idea to MVP

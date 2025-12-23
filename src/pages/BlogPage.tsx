@@ -251,7 +251,7 @@ export function BlogPage() {
                     to="/browse"
                     className="flex items-center justify-between p-3 rounded-lg hover:bg-muted/50 transition-colors"
                   >
-                    <span className="font-medium">Browse 65+ Ideas</span>
+                    <span className="font-medium">Browse Ideas</span>
                     <Badge variant="secondary">Free</Badge>
                   </Link>
                   <Link
