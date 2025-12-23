@@ -9,7 +9,7 @@ import { Button } from "../components/ui/button"
 import { Badge } from "../components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../components/ui/tabs"
-import type { StartupIdea } from "../data/ideas"
+import type { Idea } from "../data/ideas"
 import { IdeaCard } from "../components/IdeaCard"
 import { CustomerPersonas } from "../components/idea-detail/CustomerPersonas"
 import { ExecutionPlan } from "../components/idea-detail/ExecutionPlan"
@@ -35,8 +35,8 @@ function getCompetitionColor(level: string) {
 export function IdeaDetailPage() {
   const { id } = useParams()
   const navigate = useNavigate()
-  const [idea, setIdea] = useState<StartupIdea | null>(null)
-  const [relatedIdeas, setRelatedIdeas] = useState<StartupIdea[]>([])
+  const [idea, setIdea] = useState<Idea | null>(null)
+  const [relatedIdeas, setRelatedIdeas] = useState<Idea[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [copied, setCopied] = useState(false)
@@ -184,7 +184,7 @@ export function IdeaDetailPage() {
             <p className="text-lg text-muted-foreground mb-6">{idea.fullDescription}</p>
 
             <div className="flex flex-wrap gap-2 mb-6">
-              {idea.tags.map((tag) => (
+              {idea.tags.map((tag: string) => (
                 <Badge key={tag} variant="outline">
                   {tag}
                 </Badge>
@@ -329,7 +329,7 @@ export function IdeaDetailPage() {
                 </CardHeader>
                 <CardContent>
                   <ul className="space-y-1">
-                    {idea.monetizationModel.map((model, i) => (
+                    {idea.monetizationModel.map((model: string, i: number) => (
                       <li key={i} className="text-muted-foreground text-sm flex items-start gap-2">
                         <CheckCircle2 className="h-4 w-4 text-green-500 mt-0.5 shrink-0" />
                         {model}
@@ -348,7 +348,7 @@ export function IdeaDetailPage() {
                 </CardHeader>
                 <CardContent>
                   <div className="flex flex-wrap gap-2">
-                    {idea.keyCompetitors.map((competitor) => (
+                    {idea.keyCompetitors.map((competitor: string) => (
                       <Badge key={competitor} variant="outline">
                         {competitor}
                       </Badge>
@@ -366,7 +366,7 @@ export function IdeaDetailPage() {
                 </CardHeader>
                 <CardContent>
                   <ul className="space-y-1">
-                    {idea.mvpFeatures.map((feature, i) => (
+                    {idea.mvpFeatures.map((feature: string, i: number) => (
                       <li key={i} className="text-muted-foreground text-sm flex items-start gap-2">
                         <CheckCircle2 className="h-4 w-4 text-indigo-500 mt-0.5 shrink-0" />
                         {feature}
@@ -385,7 +385,7 @@ export function IdeaDetailPage() {
                 </CardHeader>
                 <CardContent>
                   <div className="flex flex-wrap gap-2">
-                    {idea.techStack.map((tech) => (
+                    {idea.techStack.map((tech: string) => (
                       <Badge key={tech} variant="secondary">
                         {tech}
                       </Badge>

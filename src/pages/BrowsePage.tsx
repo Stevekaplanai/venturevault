@@ -6,7 +6,7 @@ import { Input } from "../components/ui/input"
 import { Badge } from "../components/ui/badge"
 import { IdeaCard } from "../components/IdeaCard"
 import { categories } from "../data/ideas"
-import type { StartupIdea } from "../data/ideas"
+import type { Idea } from "../data/ideas"
 
 const API_URL = import.meta.env.PROD
   ? '/api/get-ideas'
@@ -17,7 +17,7 @@ export function BrowsePage() {
   const initialCategory = searchParams.get("category") || "All"
   const initialQuery = searchParams.get("q") || ""
 
-  const [ideas, setIdeas] = useState<StartupIdea[]>([])
+  const [ideas, setIdeas] = useState<Idea[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [activeCategory, setActiveCategory] = useState(initialCategory)
@@ -56,7 +56,7 @@ export function BrowsePage() {
       result = result.filter((idea) =>
         idea.title.toLowerCase().includes(query) ||
         idea.description.toLowerCase().includes(query) ||
-        idea.tags?.some((tag) => tag.toLowerCase().includes(query))
+        idea.tags?.some((tag: string) => tag.toLowerCase().includes(query))
       )
     }
 
