@@ -1,0 +1,460 @@
+{
+  "ideas": [
+    {
+      "title": "AI Invoice Parser",
+      "description": "Extracts line items, totals, and vendor info from invoices in any format. Integrates with accounting software for automated data entry.",
+      "source": "r/SaaS",
+      "upvotes": 245
+    },
+    {
+      "title": "Smart Home Energy Monitor",
+      "description": "IoT device that tracks energy usage by appliance. Provides recommendations to reduce bills and integrate with solar panels.",
+      "source": "r/Startups",
+      "upvotes": 189
+    },
+    {
+      "title": "AI Podcast Transcription Service",
+      "description": "High-accuracy podcast transcription with speaker identification and timestamps. Generates show notes and SEO-optimized summaries.",
+      "source": "r/indiehackers",
+      "upvotes": 267
+    },
+    {
+      "title": "Developer API Marketplace",
+      "description": "Marketplace where developers can discover, compare, and purchase API services. Includes sandbox testing and unified billing.",
+      "source": "r/SaaS",
+      "upvotes": 198
+    },
+    {
+      "title": "AI Inventory Forecasting",
+      "description": "Predicts inventory needs based on sales trends, seasonality, and market data. Reduces overstock and stockouts for e-commerce.",
+      "source": "r/SaaS",
+      "upvotes": 312
+    },
+    {
+      "title": "Remote Work Policy Generator",
+      "description": "Creates customized remote work policies for companies. Covers equipment, hours, communication, and compliance requirements.",
+      "source": "r/SideProject",
+      "upvotes": 156
+    },
+    {
+      "title": "AI Brand Voice Trainer",
+      "description": "Analyzes existing content to define brand voice guidelines. Scores new content against brand standards and suggests improvements.",
+      "source": "r/SaaS",
+      "upvotes": 234
+    },
+    {
+      "title": "Subscription Box Curator",
+      "description": "Platform for creating and managing subscription box businesses. Handles product sourcing, fulfillment, and subscriber management.",
+      "source": "r/Entrepreneur",
+      "upvotes": 178
+    },
+    {
+      "title": "AI Meeting Agenda Builder",
+      "description": "Creates structured meeting agendas from context. Suggests discussion topics, time allocation, and required attendees.",
+      "source": "r/Productivity",
+      "upvotes": 189
+    },
+    {
+      "title": "Customer Success Platform for SMBs",
+      "description": "Affordable customer success tool for small SaaS companies. Tracks health scores, automates outreach, and prevents churn.",
+      "source": "r/SaaS",
+      "upvotes": 267
+    },
+    {
+      "title": "AI Form Builder",
+      "description": "Creates intelligent forms that adapt based on responses. Uses AI to optimize questions for higher completion rates.",
+      "source": "r/SideProject",
+      "upvotes": 234
+    },
+    {
+      "title": "Startup Pitch Practice Tool",
+      "description": "AI that listens to pitch presentations and provides feedback on delivery, structure, and content. Tracks improvement over time.",
+      "source": "r/Startups",
+      "upvotes": 198
+    },
+    {
+      "title": "Employee Recognition Platform",
+      "description": "Peer recognition system with points, badges, and rewards. Integrates with Slack and tracks recognition patterns across teams.",
+      "source": "r/SaaS",
+      "upvotes": 167
+    },
+    {
+      "title": "AI Recipe Generator from Ingredients",
+      "description": "Input available ingredients, get recipe suggestions with nutritional info and step-by-step instructions with video guides.",
+      "source": "r/SideProject",
+      "upvotes": 312
+    },
+    {
+      "title": "Freelancer Community Platform",
+      "description": "Online community for freelancers with forums, job boards, skill sharing, and local meetup coordination. Monetized through premium features.",
+      "source": "r/Entrepreneur",
+      "upvotes": 145
+    },
+    {
+      "title": "AI Product Description Translator",
+      "description": "Translates e-commerce product listings for international markets. Adapts descriptions for cultural context, not just language.",
+      "source": "r/SaaS",
+      "upvotes": 189
+    },
+    {
+      "title": "Developer Learning Path Builder",
+      "description": "Creates personalized learning paths for developers based on career goals. Curates resources from free and paid platforms.",
+      "source": "r/SideProject",
+      "upvotes": 267
+    },
+    {
+      "title": "AI Sales Email Generator",
+      "description": "Generates personalized cold emails based on prospect research. A/B tests subject lines and tracks engagement metrics.",
+      "source": "r/SaaS",
+      "upvotes": 234
+    },
+    {
+      "title": "Social Media Brand Monitor",
+      "description": "Tracks brand mentions across social platforms. Identifies trends, sentiment, and influencers discussing your brand.",
+      "source": "r/SaaS",
+      "upvotes": 198
+    },
+    {
+      "title": "AI Bug Report Classifier",
+      "description": "Automatically categorizes and prioritizes bug reports. Detects duplicates, assigns severity, and routes to appropriate teams.",
+      "source": "r/SideProject",
+      "upvotes": 178
+    },
+    {
+      "title": "Virtual Assistant Scheduling Tool",
+      "description": "Helps virtual assistants manage multiple client calendars. Includes task tracking, time zones, and billing integration.",
+      "source": "r/SaaS",
+      "upvotes": 156
+    },
+    {
+      "title": "AI Content Calendar Planner",
+      "description": "Creates content calendars based on business goals, trending topics, and audience preferences. Suggests optimal publishing times.",
+      "source": "r/SaaS",
+      "upvotes": 267
+    },
+    {
+      "title": "Startup Financial Model Builder",
+      "description": "Create investor-ready financial models with templates. Includes scenario planning, revenue projections, and runway calculations.",
+      "source": "r/Startups",
+      "upvotes": 289
+    },
+    {
+      "title": "AI Customer Interview Analyzer",
+      "description": "Records customer interviews, transcribes them, and extracts key insights. Identifies patterns across multiple interviews.",
+      "source": "r/SaaS",
+      "upvotes": 234
+    },
+    {
+      "title": "Open Source Project Monetization",
+      "description": "Platform helping open source maintainers monetize their work. Includes sponsorship tiers, premium support, and hosted versions.",
+      "source": "r/indiehackers",
+      "upvotes": 312
+    },
+    {
+      "title": "AI Website Copywriter",
+      "description": "Generates website copy optimized for conversions. Creates landing pages, about pages, and feature descriptions from prompts.",
+      "source": "r/SaaS",
+      "upvotes": 198
+    },
+    {
+      "title": "Remote Team Building Platform",
+      "description": "Virtual team building activities for remote companies. Includes games, workshops, and social events designed for online.",
+      "source": "r/SaaS",
+      "upvotes": 178
+    },
+    {
+      "title": "AI Stock Photo Generator",
+      "description": "Generate custom stock photos for marketing needs. Create diverse, realistic images without model releases or licensing fees.",
+      "source": "r/indiehackers",
+      "upvotes": 345
+    },
+    {
+      "title": "Affiliate Program Management",
+      "description": "Complete affiliate program solution for SaaS. Handles tracking, payouts, partner portals, and fraud detection.",
+      "source": "r/SaaS",
+      "upvotes": 234
+    },
+    {
+      "title": "AI Pricing Page Optimizer",
+      "description": "Tests pricing page layouts, copy, and pricing tiers. Uses AI to identify optimal configurations for conversion.",
+      "source": "r/SaaS",
+      "upvotes": 267
+    },
+    {
+      "title": "Creator Economy Analytics",
+      "description": "Unified analytics for content creators across YouTube, TikTok, Instagram. Tracks revenue, growth, and audience insights.",
+      "source": "r/indiehackers",
+      "upvotes": 289
+    },
+    {
+      "title": "AI Code Refactoring Assistant",
+      "description": "Suggests code improvements for readability, performance, and maintainability. Explains reasoning behind each suggestion.",
+      "source": "r/SideProject",
+      "upvotes": 312
+    },
+    {
+      "title": "Local Service Marketplace",
+      "description": "Connect homeowners with vetted local service providers. Includes booking, payments, and reviews. Focus on trust and quality.",
+      "source": "r/Startups",
+      "upvotes": 234
+    },
+    {
+      "title": "AI Compliance Document Generator",
+      "description": "Creates GDPR, CCPA, and SOC2 compliance documents. Customized for your business with automatic updates for regulation changes.",
+      "source": "r/SaaS",
+      "upvotes": 198
+    },
+    {
+      "title": "Team Knowledge Base Builder",
+      "description": "AI-powered internal wiki that learns from conversations. Automatically documents processes and makes knowledge searchable.",
+      "source": "r/SaaS",
+      "upvotes": 267
+    },
+    {
+      "title": "AI Social Post Generator",
+      "description": "Creates social media posts from blog content, product updates, or prompts. Maintains brand voice across platforms.",
+      "source": "r/SaaS",
+      "upvotes": 234
+    },
+    {
+      "title": "Startup Benchmark Database",
+      "description": "Database of startup metrics for comparison. See how your MRR, churn, and growth compare to similar companies.",
+      "source": "r/Startups",
+      "upvotes": 178
+    },
+    {
+      "title": "AI Video Script Writer",
+      "description": "Creates video scripts for YouTube, TikTok, and ads. Includes hooks, CTAs, and optimal pacing for engagement.",
+      "source": "r/indiehackers",
+      "upvotes": 289
+    },
+    {
+      "title": "Customer Data Platform for SMBs",
+      "description": "Affordable CDP that unifies customer data from multiple sources. Enables segmentation, personalization, and analytics.",
+      "source": "r/SaaS",
+      "upvotes": 234
+    },
+    {
+      "title": "AI Appointment Reminder System",
+      "description": "Smart appointment reminders via SMS, email, and voice. Reduces no-shows with personalized timing and follow-up sequences.",
+      "source": "r/SaaS",
+      "upvotes": 198
+    },
+    {
+      "title": "Developer Relations Platform",
+      "description": "Tools for DevRel teams to manage community, track adoption, and measure developer success. Integrates with docs and forums.",
+      "source": "r/SaaS",
+      "upvotes": 178
+    },
+    {
+      "title": "AI Grammar Checker for Code Comments",
+      "description": "Fixes grammar and improves clarity in code comments and documentation. Supports multiple programming languages.",
+      "source": "r/SideProject",
+      "upvotes": 156
+    },
+    {
+      "title": "No-Code Mobile App Builder",
+      "description": "Create native mobile apps without coding. Drag-and-drop builder with push notifications, offline support, and app store submission.",
+      "source": "r/SaaS",
+      "upvotes": 312
+    },
+    {
+      "title": "AI Contract Comparison Tool",
+      "description": "Compare contract versions side-by-side. Highlights changes, identifies risks, and explains legal implications.",
+      "source": "r/SaaS",
+      "upvotes": 234
+    },
+    {
+      "title": "Founder Mental Health App",
+      "description": "Mental health support designed for founders. Includes stress management, peer support groups, and professional resources.",
+      "source": "r/Startups",
+      "upvotes": 267
+    },
+    {
+      "title": "AI Email Warm-up Service",
+      "description": "Improves email deliverability by gradually building sender reputation. Essential for cold email campaigns.",
+      "source": "r/SaaS",
+      "upvotes": 189
+    },
+    {
+      "title": "Product Feature Voting Board",
+      "description": "Public roadmap and feature request board. Customers vote on features, with automatic prioritization and status updates.",
+      "source": "r/SaaS",
+      "upvotes": 234
+    },
+    {
+      "title": "AI Chatbot for FAQ",
+      "description": "Deploy FAQ chatbots trained on your help docs. Handles common questions and escalates complex issues to humans.",
+      "source": "r/SaaS",
+      "upvotes": 198
+    },
+    {
+      "title": "Startup Exit Planning Tool",
+      "description": "Helps founders prepare for acquisition or IPO. Includes valuation models, buyer research, and due diligence preparation.",
+      "source": "r/Startups",
+      "upvotes": 167
+    },
+    {
+      "title": "AI Product Photo Editor",
+      "description": "Enhance product photos with AI. Remove backgrounds, adjust lighting, and create lifestyle mockups automatically.",
+      "source": "r/indiehackers",
+      "upvotes": 278
+    },
+    {
+      "title": "Link Shortener with Analytics",
+      "description": "URL shortener with detailed click analytics. Includes QR codes, branded links, and campaign tracking.",
+      "source": "r/SideProject",
+      "upvotes": 189
+    },
+    {
+      "title": "AI Customer Segmentation Tool",
+      "description": "Automatically segments customers based on behavior, demographics, and value. Suggests targeted marketing strategies.",
+      "source": "r/SaaS",
+      "upvotes": 267
+    },
+    {
+      "title": "Remote Work Equipment Manager",
+      "description": "Tracks company equipment assigned to remote employees. Handles procurement, returns, and asset depreciation.",
+      "source": "r/SaaS",
+      "upvotes": 145
+    },
+    {
+      "title": "AI Headline Generator",
+      "description": "Creates attention-grabbing headlines for articles, ads, and emails. A/B tests variations and learns from performance.",
+      "source": "r/SaaS",
+      "upvotes": 234
+    },
+    {
+      "title": "Founder Skill Assessment",
+      "description": "Evaluates startup founder skills across key areas. Identifies gaps and suggests resources for improvement.",
+      "source": "r/Startups",
+      "upvotes": 178
+    },
+    {
+      "title": "AI Image Upscaler API",
+      "description": "API service for upscaling images without quality loss. Essential for e-commerce and print-on-demand businesses.",
+      "source": "r/indiehackers",
+      "upvotes": 256
+    },
+    {
+      "title": "Team Standup Bot",
+      "description": "Asynchronous standup collection via Slack. Summarizes updates, identifies blockers, and tracks trends over time.",
+      "source": "r/SaaS",
+      "upvotes": 198
+    },
+    {
+      "title": "AI Proposal Generator",
+      "description": "Creates professional proposals from project details. Includes pricing tables, timelines, and customizable templates.",
+      "source": "r/SaaS",
+      "upvotes": 267
+    },
+    {
+      "title": "SaaS Marketplace Platform",
+      "description": "Build and launch your own software marketplace. Handles vendor onboarding, payments, and reviews.",
+      "source": "r/SaaS",
+      "upvotes": 234
+    },
+    {
+      "title": "AI Keyword Research Tool",
+      "description": "Discovers valuable keywords for SEO and PPC. Shows search volume, difficulty, and competitor analysis.",
+      "source": "r/SaaS",
+      "upvotes": 312
+    },
+    {
+      "title": "Digital Product License Manager",
+      "description": "Manages software licenses and subscriptions. Handles activation, renewals, and compliance tracking.",
+      "source": "r/SaaS",
+      "upvotes": 167
+    },
+    {
+      "title": "AI Meeting Transcription Tool",
+      "description": "Real-time meeting transcription with speaker labels. Creates searchable archive of all company meetings.",
+      "source": "r/SaaS",
+      "upvotes": 278
+    },
+    {
+      "title": "Micro-Consulting Platform",
+      "description": "Marketplace for quick expert consultations. 15-30 minute calls with specialists in various fields.",
+      "source": "r/Startups",
+      "upvotes": 234
+    },
+    {
+      "title": "AI Customer Churn Predictor",
+      "description": "Identifies at-risk customers before they churn. Suggests personalized retention strategies based on behavior patterns.",
+      "source": "r/SaaS",
+      "upvotes": 289
+    },
+    {
+      "title": "No-Code Workflow Automation",
+      "description": "Visual workflow builder connecting apps without code. Includes conditional logic, loops, and error handling.",
+      "source": "r/SaaS",
+      "upvotes": 312
+    },
+    {
+      "title": "AI Press Release Writer",
+      "description": "Creates professional press releases from company news. Includes journalist database and distribution tracking.",
+      "source": "r/SaaS",
+      "upvotes": 178
+    },
+    {
+      "title": "Startup Office Space Finder",
+      "description": "Aggregates coworking and office spaces for startups. Filters by budget, amenities, and location with virtual tours.",
+      "source": "r/Startups",
+      "upvotes": 189
+    },
+    {
+      "title": "AI Email Signature Generator",
+      "description": "Creates professional email signatures with branding. Includes tracking for clicks and banner updates.",
+      "source": "r/SideProject",
+      "upvotes": 156
+    },
+    {
+      "title": "Team OKR Tracking Tool",
+      "description": "Simple OKR management for startups. Set goals, track progress, and align teams with company objectives.",
+      "source": "r/SaaS",
+      "upvotes": 234
+    },
+    {
+      "title": "AI Website Performance Optimizer",
+      "description": "Analyzes website speed and provides specific fixes. Implements optimizations automatically where possible.",
+      "source": "r/SaaS",
+      "upvotes": 267
+    },
+    {
+      "title": "Customer Referral Program Builder",
+      "description": "Launch customer referral programs with customizable rewards. Tracks referrals and automates reward distribution.",
+      "source": "r/SaaS",
+      "upvotes": 198
+    },
+    {
+      "title": "AI Technical Writing Assistant",
+      "description": "Helps write clear technical documentation. Simplifies complex concepts and ensures consistency in terminology.",
+      "source": "r/SideProject",
+      "upvotes": 234
+    },
+    {
+      "title": "Startup Insurance Comparison",
+      "description": "Compare business insurance options for startups. Includes liability, cyber, and D&O coverage with instant quotes.",
+      "source": "r/Startups",
+      "upvotes": 178
+    },
+    {
+      "title": "AI Sales Demo Scheduler",
+      "description": "Automates demo booking with intelligent routing. Matches prospects with appropriate sales reps based on requirements.",
+      "source": "r/SaaS",
+      "upvotes": 245
+    },
+    {
+      "title": "Brand Asset Management",
+      "description": "Central repository for brand assets. Organizes logos, images, and guidelines with version control and sharing.",
+      "source": "r/SaaS",
+      "upvotes": 189
+    },
+    {
+      "title": "AI Survey Question Generator",
+      "description": "Creates effective survey questions to avoid bias. Suggests optimal question order and response formats.",
+      "source": "r/SideProject",
+      "upvotes": 167
+    }
+  ]
+}

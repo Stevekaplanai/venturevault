@@ -1,0 +1,16 @@
+{
+  "ideas": [
+    {
+      "title": "AI Customer Support Ticket Prioritizer",
+      "description": "Automatically analyzes and prioritizes support tickets based on urgency, customer value, and sentiment. Routes tickets to appropriate agents and suggests responses.",
+      "source": "r/SaaS",
+      "upvotes": 256
+    },
+    {
+      "title": "Startup Cap Table Manager",
+      "description": "Simple cap table management for early-stage startups. Track equity, model dilution scenarios, and generate 409A valuations. Integrates with legal document platforms.",
+      "source": "r/Startups",
+      "upvotes": 189
+    }
+  ]
+}

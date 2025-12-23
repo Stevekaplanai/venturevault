@@ -1,0 +1,304 @@
+{
+  "ideas": [
+    {
+      "title": "PRFlow - GitHub PR Review Automation",
+      "description": "An AI-powered tool that automatically reviews GitHub pull requests, checks for code quality issues, security vulnerabilities, and style consistency. Integrates with existing CI/CD pipelines and provides actionable feedback.",
+      "source": "r/SideProject",
+      "upvotes": 156
+    },
+    {
+      "title": "Feynman Technique Learning App",
+      "description": "An app that helps students learn complex topics using the Feynman Technique - explain concepts in simple terms. AI listens to your explanation, identifies gaps in understanding, and suggests areas to study more.",
+      "source": "r/SideProject",
+      "upvotes": 89
+    },
+    {
+      "title": "AI Data Analytics Dashboard",
+      "description": "A no-code analytics platform where users can ask questions about their data in plain English. Connects to databases, spreadsheets, and APIs to generate instant visualizations and insights without SQL knowledge.",
+      "source": "r/SaaS",
+      "upvotes": 234
+    },
+    {
+      "title": "Chrome Screenshot to Code Extension",
+      "description": "A browser extension that captures any website section and converts it to clean HTML/CSS/React code using AI. Perfect for developers who want to replicate design patterns they find online.",
+      "source": "r/SideProject",
+      "upvotes": 178
+    },
+    {
+      "title": "Freelancer Invoice Automation",
+      "description": "Automated invoicing for freelancers that tracks time, generates professional invoices, sends payment reminders, and integrates with Stripe/PayPal. Includes tax estimation and expense tracking.",
+      "source": "r/Entrepreneur",
+      "upvotes": 145
+    },
+    {
+      "title": "Local Business Review Aggregator",
+      "description": "A platform that pulls reviews from Google, Yelp, Facebook, and TripAdvisor into one dashboard. Helps small businesses monitor reputation, respond to reviews, and identify improvement areas.",
+      "source": "r/SaaS",
+      "upvotes": 67
+    },
+    {
+      "title": "AI Meeting Notes Assistant",
+      "description": "Records meetings, generates AI summaries, extracts action items, and automatically creates tasks in project management tools. Works with Zoom, Google Meet, and Teams.",
+      "source": "r/Startups",
+      "upvotes": 312
+    },
+    {
+      "title": "Personal Finance AI Coach",
+      "description": "An AI that analyzes spending patterns, creates personalized budgets, and provides daily financial tips. Connects to bank accounts and sends alerts for unusual spending or opportunities to save.",
+      "source": "r/SideProject",
+      "upvotes": 198
+    },
+    {
+      "title": "Remote Team Virtual Office",
+      "description": "A virtual office space where remote teams can see who's available, have spontaneous conversations, and feel more connected. Features virtual rooms, status indicators, and quick video calls.",
+      "source": "r/Startups",
+      "upvotes": 87
+    },
+    {
+      "title": "E-commerce Return Predictor",
+      "description": "AI that analyzes product photos, descriptions, and historical data to predict return likelihood before purchase. Helps e-commerce businesses reduce return rates by flagging high-risk products.",
+      "source": "r/SaaS",
+      "upvotes": 156
+    },
+    {
+      "title": "Job Application Tracker Pro",
+      "description": "A comprehensive job search dashboard that tracks applications, follows up automatically, analyzes resume match scores, and provides insights on application success rates by company and role.",
+      "source": "r/SideProject",
+      "upvotes": 234
+    },
+    {
+      "title": "Smart Recipe Meal Planner",
+      "description": "An AI meal planning app that considers dietary restrictions, budget, available ingredients, and cooking skill level. Generates weekly meal plans with shopping lists and step-by-step instructions.",
+      "source": "r/SideProject",
+      "upvotes": 189
+    },
+    {
+      "title": "Developer Portfolio Builder",
+      "description": "A tool that automatically generates stunning developer portfolios by pulling data from GitHub, LinkedIn, and blog posts. Includes customizable templates and SEO optimization.",
+      "source": "r/SideProject",
+      "upvotes": 267
+    },
+    {
+      "title": "Micro-SaaS Idea Validator",
+      "description": "A platform that helps validate SaaS ideas by analyzing market size, competition, keyword trends, and finding potential customers on social media. Includes landing page builder for pre-launch validation.",
+      "source": "r/indiehackers",
+      "upvotes": 145
+    },
+    {
+      "title": "AI Customer Support Chatbot Builder",
+      "description": "No-code platform to build AI chatbots trained on your documentation, FAQs, and previous support tickets. Handles common queries automatically and escalates complex issues to humans.",
+      "source": "r/SaaS",
+      "upvotes": 289
+    },
+    {
+      "title": "Social Media Scheduler for Creators",
+      "description": "A scheduling tool designed specifically for content creators. Suggests optimal posting times, generates hashtags, provides content ideas, and analyzes engagement across platforms.",
+      "source": "r/Entrepreneur",
+      "upvotes": 178
+    },
+    {
+      "title": "Contract Review AI for Freelancers",
+      "description": "An AI tool that reviews freelance contracts, highlights unfair clauses, suggests modifications, and compares terms against industry standards. Saves freelancers from legal pitfalls.",
+      "source": "r/indiehackers",
+      "upvotes": 134
+    },
+    {
+      "title": "Notion Template Marketplace",
+      "description": "A curated marketplace for premium Notion templates. Creators can sell their templates, buyers get instant delivery, and includes ratings, reviews, and template previews.",
+      "source": "r/SideProject",
+      "upvotes": 256
+    },
+    {
+      "title": "AI Writing Style Analyzer",
+      "description": "Analyzes your writing and creates a style guide that AI tools can use to match your voice. Ensures all AI-generated content sounds authentically like you.",
+      "source": "r/SideProject",
+      "upvotes": 167
+    },
+    {
+      "title": "Subscription Cancellation Manager",
+      "description": "Tracks all your subscriptions, sends renewal reminders, helps cancel unwanted services, and negotiates better rates. Identifies duplicate services and unused subscriptions.",
+      "source": "r/SideProject",
+      "upvotes": 198
+    },
+    {
+      "title": "AI Code Documentation Generator",
+      "description": "Automatically generates comprehensive documentation for codebases. Analyzes code structure, creates API docs, README files, and inline comments. Keeps docs in sync with code changes.",
+      "source": "r/SideProject",
+      "upvotes": 312
+    },
+    {
+      "title": "Local Event Discovery App",
+      "description": "Aggregates local events from Facebook, Meetup, Eventbrite, and community boards into one app. Uses AI to recommend events based on interests and social connections.",
+      "source": "r/Startups",
+      "upvotes": 145
+    },
+    {
+      "title": "Startup Pitch Deck Analyzer",
+      "description": "AI that reviews pitch decks and provides feedback based on patterns from successful fundraises. Suggests improvements to narrative, design, and data presentation.",
+      "source": "r/Startups",
+      "upvotes": 234
+    },
+    {
+      "title": "Browser Tab Manager Pro",
+      "description": "Advanced tab management for power users. Groups tabs by project, saves sessions, suspends inactive tabs to save memory, and provides search across all open tabs.",
+      "source": "r/SideProject",
+      "upvotes": 289
+    },
+    {
+      "title": "AI Email Newsletter Creator",
+      "description": "Generates engaging newsletter content based on your niche and past issues. Suggests topics, writes drafts, A/B tests subject lines, and optimizes send times.",
+      "source": "r/SaaS",
+      "upvotes": 178
+    },
+    {
+      "title": "Competitor Price Monitoring",
+      "description": "Tracks competitor pricing across e-commerce platforms. Sends alerts on price changes, suggests optimal pricing strategies, and identifies market trends.",
+      "source": "r/SaaS",
+      "upvotes": 167
+    },
+    {
+      "title": "Video Podcast Clip Generator",
+      "description": "AI that watches long-form video content and automatically generates viral-worthy short clips for social media. Identifies interesting moments, adds captions, and optimizes aspect ratios.",
+      "source": "r/indiehackers",
+      "upvotes": 345
+    },
+    {
+      "title": "AI Language Learning Tutor",
+      "description": "Conversational AI tutor for language learning. Adapts to your level, corrects mistakes in real-time, and creates personalized lessons based on your interests and goals.",
+      "source": "r/SideProject",
+      "upvotes": 267
+    },
+    {
+      "title": "SaaS Churn Prediction Tool",
+      "description": "Analyzes customer behavior patterns to predict which users are likely to churn. Provides actionable insights and automated engagement triggers to retain at-risk customers.",
+      "source": "r/SaaS",
+      "upvotes": 198
+    },
+    {
+      "title": "Developer Job Referral Network",
+      "description": "A platform connecting job seekers with employees at target companies for referrals. Referrers earn bonuses, seekers get their resume seen, companies get quality candidates.",
+      "source": "r/Startups",
+      "upvotes": 234
+    },
+    {
+      "title": "AI-Powered A/B Test Analyzer",
+      "description": "Automatically detects statistical significance, suggests test duration, and provides plain-English explanations of A/B test results. Helps non-technical marketers make data-driven decisions.",
+      "source": "r/SaaS",
+      "upvotes": 156
+    },
+    {
+      "title": "Personal CRM for Networking",
+      "description": "A lightweight CRM designed for professionals to manage their network. Tracks conversations, sets follow-up reminders, and suggests optimal times to reach out.",
+      "source": "r/SideProject",
+      "upvotes": 278
+    },
+    {
+      "title": "AI Legal Document Generator",
+      "description": "Creates legal documents like NDAs, terms of service, and privacy policies using AI. Customizable templates that comply with regional regulations.",
+      "source": "r/Startups",
+      "upvotes": 189
+    },
+    {
+      "title": "Remote Work Salary Calculator",
+      "description": "Compares salaries across different locations, factoring in cost of living, taxes, and benefits. Helps remote workers negotiate fair compensation regardless of location.",
+      "source": "r/SideProject",
+      "upvotes": 145
+    },
+    {
+      "title": "Design System Generator",
+      "description": "AI that creates complete design systems from a few brand colors and preferences. Generates component libraries, style guides, and Figma files ready for development.",
+      "source": "r/SideProject",
+      "upvotes": 312
+    },
+    {
+      "title": "E-commerce Product Description Writer",
+      "description": "AI that generates compelling product descriptions optimized for SEO and conversions. Analyzes competitor listings and incorporates best-performing keywords.",
+      "source": "r/SaaS",
+      "upvotes": 167
+    },
+    {
+      "title": "Mental Health Check-in App",
+      "description": "Daily mood tracking with AI-powered insights. Identifies patterns, suggests coping strategies, and connects users with resources when needed. Privacy-first design.",
+      "source": "r/SideProject",
+      "upvotes": 234
+    },
+    {
+      "title": "Code Snippet Manager",
+      "description": "A searchable library for code snippets with syntax highlighting, tags, and cloud sync. Integrates with IDEs and provides AI-powered suggestions based on context.",
+      "source": "r/SideProject",
+      "upvotes": 189
+    },
+    {
+      "title": "Influencer Marketing ROI Tracker",
+      "description": "Tracks influencer campaign performance with unique links, attribution modeling, and ROI calculations. Compares influencer effectiveness and suggests optimization strategies.",
+      "source": "r/SaaS",
+      "upvotes": 145
+    },
+    {
+      "title": "AI Blog Post Outline Generator",
+      "description": "Creates detailed blog post outlines based on topic and target keywords. Suggests subheadings, key points to cover, and competitor content gaps to address.",
+      "source": "r/indiehackers",
+      "upvotes": 178
+    },
+    {
+      "title": "Startup Equity Calculator",
+      "description": "Tools for founders to model equity splits, option pools, and dilution across funding rounds. Visualizes cap table scenarios and helps make informed decisions.",
+      "source": "r/Startups",
+      "upvotes": 267
+    },
+    {
+      "title": "Customer Testimonial Collector",
+      "description": "Automated system to collect, verify, and showcase customer testimonials. Sends requests at optimal times, provides templates, and generates shareable assets.",
+      "source": "r/SaaS",
+      "upvotes": 134
+    },
+    {
+      "title": "AI Resume Tailoring Tool",
+      "description": "Analyzes job descriptions and customizes resumes to match. Highlights relevant experience, suggests keyword additions, and scores match percentage.",
+      "source": "r/SideProject",
+      "upvotes": 345
+    },
+    {
+      "title": "Podcast Guest Booking Platform",
+      "description": "Connects podcast hosts with relevant guests. Matches based on expertise, audience overlap, and availability. Handles scheduling and preparation.",
+      "source": "r/Entrepreneur",
+      "upvotes": 156
+    },
+    {
+      "title": "API Usage Analytics Dashboard",
+      "description": "Monitors API usage, tracks costs, identifies optimization opportunities, and alerts on anomalies. Essential for businesses using multiple third-party APIs.",
+      "source": "r/SaaS",
+      "upvotes": 189
+    },
+    {
+      "title": "Team Meeting Cost Calculator",
+      "description": "Calculates the true cost of meetings based on attendee salaries and time. Displays real-time cost during meetings to encourage efficiency.",
+      "source": "r/SideProject",
+      "upvotes": 234
+    },
+    {
+      "title": "AI Product Hunt Launch Assistant",
+      "description": "Helps prepare and execute Product Hunt launches. Suggests optimal timing, crafts descriptions, identifies potential supporters, and tracks launch performance.",
+      "source": "r/indiehackers",
+      "upvotes": 267
+    },
+    {
+      "title": "Website Carbon Footprint Calculator",
+      "description": "Analyzes website carbon emissions based on hosting, page weight, and traffic. Provides optimization suggestions and sustainability badges to display.",
+      "source": "r/SideProject",
+      "upvotes": 145
+    },
+    {
+      "title": "Customer Journey Mapping Tool",
+      "description": "Visual tool to map customer touchpoints, identify friction points, and optimize conversion funnels. Integrates with analytics to show real user behavior.",
+      "source": "r/SaaS",
+      "upvotes": 178
+    },
+    {
+      "title": "AI Technical Interview Prep",
+      "description": "Practice coding interviews with an AI interviewer. Provides real-time feedback, explains optimal solutions, and tracks progress across different problem types.",
+      "source": "r/SideProject",
+      "upvotes": 389
+    }
+  ]
+}

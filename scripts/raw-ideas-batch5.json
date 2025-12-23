@@ -1,0 +1,34 @@
+{
+  "ideas": [
+    {
+      "title": "AI Changelog Generator",
+      "description": "Automatically generates user-friendly changelogs from Git commits and pull requests. Categorizes changes, writes release notes, and publishes to multiple platforms.",
+      "source": "r/SideProject",
+      "upvotes": 234
+    },
+    {
+      "title": "SaaS Onboarding Flow Builder",
+      "description": "Visual builder for creating user onboarding experiences. Includes tooltips, product tours, checklists, and analytics to optimize activation rates.",
+      "source": "r/SaaS",
+      "upvotes": 198
+    },
+    {
+      "title": "AI Competitive Intelligence Dashboard",
+      "description": "Monitors competitors' job postings, press releases, product updates, and social mentions. Provides strategic insights and alerts on market movements.",
+      "source": "r/Startups",
+      "upvotes": 267
+    },
+    {
+      "title": "Developer Community Platform",
+      "description": "White-label community platform for developer-focused companies. Includes forums, Q&A, documentation wiki, and integration with support systems.",
+      "source": "r/SaaS",
+      "upvotes": 189
+    },
+    {
+      "title": "AI Website Builder for SMBs",
+      "description": "Generate complete business websites from a brief description. AI creates copy, selects images, and builds responsive pages optimized for conversions.",
+      "source": "r/indiehackers",
+      "upvotes": 312
+    }
+  ]
+}

@@ -5,7 +5,7 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node'
 import { createClient } from '@supabase/supabase-js'
 
-// Import ideas data - we'll use a simplified version for the email
+// Category-specific tips for email campaigns
 const quickTips: Record<string, string[]> = {
   "SaaS": [
     "Start with a landing page to validate demand before building",
@@ -41,6 +41,56 @@ const quickTips: Record<string, string[]> = {
     "Start by solving the chicken-and-egg problem on one side",
     "Focus on a specific niche before expanding",
     "Trust and safety features are critical for adoption"
+  ],
+  "DevTools": [
+    "Build for developers by understanding their workflow pain points",
+    "Integrations with existing tools are key for adoption",
+    "Offer generous free tiers - developers share what they love"
+  ],
+  "MarTech": [
+    "Focus on clear ROI metrics that marketers can show their bosses",
+    "Integration with popular platforms (Hubspot, Salesforce) is crucial",
+    "Templates and examples accelerate time-to-value"
+  ],
+  "HRTech": [
+    "Compliance with employment laws varies by region - start narrow",
+    "HR managers need simple onboarding for employee adoption",
+    "Data security and privacy are non-negotiable"
+  ],
+  "PropTech": [
+    "Real estate moves slowly - plan for longer sales cycles",
+    "Local market expertise creates defensibility",
+    "Trust and verified data are essential in this industry"
+  ],
+  "FoodTech": [
+    "Start with a single cuisine or food category to perfect operations",
+    "Logistics and delivery are often the hardest parts",
+    "Health and safety certifications build customer trust"
+  ],
+  "Productivity": [
+    "Integrate with tools people already use (Slack, Teams, etc)",
+    "Simple, intuitive UX is critical - don't add complexity",
+    "Mobile-first if targeting knowledge workers"
+  ],
+  "Creator Economy": [
+    "Understand creator pain points - usually monetization and growth",
+    "Low transaction fees matter for creator adoption",
+    "Community features keep creators engaged"
+  ],
+  "Sustainability": [
+    "Be transparent about environmental impact claims",
+    "Certifications and third-party verification add credibility",
+    "B2B often has larger budgets than B2C for green solutions"
+  ],
+  "B2B": [
+    "Pilot programs with 3-5 customers validate product-market fit",
+    "Enterprise sales cycles are long - plan accordingly",
+    "Focus on measurable ROI - decision makers need data"
+  ],
+  "B2C": [
+    "User acquisition costs can make or break your model",
+    "Viral/referral loops reduce CAC significantly",
+    "Mobile experience is often more important than desktop"
   ]
 }
 
@@ -94,10 +144,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     // Select today's featured idea (rotate based on day of year)
     const dayOfYear = Math.floor((Date.now() - new Date(new Date().getFullYear(), 0, 0).getTime()) / 86400000)
-    const ideaIndex = dayOfYear % 65 // Rotate through 65 ideas
 
-    // Fetch the idea from our data
-    const idea = await getIdeaOfTheDay(ideaIndex)
+    // Fetch the idea from Supabase - rotate through all ideas
+    const idea = await getIdeaOfTheDay(supabase, dayOfYear)
 
     if (!idea) {
       throw new Error('Failed to get idea of the day')
@@ -183,45 +232,39 @@ interface IdeaData {
   timeToMVP: string
 }
 
-async function getIdeaOfTheDay(index: number): Promise<IdeaData | null> {
-  // Hardcoded sample ideas for the email - in production, fetch from database
-  const sampleIdeas: IdeaData[] = [
-    {
-      id: "ai-finance-coach",
-      title: "AI Personal Finance Coach",
-      description: "AI assistant that analyzes spending, suggests budgets, and provides personalized financial advice.",
-      category: "FinTech",
-      marketScore: 85,
-      competitionLevel: "Medium",
-      potentialRevenue: "$50M+",
-      marketSize: "$1.5 Trillion",
-      timeToMVP: "3-4 months"
-    },
-    {
-      id: "ai-code-reviewer",
-      title: "AI Code Review Assistant",
-      description: "Automated code review tool that catches bugs, suggests improvements, and ensures best practices.",
-      category: "SaaS",
-      marketScore: 82,
-      competitionLevel: "High",
-      potentialRevenue: "$40M+",
-      marketSize: "$26.8 Billion",
-      timeToMVP: "2-3 months"
-    },
-    {
-      id: "sustainable-fashion",
-      title: "AI Sustainable Fashion Marketplace",
-      description: "Platform connecting eco-conscious consumers with verified sustainable fashion brands.",
-      category: "E-commerce",
-      marketScore: 78,
-      competitionLevel: "Low",
-      potentialRevenue: "$30M+",
-      marketSize: "$8.25 Billion",
-      timeToMVP: "3-4 months"
-    }
-  ]
+async function getIdeaOfTheDay(supabase: any, dayOfYear: number): Promise<IdeaData | null> {
+  try {
+    // Fetch all ideas ordered by market_score (best ideas first)
+    const { data: ideas, error } = await supabase
+      .from('ideas')
+      .select('id, title, description, category, market_score, competition_level, potential_revenue, market_size, time_to_mvp')
+      .order('market_score', { ascending: false })
+      .limit(1000)
 
-  return sampleIdeas[index % sampleIdeas.length] || sampleIdeas[0]
+    if (error || !ideas || ideas.length === 0) {
+      console.error('Error fetching ideas:', error)
+      return null
+    }
+
+    // Rotate through ideas based on day of year
+    const index = dayOfYear % ideas.length
+    const idea = ideas[index]
+
+    return {
+      id: idea.id,
+      title: idea.title,
+      description: idea.description,
+      category: idea.category,
+      marketScore: idea.market_score,
+      competitionLevel: idea.competition_level,
+      potentialRevenue: idea.potential_revenue,
+      marketSize: idea.market_size,
+      timeToMVP: idea.time_to_mvp
+    }
+  } catch (err) {
+    console.error('Error in getIdeaOfTheDay:', err)
+    return null
+  }
 }
 
 function getDailyEmailHTML(idea: IdeaData, tips: string[]): string {
