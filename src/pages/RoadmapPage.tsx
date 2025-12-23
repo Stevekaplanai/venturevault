@@ -1,13 +1,36 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import {
   Rocket, CheckCircle2, Clock, Sparkles, ThumbsUp,
   MessageSquare, Calendar, Users, Zap, Target,
-  ChevronUp, BarChart3, Brain, Globe, Shield
+  ChevronUp, BarChart3, Brain, Globe, Shield, Loader2, PartyPopper
 } from "lucide-react"
+import { toast } from "sonner"
+import confetti from "canvas-confetti"
 import { Button } from "../components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../components/ui/card"
 import { Badge } from "../components/ui/badge"
 import { Textarea } from "../components/ui/textarea"
+
+// Generate or retrieve a unique visitor ID
+function getVisitorId(): string {
+  const key = "venturevault-visitor-id"
+  let id = localStorage.getItem(key)
+  if (!id) {
+    id = crypto.randomUUID()
+    localStorage.setItem(key, id)
+  }
+  return id
+}
+
+// Mini confetti burst for voting
+function triggerVoteConfetti() {
+  confetti({
+    particleCount: 50,
+    spread: 60,
+    origin: { y: 0.7 },
+    colors: ['#7c3aed', '#4f46e5', '#a855f7', '#10b981']
+  })
+}
 
 interface Feature {
   id: string
@@ -144,42 +167,93 @@ const statusConfig = {
 export function RoadmapPage() {
   const [features, setFeatures] = useState<Feature[]>(initialFeatures)
   const [votedFeatures, setVotedFeatures] = useState<Set<string>>(new Set())
+  const [votingFeature, setVotingFeature] = useState<string | null>(null)
   const [suggestion, setSuggestion] = useState("")
   const [submitted, setSubmitted] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
 
-  // Load votes from localStorage
+  // Fetch votes from API on mount
+  const fetchVotes = useCallback(async () => {
+    try {
+      const response = await fetch("/api/roadmap-vote")
+      if (response.ok) {
+        const data = await response.json()
+        if (data.votes) {
+          setFeatures(prev => prev.map(f => ({
+            ...f,
+            votes: f.votes + (data.votes[f.id] || 0)
+          })))
+        }
+      }
+    } catch (error) {
+      console.error("Failed to fetch votes:", error)
+    } finally {
+      setIsLoading(false)
+    }
+  }, [])
+
   useEffect(() => {
+    // Load local voted features (to prevent re-voting)
     const savedVotes = localStorage.getItem("venturevault-votes")
     if (savedVotes) {
       setVotedFeatures(new Set(JSON.parse(savedVotes)))
     }
-    const savedFeatureVotes = localStorage.getItem("venturevault-feature-votes")
-    if (savedFeatureVotes) {
-      const votes = JSON.parse(savedFeatureVotes)
-      setFeatures(prev => prev.map(f => ({
-        ...f,
-        votes: votes[f.id] ?? f.votes
-      })))
+    // Fetch votes from server
+    fetchVotes()
+  }, [fetchVotes])
+
+  const handleVote = async (featureId: string) => {
+    if (votedFeatures.has(featureId) || votingFeature) return
+
+    setVotingFeature(featureId)
+
+    try {
+      const visitorId = getVisitorId()
+      const response = await fetch("/api/roadmap-vote", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ featureId, visitorId })
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        if (data.error === "Already voted for this feature") {
+          // Already voted - just update local state
+          const newVotedFeatures = new Set(votedFeatures)
+          newVotedFeatures.add(featureId)
+          setVotedFeatures(newVotedFeatures)
+          localStorage.setItem("venturevault-votes", JSON.stringify([...newVotedFeatures]))
+          toast.info("You've already voted for this feature!")
+        } else {
+          throw new Error(data.error)
+        }
+        return
+      }
+
+      // Success!
+      const newVotedFeatures = new Set(votedFeatures)
+      newVotedFeatures.add(featureId)
+      setVotedFeatures(newVotedFeatures)
+      localStorage.setItem("venturevault-votes", JSON.stringify([...newVotedFeatures]))
+
+      setFeatures(prev => prev.map(f =>
+        f.id === featureId ? { ...f, votes: data.voteCount || f.votes + 1 } : f
+      ))
+
+      triggerVoteConfetti()
+      toast.success("Vote recorded!", {
+        description: "Thanks for helping shape VentureVault!",
+        icon: <PartyPopper className="h-5 w-5 text-purple-500" />
+      })
+    } catch (error) {
+      console.error("Vote failed:", error)
+      toast.error("Failed to record vote", {
+        description: "Please try again in a moment."
+      })
+    } finally {
+      setVotingFeature(null)
     }
-  }, [])
-
-  const handleVote = (featureId: string) => {
-    if (votedFeatures.has(featureId)) return
-
-    const newVotedFeatures = new Set(votedFeatures)
-    newVotedFeatures.add(featureId)
-    setVotedFeatures(newVotedFeatures)
-    localStorage.setItem("venturevault-votes", JSON.stringify([...newVotedFeatures]))
-
-    setFeatures(prev => {
-      const updated = prev.map(f =>
-        f.id === featureId ? { ...f, votes: f.votes + 1 } : f
-      )
-      const votes: Record<string, number> = {}
-      updated.forEach(f => votes[f.id] = f.votes)
-      localStorage.setItem("venturevault-feature-votes", JSON.stringify(votes))
-      return updated
-    })
   }
 
   const handleSuggestion = () => {
@@ -287,15 +361,27 @@ export function RoadmapPage() {
                             variant={votedFeatures.has(feature.id) ? "secondary" : "outline"}
                             size="sm"
                             onClick={() => handleVote(feature.id)}
-                            disabled={votedFeatures.has(feature.id)}
-                            className="gap-2"
+                            disabled={votedFeatures.has(feature.id) || votingFeature === feature.id}
+                            className={`gap-2 transition-all duration-300 ${
+                              votedFeatures.has(feature.id)
+                                ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300"
+                                : "hover:bg-purple-100 hover:text-purple-700 hover:border-purple-300 dark:hover:bg-purple-900/30"
+                            }`}
                           >
-                            <ChevronUp className="h-4 w-4" />
-                            {votedFeatures.has(feature.id) ? "Voted" : "Upvote"}
+                            {votingFeature === feature.id ? (
+                              <Loader2 className="h-4 w-4 animate-spin" />
+                            ) : votedFeatures.has(feature.id) ? (
+                              <CheckCircle2 className="h-4 w-4" />
+                            ) : (
+                              <ChevronUp className="h-4 w-4" />
+                            )}
+                            {votingFeature === feature.id ? "Voting..." : votedFeatures.has(feature.id) ? "Voted!" : "Upvote"}
                           </Button>
-                          <div className="flex items-center gap-1 text-sm text-muted-foreground">
+                          <div className={`flex items-center gap-1 text-sm transition-all duration-300 ${
+                            isLoading ? "opacity-50" : "text-muted-foreground"
+                          }`}>
                             <ThumbsUp className="h-4 w-4" />
-                            <span className="font-semibold">{feature.votes}</span>
+                            <span className="font-semibold tabular-nums">{feature.votes}</span>
                           </div>
                         </div>
                       )}
