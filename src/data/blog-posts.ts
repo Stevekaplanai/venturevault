@@ -414,6 +414,916 @@ Start building, prove demand, then decide.
     publishedAt: "2024-12-21",
     tags: ["Funding", "Bootstrap", "VC", "Strategy"],
     readTime: "7 min read"
+  },
+  {
+    id: "6",
+    slug: "mvp-in-30-days",
+    title: "Build Your MVP in 30 Days: A Step-by-Step Guide",
+    excerpt: "A practical framework for going from idea to working prototype in just one month.",
+    content: `
+# Build Your MVP in 30 Days
+
+Building an MVP doesn't have to take months. Here's a proven framework to ship in 30 days.
+
+## Week 1: Define & Design (Days 1-7)
+
+### Day 1-2: Problem Definition
+- Write down the core problem you're solving
+- Identify your initial target customer
+- Define success metrics
+
+### Day 3-4: Solution Scoping
+- List ALL features you want to build
+- Ruthlessly cut to the absolute essentials
+- The MVP should do ONE thing well
+
+### Day 5-7: Design Sprint
+- Sketch rough wireframes (paper is fine)
+- Create a simple user flow
+- Design the critical path only
+
+## Week 2: Core Build (Days 8-14)
+
+### Tech Stack Selection
+- **Frontend**: React, Vue, or even no-code (Webflow, Bubble)
+- **Backend**: Supabase, Firebase, or simple Express
+- **Database**: PostgreSQL or SQLite
+- **Hosting**: Vercel, Railway, or Render
+
+### Focus Areas
+1. User authentication (if needed)
+2. Core value-delivering feature
+3. Basic data persistence
+4. Simple, clean UI
+
+## Week 3: Feature Complete (Days 15-21)
+
+### Build the essentials:
+- Complete the happy path
+- Add basic error handling
+- Implement simple analytics
+- Create onboarding flow
+
+### Skip for now:
+- Perfect UI/UX
+- Edge cases
+- Advanced features
+- Scaling concerns
+
+## Week 4: Polish & Launch (Days 22-30)
+
+### Days 22-25: Testing & Fixes
+- Test with 5-10 real users
+- Fix critical bugs only
+- Gather initial feedback
+
+### Days 26-28: Launch Prep
+- Write launch copy
+- Prepare landing page
+- Set up analytics
+
+### Days 29-30: Launch!
+- Post on Product Hunt
+- Share in relevant communities
+- Email your waitlist
+
+## The MVP Mindset
+
+**Remember**: Your MVP is not your final product. It's a learning tool.
+
+1. **Ship embarrassingly early** - If you're not embarrassed, you shipped too late
+2. **Solve one problem well** - Resist feature creep
+3. **Talk to users daily** - Feedback is your compass
+4. **Iterate rapidly** - Weekly releases, not monthly
+
+## Tools We Recommend
+
+- **No-Code**: Bubble, Webflow, Glide
+- **Low-Code**: Retool, Supabase
+- **Full Stack**: Next.js, Remix
+- **Backend**: Firebase, Supabase, PocketBase
+- **Deployment**: Vercel, Railway, Fly.io
+
+Start building today!
+    `.trim(),
+    category: "tips",
+    author: "VentureVault Team",
+    publishedAt: "2024-12-23",
+    tags: ["MVP", "Guide", "Development", "Launch"],
+    readTime: "6 min read"
+  },
+  {
+    id: "7",
+    slug: "saas-pricing-strategies",
+    title: "SaaS Pricing Strategies: From Free to Enterprise",
+    excerpt: "How to price your SaaS product for maximum growth and revenue.",
+    content: `
+# SaaS Pricing Strategies
+
+Pricing is one of the most important—and most overlooked—decisions you'll make.
+
+## The Three Pricing Models
+
+### 1. Freemium
+**Best for**: Products with viral potential, large TAM
+
+**Pros:**
+- Low barrier to adoption
+- Word-of-mouth growth
+- Large user base for feedback
+
+**Cons:**
+- High support costs
+- Long conversion cycles
+- Can attract wrong users
+
+**Examples**: Slack, Notion, Figma
+
+### 2. Free Trial
+**Best for**: Products that show value quickly
+
+**Pros:**
+- Users experience full product
+- Higher conversion than freemium
+- Shorter sales cycle
+
+**Cons:**
+- May limit reach
+- Time pressure can backfire
+- Need strong onboarding
+
+**Examples**: Netflix, Zoom, HubSpot
+
+### 3. Paid Only
+**Best for**: Enterprise, specialized tools
+
+**Pros:**
+- Qualified leads only
+- Higher revenue per user
+- Better unit economics
+
+**Cons:**
+- Slower initial growth
+- Higher CAC
+- More sales-driven
+
+**Examples**: Salesforce, Workday
+
+## Pricing Tiers Best Practices
+
+### The Rule of Three
+- **Good**: Entry-level, essential features
+- **Better**: Most popular, core features + integrations
+- **Best**: All features, priority support, enterprise needs
+
+### Anchor Pricing
+Put your target tier in the middle. The expensive tier makes it look reasonable.
+
+### Feature Differentiation
+- **Limit by usage**: Seats, API calls, storage
+- **Limit by features**: Advanced analytics, integrations
+- **Limit by support**: Response time, dedicated CSM
+
+## Price Points That Work
+
+### B2B SaaS
+- **Starter**: $29-49/month
+- **Professional**: $99-199/month
+- **Enterprise**: Custom (usually $500+/month)
+
+### B2C SaaS
+- **Free tier**: $0
+- **Pro**: $9-19/month
+- **Teams**: $29-49/user/month
+
+## Common Pricing Mistakes
+
+1. **Pricing too low** - Undervalues your product
+2. **Too many tiers** - Creates decision paralysis
+3. **No annual discount** - Miss cash flow opportunity
+4. **Hiding prices** - Loses trust with buyers
+
+## When to Raise Prices
+
+- After adding significant features
+- When conversion rate is too high (>5% on free trial)
+- Every 6-12 months minimum
+- Grandfather existing customers (usually)
+
+## The 10x Rule
+
+Your product should deliver at least 10x the value of its price. If you charge $100/month, you should save or make the customer $1,000+.
+
+Explore SaaS ideas on VentureVault →
+    `.trim(),
+    category: "tips",
+    author: "VentureVault Team",
+    publishedAt: "2024-12-23",
+    tags: ["SaaS", "Pricing", "Strategy", "Revenue"],
+    readTime: "7 min read"
+  },
+  {
+    id: "8",
+    slug: "finding-first-10-customers",
+    title: "How to Find Your First 10 Customers",
+    excerpt: "Practical strategies for acquiring your earliest adopters without spending on ads.",
+    content: `
+# How to Find Your First 10 Customers
+
+Your first 10 customers are the hardest—and most important—to get.
+
+## Why First Customers Matter
+
+- They validate your idea
+- They provide critical feedback
+- They become your advocates
+- They define your positioning
+
+## Strategy 1: Your Network
+
+### Start with warm outreach
+- Friends and family (who fit your ICP)
+- Former colleagues
+- LinkedIn connections
+- Alumni networks
+
+### The ask
+> "I'm building [product] to solve [problem]. Would you be willing to try it and give feedback?"
+
+**Success rate**: 10-20% of relevant contacts
+
+## Strategy 2: Communities
+
+### Where to find them
+- Reddit (r/startups, niche subreddits)
+- Discord servers
+- Slack communities
+- Facebook groups
+- Twitter/X communities
+
+### How to engage
+1. **Don't spam** - Be a genuine member first
+2. **Provide value** - Answer questions, share insights
+3. **Soft launch** - "I built something that might help..."
+4. **Ask for feedback** - Not just sales
+
+## Strategy 3: Content Marketing
+
+### Quick wins
+- Answer questions on Quora
+- Write a blog post about the problem
+- Create a useful tool/calculator
+- Share your building journey on Twitter
+
+### The long game
+- SEO-optimized content
+- YouTube tutorials
+- Podcast appearances
+
+## Strategy 4: Direct Outreach
+
+### Cold email template
+
+Subject: Quick question about [their challenge]
+
+Hi [Name],
+
+I noticed you're working on [relevant thing]. I'm building [product] to help with [specific problem].
+
+Would you be open to a 15-minute call to see if this could help? Happy to share my learnings either way.
+
+Best,
+[Your name]
+
+**Response rate**: 5-10%
+
+## Strategy 5: Product Hunt & Directories
+
+### Launch platforms
+- Product Hunt
+- Hacker News (Show HN)
+- BetaList
+- Indie Hackers
+
+### Tips
+- Launch on Tuesday-Thursday
+- Have a compelling tagline
+- Prepare assets in advance
+- Engage with every comment
+
+## The First 10 Formula
+
+| Strategy | Effort | Timeline | Expected |
+|----------|--------|----------|----------|
+| Network | Low | 1 week | 2-3 customers |
+| Communities | Medium | 2 weeks | 2-3 customers |
+| Content | High | 4+ weeks | 1-2 customers |
+| Outreach | Medium | 2 weeks | 2-3 customers |
+| Launches | Medium | 1 day | 1-2 customers |
+
+## What NOT to Do
+
+- Run paid ads (too early, not enough data)
+- Build more features (ship what you have)
+- Wait for perfect (done > perfect)
+- Ignore feedback (your first users are gold)
+
+## After the First 10
+
+Focus on:
+1. Understanding why they bought
+2. Getting testimonials
+3. Finding referrals
+4. Improving retention
+
+Your first 10 customers will teach you more than any market research.
+    `.trim(),
+    category: "tips",
+    author: "VentureVault Team",
+    publishedAt: "2024-12-22",
+    tags: ["Customers", "Growth", "Sales", "Marketing"],
+    readTime: "6 min read"
+  },
+  {
+    id: "9",
+    slug: "no-code-vs-code-startups",
+    title: "No-Code vs Code: Which Should You Choose for Your Startup?",
+    excerpt: "A practical comparison to help you decide the right tech approach for your MVP.",
+    content: `
+# No-Code vs Code: Which Should You Choose?
+
+The build vs. buy decision is more nuanced than ever.
+
+## When to Choose No-Code
+
+### Perfect for:
+- **Non-technical founders** testing ideas
+- **MVP validation** (< 3 months)
+- **Internal tools** and automations
+- **Simple CRUD apps** (forms, directories)
+- **Landing pages** and marketing sites
+
+### Top No-Code Platforms
+
+| Platform | Best For | Pricing |
+|----------|----------|---------|
+| Bubble | Web apps | $29-529/mo |
+| Webflow | Marketing sites | $14-212/mo |
+| Glide | Mobile apps | Free-$249/mo |
+| Airtable | Databases | Free-$20/mo |
+| Zapier | Automations | Free-$599/mo |
+
+### No-Code Limitations
+- Performance constraints
+- Limited customization
+- Platform lock-in
+- Scaling challenges
+- Monthly costs add up
+
+## When to Choose Code
+
+### Perfect for:
+- **Technical founders** or co-founders
+- **Complex logic** and algorithms
+- **High performance** requirements
+- **Unique UX** needs
+- **Long-term scalability**
+
+### Modern Dev Stack
+
+**Frontend:**
+- React / Next.js
+- Vue / Nuxt
+- Svelte / SvelteKit
+
+**Backend:**
+- Node.js / Express
+- Python / FastAPI
+- Go / Rust
+
+**Database:**
+- PostgreSQL
+- MongoDB
+- Supabase / Firebase
+
+### Code Advantages
+- Full control
+- Better performance
+- No platform fees
+- Unlimited customization
+- Easier to scale
+
+## The Hybrid Approach
+
+**Best of both worlds:**
+
+1. **Landing page**: Webflow or Framer
+2. **Waitlist**: Airtable or Google Forms
+3. **MVP**: Bubble or low-code
+4. **Production**: Custom code
+
+### When to migrate from no-code:
+- Hitting platform limits
+- Monthly costs > dev costs
+- Need custom features
+- Performance issues
+- Ready to scale
+
+## Decision Framework
+
+Ask yourself:
+
+1. **Do you have a technical co-founder?**
+   - Yes → Code
+   - No → No-code to start
+
+2. **Is speed to market critical?**
+   - Yes → No-code
+   - Can wait → Code
+
+3. **Is this a validation or real product?**
+   - Validation → No-code
+   - Real product → Consider code
+
+4. **What's your budget?**
+   - < $1K/month → No-code
+   - > $1K/month → Code might be cheaper
+
+5. **How complex is your app?**
+   - Simple CRUD → No-code
+   - Complex logic → Code
+
+## Real Examples
+
+### No-Code Success Stories
+- **Plato** - Built on Bubble, acquired for $8M
+- **Dividend Finance** - Started on Bubble
+- **Teal** - $11M raised, built on Webflow + Airtable
+
+### Code Success Stories
+- Most billion-dollar startups
+- Any product requiring custom algorithms
+- High-performance applications
+
+## Our Recommendation
+
+**For most first-time founders:**
+
+1. Start with no-code for validation
+2. Get paying customers
+3. Migrate to code when hitting limits
+
+The best tech stack is the one that gets you to customers fastest.
+    `.trim(),
+    category: "tips",
+    author: "VentureVault Team",
+    publishedAt: "2024-12-21",
+    tags: ["No-Code", "Development", "Tech Stack", "MVP"],
+    readTime: "7 min read"
+  },
+  {
+    id: "10",
+    slug: "startup-metrics-that-matter",
+    title: "The Only Startup Metrics That Actually Matter",
+    excerpt: "Cut through vanity metrics and focus on the numbers that drive real growth.",
+    content: `
+# The Only Startup Metrics That Actually Matter
+
+Stop tracking vanity metrics. Here's what actually matters.
+
+## The Core Four
+
+### 1. Monthly Recurring Revenue (MRR)
+
+**What it is**: Predictable monthly revenue from subscriptions
+
+**Why it matters**: Shows business health and growth trajectory
+
+**How to calculate**:
+MRR = Number of customers × Average revenue per customer
+
+**Benchmarks**:
+- Pre-seed: $0-10K MRR
+- Seed: $10K-100K MRR
+- Series A: $100K-500K MRR
+
+### 2. Customer Acquisition Cost (CAC)
+
+**What it is**: Cost to acquire one new customer
+
+**Why it matters**: Determines if your growth is sustainable
+
+**How to calculate**:
+CAC = Total sales & marketing costs ÷ New customers acquired
+
+**Benchmarks**:
+- B2C SaaS: $50-200
+- B2B SMB: $200-500
+- B2B Enterprise: $1,000-5,000+
+
+### 3. Lifetime Value (LTV)
+
+**What it is**: Total revenue from a customer over their lifetime
+
+**Why it matters**: Shows long-term value of customer relationships
+
+**How to calculate**:
+LTV = Average revenue per customer × Average customer lifespan
+
+**The Golden Ratio**:
+LTV:CAC should be at least 3:1
+
+### 4. Churn Rate
+
+**What it is**: Percentage of customers who cancel
+
+**Why it matters**: High churn kills growth
+
+**How to calculate**:
+Monthly Churn = Customers lost ÷ Customers at start of month
+
+**Benchmarks**:
+- B2C: 3-7% monthly
+- B2B SMB: 2-5% monthly
+- B2B Enterprise: <1% monthly
+
+## Secondary Metrics
+
+### Activation Rate
+Percentage of signups who reach "aha moment"
+
+**Target**: 40-60%
+
+### Net Revenue Retention (NRR)
+Revenue kept + expansion from existing customers
+
+**Target**: >100% (means you grow even without new customers)
+
+### Payback Period
+Months to recover CAC
+
+**Target**: <12 months
+
+## Vanity Metrics to Ignore
+
+- **Total users** (without engagement data)
+- **Page views** (without conversion data)
+- **Social followers** (without business impact)
+- **Features shipped** (without usage data)
+- **App downloads** (without retention)
+
+## How to Track
+
+### Free Tools
+- **Google Analytics** - Traffic, conversions
+- **Mixpanel** - Product analytics (free tier)
+- **Baremetrics** - MRR, churn (connects to Stripe)
+
+### Paid Tools
+- **Amplitude** - Product analytics
+- **ChartMogul** - Subscription analytics
+- **ProfitWell** - Revenue analytics
+
+## Weekly Dashboard
+
+Track these weekly:
+
+| Metric | This Week | Last Week | Trend |
+|--------|-----------|-----------|-------|
+| MRR | | | |
+| New Customers | | | |
+| Churn | | | |
+| Active Users | | | |
+| Activation Rate | | | |
+
+## Red Flags to Watch
+
+- CAC rising faster than LTV
+- Churn increasing month over month
+- MRR growth slowing
+- Activation rate declining
+- Payback period extending
+
+## The One Metric That Matters
+
+At any stage, identify your ONE key metric:
+
+- **Pre-PMF**: Retention (are people sticking around?)
+- **Post-PMF**: Growth rate (how fast are you growing?)
+- **Scaling**: Efficiency (CAC:LTV, payback period)
+
+Focus on moving that one number.
+    `.trim(),
+    category: "tips",
+    author: "VentureVault Team",
+    publishedAt: "2024-12-20",
+    tags: ["Metrics", "Analytics", "Growth", "SaaS"],
+    readTime: "8 min read"
+  },
+  {
+    id: "11",
+    slug: "remote-first-startup-playbook",
+    title: "The Remote-First Startup Playbook",
+    excerpt: "How to build a successful startup with a distributed team from day one.",
+    content: `
+# The Remote-First Startup Playbook
+
+Remote work isn't just about working from home—it's a competitive advantage.
+
+## Why Remote-First?
+
+### Benefits
+- **10x talent pool** - Hire globally
+- **Lower costs** - No office overhead
+- **Higher productivity** - Async work, fewer meetings
+- **Better retention** - Flexibility matters
+
+### Challenges
+- Communication friction
+- Culture building
+- Time zone coordination
+- Loneliness and isolation
+
+## The Tech Stack
+
+### Communication
+- **Async**: Slack, Notion, Loom
+- **Sync**: Zoom, Google Meet, Around
+- **Email**: Superhuman, Front
+
+### Project Management
+- **Tasks**: Linear, Asana, Notion
+- **Docs**: Notion, Coda, Confluence
+- **Design**: Figma, FigJam
+
+### Engineering
+- **Code**: GitHub, GitLab
+- **DevOps**: Vercel, Railway
+- **Monitoring**: Sentry, LogRocket
+
+## Communication Principles
+
+### Default to Async
+- Write more, meet less
+- Record videos instead of live calls
+- Document decisions in writing
+
+### When to Meet
+- Kickoffs and planning
+- Complex problem-solving
+- 1:1s and feedback
+- Team bonding
+
+### Meeting Rules
+- Default 25 or 50 minutes (not 30/60)
+- Always have an agenda
+- Record for absent teammates
+- End with action items
+
+## Hiring Remotely
+
+### What to Look For
+- Self-motivated and disciplined
+- Strong written communication
+- Comfortable with ambiguity
+- Previous remote experience (bonus)
+
+### Interview Process
+1. Async video intro (Loom)
+2. Skills assessment (async)
+3. Live interview (30 min)
+4. Team meet (30 min)
+5. Paid trial project (optional)
+
+### Onboarding
+- Detailed Notion onboarding doc
+- Buddy system (pair with teammate)
+- Daily check-ins for first week
+- 30/60/90 day milestones
+
+## Building Culture
+
+### Regular Rituals
+- **Daily**: Async standups in Slack
+- **Weekly**: Team all-hands (30 min max)
+- **Monthly**: 1:1s with reports
+- **Quarterly**: Virtual offsites
+
+### Virtual Team Building
+- Coffee chats (random pairings)
+- Show and tell sessions
+- Game nights (Jackbox, etc.)
+- Shared Spotify playlists
+
+### Documentation Culture
+- If it's not written, it doesn't exist
+- Handbook-first approach
+- Record tribal knowledge
+- Update docs as you go
+
+## Time Zones
+
+### Strategies
+1. **Overlap hours**: Define 4-hour overlap window
+2. **Follow the sun**: Hand off work across zones
+3. **Regional hubs**: Hire in clusters
+
+### Tools
+- World Time Buddy
+- Timezone.io
+- Google Calendar (multiple timezones)
+
+## Compensation
+
+### Approaches
+1. **Location-based**: Pay local market rates
+2. **National**: Same pay regardless of location
+3. **Global**: One rate worldwide
+
+### Benefits for Remote Teams
+- Home office stipend ($500-1000)
+- Coworking membership
+- Health insurance (via Deel, Remote)
+- Learning budget
+- Wellness stipend
+
+## Common Mistakes
+
+1. **Too many meetings** - Kills async culture
+2. **No overlap time** - Creates silos
+3. **Poor documentation** - Tribal knowledge issues
+4. **Hiring for office culture** - Look for remote skills
+5. **No in-person time** - Meet 1-2x/year minimum
+
+## Resources
+
+- **Hiring**: Deel, Remote, Oyster
+- **Payroll**: Gusto, Rippling
+- **Benefits**: Benepass, Compt
+- **Culture**: Donut (random 1:1s)
+
+Build remote-first, scale globally.
+    `.trim(),
+    category: "tips",
+    author: "VentureVault Team",
+    publishedAt: "2024-12-19",
+    tags: ["Remote Work", "Team Building", "Culture", "Hiring"],
+    readTime: "8 min read"
+  },
+  {
+    id: "12",
+    slug: "marketplace-startup-guide",
+    title: "Building a Marketplace: Solving the Chicken and Egg Problem",
+    excerpt: "Strategies for launching and scaling two-sided marketplaces.",
+    content: `
+# Building a Marketplace: The Ultimate Guide
+
+Marketplaces are hard. Here's how to crack the chicken and egg problem.
+
+## Understanding Marketplaces
+
+### Types of Marketplaces
+- **Product**: Amazon, Etsy, eBay
+- **Service**: Uber, Airbnb, Upwork
+- **B2B**: Alibaba, Faire, Flexport
+
+### The Network Effect
+Value increases as more participants join. This creates:
+- Winner-take-all dynamics
+- High barriers to entry (once established)
+- Exponential growth potential
+
+## The Chicken and Egg Problem
+
+**The challenge**: Buyers won't come without sellers. Sellers won't come without buyers.
+
+### Strategy 1: Single Player Mode
+
+Make your product useful even without the other side.
+
+**Examples**:
+- **OpenTable**: Restaurant management software (useful alone) + booking marketplace
+- **Yelp**: Business listings (useful alone) + reviews marketplace
+
+### Strategy 2: Seed One Side
+
+Start with supply OR demand, not both.
+
+**Supply-first** (usually better):
+- Onboard sellers manually
+- Offer free/subsidized listings
+- Create initial inventory yourself
+
+**Demand-first**:
+- Build audience through content
+- Pre-launch waitlist
+- Partner with demand aggregators
+
+### Strategy 3: Constrain the Market
+
+Start hyper-local or hyper-niche.
+
+**Examples**:
+- **Uber**: Started in San Francisco only
+- **Etsy**: Started with craft sellers only
+- **Airbnb**: Started with conference overflow
+
+### Strategy 4: Subsidize One Side
+
+Pay to kickstart the network.
+
+**Examples**:
+- **Uber**: Paid drivers to be available
+- **DoorDash**: Subsidized delivery fees
+- **ClassPass**: Paid studios to join
+
+## Launching Your Marketplace
+
+### Phase 1: Supply (Weeks 1-4)
+1. Manually recruit 10-20 sellers
+2. Help them create listings
+3. Ensure quality is high
+4. Make it free initially
+
+### Phase 2: Demand (Weeks 4-8)
+1. Launch in one location/niche
+2. Drive traffic to listings
+3. Facilitate first transactions
+4. Gather feedback from both sides
+
+### Phase 3: Iterate (Weeks 8-12)
+1. Improve matching algorithm
+2. Reduce friction in transactions
+3. Build trust mechanisms
+4. Add reviews and ratings
+
+## Marketplace Metrics
+
+### Key Metrics
+- **GMV**: Gross Merchandise Value
+- **Take Rate**: Your cut of transactions
+- **Liquidity**: % of listings that transact
+- **Repeat Rate**: Users who come back
+
+### Benchmarks
+- Take rate: 10-30% (depends on category)
+- Liquidity: 30%+ is healthy
+- Repeat rate: 40%+ is strong
+
+## Trust and Safety
+
+### Building Trust
+- Verified profiles
+- Reviews and ratings
+- Escrow payments
+- Identity verification
+- Insurance/guarantees
+
+### Safety Features
+- Fraud detection
+- Dispute resolution
+- Background checks (if applicable)
+- Secure messaging
+
+## Monetization Models
+
+### Transaction Fees
+- Percentage of each transaction (most common)
+- Fixed fee per transaction
+- Combination of both
+
+### Subscription/Membership
+- Premium seller tools
+- Buyer membership (Amazon Prime)
+- Featured listings
+
+### Lead Generation
+- Pay-per-lead
+- Auction for leads
+- Featured placement
+
+## Common Failure Modes
+
+1. **Launching too broad** - Can't build density
+2. **Ignoring supply quality** - Bad sellers kill marketplaces
+3. **Over-engineering** - Manual processes are fine early
+4. **Growing too fast** - Quality suffers
+5. **Wrong take rate** - Too high kills growth, too low kills business
+
+## Marketplace Examples to Study
+
+- **Airbnb**: Trust, photography, experience
+- **Uber**: Operations, pricing, expansion
+- **Etsy**: Community, curation, seller tools
+- **Faire**: B2B, net terms, data
+
+Build the supply, create the demand, and facilitate the match.
+    `.trim(),
+    category: "ideas",
+    author: "VentureVault Team",
+    publishedAt: "2024-12-18",
+    tags: ["Marketplace", "Platform", "Network Effects", "Growth"],
+    readTime: "9 min read"
   }
 ]
 

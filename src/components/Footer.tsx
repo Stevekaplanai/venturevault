@@ -105,28 +105,28 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Links - Categories */}
+          {/* Links - Resources */}
           <div className="hidden md:block">
-            <h4 className="font-semibold mb-4 text-sm uppercase tracking-wider text-muted-foreground">Categories</h4>
+            <h4 className="font-semibold mb-4 text-sm uppercase tracking-wider text-muted-foreground">Resources</h4>
             <ul className="space-y-3 text-sm">
               <li>
-                <Link to="/browse?category=AI/ML" className="text-muted-foreground hover:text-purple-600 transition-colors duration-300 flex items-center gap-1 group">
-                  <span className="group-hover:translate-x-1 transition-transform duration-300">AI & Machine Learning</span>
+                <Link to="/blog/mvp-in-30-days" className="text-muted-foreground hover:text-purple-600 transition-colors duration-300 flex items-center gap-1 group">
+                  <span className="group-hover:translate-x-1 transition-transform duration-300">30-Day MVP Guide</span>
                 </Link>
               </li>
               <li>
-                <Link to="/browse?category=FinTech" className="text-muted-foreground hover:text-purple-600 transition-colors duration-300 flex items-center gap-1 group">
-                  <span className="group-hover:translate-x-1 transition-transform duration-300">FinTech</span>
+                <Link to="/blog/how-to-validate-startup-idea" className="text-muted-foreground hover:text-purple-600 transition-colors duration-300 flex items-center gap-1 group">
+                  <span className="group-hover:translate-x-1 transition-transform duration-300">Idea Validation</span>
                 </Link>
               </li>
               <li>
-                <Link to="/browse?category=HealthTech" className="text-muted-foreground hover:text-purple-600 transition-colors duration-300 flex items-center gap-1 group">
-                  <span className="group-hover:translate-x-1 transition-transform duration-300">HealthTech</span>
+                <Link to="/blog/saas-pricing-strategies" className="text-muted-foreground hover:text-purple-600 transition-colors duration-300 flex items-center gap-1 group">
+                  <span className="group-hover:translate-x-1 transition-transform duration-300">SaaS Pricing Guide</span>
                 </Link>
               </li>
               <li>
-                <Link to="/browse?category=SaaS" className="text-muted-foreground hover:text-purple-600 transition-colors duration-300 flex items-center gap-1 group">
-                  <span className="group-hover:translate-x-1 transition-transform duration-300">SaaS</span>
+                <Link to="/blog/finding-first-10-customers" className="text-muted-foreground hover:text-purple-600 transition-colors duration-300 flex items-center gap-1 group">
+                  <span className="group-hover:translate-x-1 transition-transform duration-300">First 10 Customers</span>
                 </Link>
               </li>
             </ul>
@@ -147,14 +147,14 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link to="/privacy" className="text-muted-foreground hover:text-purple-600 transition-colors duration-300 flex items-center gap-1 group">
-                  <span className="group-hover:translate-x-1 transition-transform duration-300">Privacy</span>
+                <Link to="/idea-generator" className="text-muted-foreground hover:text-purple-600 transition-colors duration-300 flex items-center gap-1 group">
+                  <span className="group-hover:translate-x-1 transition-transform duration-300">Idea Generator</span>
                 </Link>
               </li>
               <li>
-                <Link to="/terms" className="text-muted-foreground hover:text-purple-600 transition-colors duration-300 flex items-center gap-1 group">
-                  <span className="group-hover:translate-x-1 transition-transform duration-300">Terms</span>
-                </Link>
+                <a href="mailto:hello@venturevault.space" className="text-muted-foreground hover:text-purple-600 transition-colors duration-300 flex items-center gap-1 group">
+                  <span className="group-hover:translate-x-1 transition-transform duration-300">Contact Us</span>
+                </a>
               </li>
             </ul>
           </div>

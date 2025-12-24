@@ -1,8 +1,9 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useMemo } from "react"
 import { Link } from "react-router-dom"
-import { Rss, RefreshCw, ExternalLink, Filter, Newspaper, Map, Lightbulb, BookOpen } from "lucide-react"
+import { Rss, RefreshCw, ExternalLink, Filter, Newspaper, Map, Lightbulb, BookOpen, Search, X, TrendingUp, Clock, Users } from "lucide-react"
 import { Button } from "../components/ui/button"
 import { Badge } from "../components/ui/badge"
+import { Input } from "../components/ui/input"
 import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../components/ui/tabs"
 import { BlogCard } from "../components/BlogCard"
@@ -49,12 +50,33 @@ function formatTimeAgo(dateString: string) {
 
 export function BlogPage() {
   const [activeCategory, setActiveCategory] = useState("all")
+  const [searchQuery, setSearchQuery] = useState("")
   const [rssItems, setRssItems] = useState<RSSItem[]>([])
   const [isLoadingRSS, setIsLoadingRSS] = useState(true)
   const [rssError, setRssError] = useState<string | null>(null)
 
-  const filteredPosts = getBlogPostsByCategory(activeCategory)
+  // Filter posts by category and search
+  const filteredPosts = useMemo(() => {
+    let posts = getBlogPostsByCategory(activeCategory)
+
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase()
+      posts = posts.filter(post =>
+        post.title.toLowerCase().includes(query) ||
+        post.excerpt.toLowerCase().includes(query) ||
+        post.tags.some(tag => tag.toLowerCase().includes(query)) ||
+        post.content.toLowerCase().includes(query)
+      )
+    }
+
+    // Sort by date (newest first)
+    return posts.sort((a, b) =>
+      new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
+    )
+  }, [activeCategory, searchQuery])
+
   const featuredPost = blogPosts[0] // Most recent post as featured
+  const totalPosts = blogPosts.length
 
   useEffect(() => {
     fetchRSSFeeds()
@@ -98,16 +120,52 @@ export function BlogPage() {
       {/* Hero Section */}
       <section className="bg-gradient-to-b from-purple-50 to-white dark:from-purple-950/20 dark:to-background py-16">
         <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center mb-12">
+          <div className="max-w-3xl mx-auto text-center mb-8">
             <Badge className="mb-4 bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300">
               VentureVault Blog
             </Badge>
             <h1 className="text-4xl md:text-5xl font-bold mb-4">
               Insights, Ideas & Updates
             </h1>
-            <p className="text-xl text-muted-foreground">
+            <p className="text-xl text-muted-foreground mb-6">
               Stay updated with startup trends, product roadmap, and actionable tips for founders.
             </p>
+
+            {/* Blog Stats */}
+            <div className="flex items-center justify-center gap-6 text-sm text-muted-foreground mb-8">
+              <div className="flex items-center gap-2">
+                <TrendingUp className="h-4 w-4 text-purple-500" />
+                <span><strong className="text-foreground">{totalPosts}</strong> Articles</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Clock className="h-4 w-4 text-green-500" />
+                <span><strong className="text-foreground">Weekly</strong> Updates</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Users className="h-4 w-4 text-blue-500" />
+                <span><strong className="text-foreground">1000+</strong> Readers</span>
+              </div>
+            </div>
+
+            {/* Search Bar */}
+            <div className="relative max-w-xl mx-auto mb-8">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+              <Input
+                type="text"
+                placeholder="Search articles, tips, guides..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="pl-12 pr-10 h-12 text-base rounded-full border-2 focus:border-purple-400"
+              />
+              {searchQuery && (
+                <button
+                  onClick={() => setSearchQuery("")}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                >
+                  <X className="h-5 w-5" />
+                </button>
+              )}
+            </div>
           </div>
 
           {/* Newsletter Signup */}
@@ -147,7 +205,18 @@ export function BlogPage() {
                     {filteredPosts.length === 0 ? (
                       <Card>
                         <CardContent className="py-12 text-center">
-                          <p className="text-muted-foreground">No articles in this category yet.</p>
+                          {searchQuery ? (
+                            <>
+                              <Search className="h-12 w-12 mx-auto mb-4 text-muted-foreground/50" />
+                              <p className="text-lg font-medium mb-2">No results for "{searchQuery}"</p>
+                              <p className="text-muted-foreground mb-4">Try a different search term or browse by category.</p>
+                              <Button variant="outline" onClick={() => setSearchQuery("")}>
+                                Clear Search
+                              </Button>
+                            </>
+                          ) : (
+                            <p className="text-muted-foreground">No articles in this category yet.</p>
+                          )}
                         </CardContent>
                       </Card>
                     ) : (

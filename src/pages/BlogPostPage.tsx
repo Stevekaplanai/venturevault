@@ -1,6 +1,6 @@
 import { useParams, Link, useNavigate } from "react-router-dom"
 import { ArrowLeft, Calendar, Clock, User, Share2, Twitter, Linkedin, Copy, Check } from "lucide-react"
-import React, { useState } from "react"
+import React, { useState, useEffect, useRef } from "react"
 import { Button } from "../components/ui/button"
 import { Badge } from "../components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card"
@@ -138,9 +138,39 @@ export function BlogPostPage() {
   const { slug } = useParams<{ slug: string }>()
   const navigate = useNavigate()
   const [copied, setCopied] = useState(false)
+  const [readingProgress, setReadingProgress] = useState(0)
+  const articleRef = useRef<HTMLElement>(null)
 
   const post = slug ? getBlogPostBySlug(slug) : undefined
   const relatedPosts = slug ? getRelatedPosts(slug, 3) : []
+
+  // Reading progress tracking
+  useEffect(() => {
+    const updateProgress = () => {
+      if (!articleRef.current) return
+
+      const articleTop = articleRef.current.offsetTop
+      const articleHeight = articleRef.current.offsetHeight
+      const windowHeight = window.innerHeight
+      const scrollTop = window.scrollY
+
+      // Calculate progress based on how much of the article has been scrolled through
+      const progress = Math.min(
+        Math.max(
+          ((scrollTop - articleTop + windowHeight * 0.3) / articleHeight) * 100,
+          0
+        ),
+        100
+      )
+
+      setReadingProgress(progress)
+    }
+
+    window.addEventListener('scroll', updateProgress)
+    updateProgress() // Initial calculation
+
+    return () => window.removeEventListener('scroll', updateProgress)
+  }, [post])
 
   if (!post) {
     return (
@@ -186,6 +216,14 @@ export function BlogPostPage() {
 
   return (
     <div className="min-h-screen">
+      {/* Reading Progress Bar */}
+      <div className="fixed top-0 left-0 right-0 z-50 h-1 bg-muted">
+        <div
+          className="h-full bg-gradient-to-r from-purple-600 to-indigo-600 transition-all duration-150 ease-out"
+          style={{ width: `${readingProgress}%` }}
+        />
+      </div>
+
       {/* Article Header */}
       <section className="bg-gradient-to-b from-purple-50 to-white dark:from-purple-950/20 dark:to-background py-12">
         <div className="container mx-auto px-4">
@@ -261,7 +299,7 @@ export function BlogPostPage() {
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Main Content */}
-          <article className="lg:col-span-2">
+          <article ref={articleRef} className="lg:col-span-2">
             <div className="prose prose-lg dark:prose-invert max-w-none">
               {renderMarkdown(post.content)}
             </div>
