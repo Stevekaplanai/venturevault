@@ -1,5 +1,5 @@
 import { useParams, Link, useNavigate } from "react-router-dom"
-import { ArrowLeft, Calendar, Clock, User, Share2, Twitter, Linkedin, Copy, Check, Lightbulb, Target, TrendingUp, Rocket, Info, CheckCircle2, AlertCircle, BookOpen, Zap } from "lucide-react"
+import { ArrowLeft, Calendar, Clock, User, Share2, Twitter, Linkedin, Copy, Check, Lightbulb, Target, TrendingUp, Rocket, CheckCircle2, BookOpen, Zap } from "lucide-react"
 import React, { useState, useEffect, useRef } from "react"
 import { Button } from "../components/ui/button"
 import { Badge } from "../components/ui/badge"
@@ -82,58 +82,6 @@ function KeyTakeaway({ children }: { children: React.ReactNode }) {
   )
 }
 
-// Reserved for future use - can be triggered by special markdown patterns
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-function _ProTip({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="my-8 p-5 rounded-xl bg-gradient-to-r from-amber-50 to-yellow-50 dark:from-amber-950/30 dark:to-yellow-950/30 border-l-4 border-amber-500">
-      <div className="flex items-start gap-3">
-        <Lightbulb className="h-5 w-5 text-amber-600 mt-0.5 shrink-0" />
-        <div>
-          <span className="font-semibold text-amber-700 dark:text-amber-300 text-sm uppercase tracking-wide">Pro Tip</span>
-          <div className="mt-1 text-amber-800 dark:text-amber-200">{children}</div>
-        </div>
-      </div>
-    </div>
-  )
-}
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-function _InfoBox({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="my-8 p-5 rounded-xl bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-blue-950/30 dark:to-cyan-950/30 border-l-4 border-blue-500">
-      <div className="flex items-start gap-3">
-        <Info className="h-5 w-5 text-blue-600 mt-0.5 shrink-0" />
-        <div className="text-blue-800 dark:text-blue-200">{children}</div>
-      </div>
-    </div>
-  )
-}
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-function _WarningBox({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="my-8 p-5 rounded-xl bg-gradient-to-r from-red-50 to-orange-50 dark:from-red-950/30 dark:to-orange-950/30 border-l-4 border-red-500">
-      <div className="flex items-start gap-3">
-        <AlertCircle className="h-5 w-5 text-red-600 mt-0.5 shrink-0" />
-        <div>
-          <span className="font-semibold text-red-700 dark:text-red-300 text-sm uppercase tracking-wide">Important</span>
-          <div className="mt-1 text-red-800 dark:text-red-200">{children}</div>
-        </div>
-      </div>
-    </div>
-  )
-}
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-function _StatCard({ stat, label }: { stat: string, label: string }) {
-  return (
-    <div className="text-center p-4 rounded-xl bg-gradient-to-br from-purple-50 to-indigo-50 dark:from-purple-950/30 dark:to-indigo-950/30 border border-purple-200 dark:border-purple-800">
-      <div className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent">{stat}</div>
-      <div className="text-sm text-muted-foreground mt-1">{label}</div>
-    </div>
-  )
-}
 
 function getCategoryColor(category: string) {
   switch (category) {
