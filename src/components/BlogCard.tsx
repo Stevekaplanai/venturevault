@@ -61,6 +61,20 @@ export function BlogCard({ post, variant = "default" }: BlogCardProps) {
           <span className="text-white text-sm font-medium">Featured Article</span>
         </div>
 
+        {/* Featured Image */}
+        {post.featuredImage && (
+          <Link to={`/blog/${post.slug}`} className="block">
+            <div className="relative aspect-[21/9] overflow-hidden">
+              <img
+                src={post.featuredImage}
+                alt={post.title}
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            </div>
+          </Link>
+        )}
+
         <CardHeader className="pb-3 relative">
           <div className="flex items-center gap-2 mb-2">
             <Badge className={`${getCategoryColor(post.category)} border transition-transform duration-300 group-hover:scale-105`}>
@@ -153,6 +167,20 @@ export function BlogCard({ post, variant = "default" }: BlogCardProps) {
     <Card className="group relative overflow-hidden hover:shadow-xl transition-all duration-500 hover:-translate-y-2 hover:border-purple-300 dark:hover:border-purple-700">
       {/* Subtle gradient overlay on hover */}
       <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 via-transparent to-indigo-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+
+      {/* Featured Image */}
+      {post.featuredImage && (
+        <Link to={`/blog/${post.slug}`} className="block">
+          <div className="relative aspect-video overflow-hidden">
+            <img
+              src={post.featuredImage}
+              alt={post.title}
+              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          </div>
+        </Link>
+      )}
 
       <CardHeader className="pb-3 relative">
         <div className="flex items-center justify-between mb-2">

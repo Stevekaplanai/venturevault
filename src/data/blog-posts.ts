@@ -55,6 +55,7 @@ Happy building!
     category: "roadmap",
     author: "VentureVault Team",
     publishedAt: "2024-12-20",
+    featuredImage: "/images/blog/welcome-to-venturevault.png",
     tags: ["Launch", "Announcement", "Free"],
     readTime: "3 min read"
   },
@@ -123,6 +124,7 @@ Sign up for our newsletter to get updates on new features as they launch!
     category: "roadmap",
     author: "VentureVault Team",
     publishedAt: "2024-12-21",
+    featuredImage: "/images/blog/2025-roadmap.png",
     tags: ["Roadmap", "Features", "2025"],
     readTime: "4 min read"
   },
@@ -198,6 +200,7 @@ Remember: A week of validation can save months of building the wrong thing.
     category: "tips",
     author: "VentureVault Team",
     publishedAt: "2024-12-22",
+    featuredImage: "/images/blog/how-to-validate-startup-idea.png",
     tags: ["Validation", "Guide", "MVP"],
     readTime: "5 min read"
   },
@@ -303,6 +306,7 @@ Explore these ideas in detail on VentureVault →
     category: "ideas",
     author: "VentureVault Team",
     publishedAt: "2024-12-22",
+    featuredImage: "/images/blog/ai-startup-trends-2025.png",
     tags: ["AI", "Trends", "2025", "Opportunities"],
     readTime: "6 min read"
   },
@@ -412,6 +416,7 @@ Start building, prove demand, then decide.
     category: "tips",
     author: "VentureVault Team",
     publishedAt: "2024-12-21",
+    featuredImage: "/images/blog/bootstrap-vs-fundraise.png",
     tags: ["Funding", "Bootstrap", "VC", "Strategy"],
     readTime: "7 min read"
   },
@@ -509,6 +514,7 @@ Start building today!
     category: "tips",
     author: "VentureVault Team",
     publishedAt: "2024-12-23",
+    featuredImage: "/images/blog/mvp-in-30-days.png",
     tags: ["MVP", "Guide", "Development", "Launch"],
     readTime: "6 min read"
   },
@@ -619,6 +625,7 @@ Explore SaaS ideas on VentureVault →
     category: "tips",
     author: "VentureVault Team",
     publishedAt: "2024-12-23",
+    featuredImage: "/images/blog/saas-pricing-strategies.png",
     tags: ["SaaS", "Pricing", "Strategy", "Revenue"],
     readTime: "7 min read"
   },
@@ -741,6 +748,7 @@ Your first 10 customers will teach you more than any market research.
     category: "tips",
     author: "VentureVault Team",
     publishedAt: "2024-12-22",
+    featuredImage: "/images/blog/finding-first-10-customers.png",
     tags: ["Customers", "Growth", "Sales", "Marketing"],
     readTime: "6 min read"
   },
@@ -878,6 +886,7 @@ The best tech stack is the one that gets you to customers fastest.
     category: "tips",
     author: "VentureVault Team",
     publishedAt: "2024-12-21",
+    featuredImage: "/images/blog/no-code-vs-code-startups.png",
     tags: ["No-Code", "Development", "Tech Stack", "MVP"],
     readTime: "7 min read"
   },
@@ -1017,6 +1026,7 @@ Focus on moving that one number.
     category: "tips",
     author: "VentureVault Team",
     publishedAt: "2024-12-20",
+    featuredImage: "/images/blog/startup-metrics-that-matter.png",
     tags: ["Metrics", "Analytics", "Growth", "SaaS"],
     readTime: "8 min read"
   },
@@ -1167,6 +1177,7 @@ Build remote-first, scale globally.
     category: "tips",
     author: "VentureVault Team",
     publishedAt: "2024-12-19",
+    featuredImage: "/images/blog/remote-first-startup-playbook.png",
     tags: ["Remote Work", "Team Building", "Culture", "Hiring"],
     readTime: "8 min read"
   },
@@ -1322,6 +1333,7 @@ Build the supply, create the demand, and facilitate the match.
     category: "ideas",
     author: "VentureVault Team",
     publishedAt: "2024-12-18",
+    featuredImage: "/images/blog/marketplace-startup-guide.png",
     tags: ["Marketplace", "Platform", "Network Effects", "Growth"],
     readTime: "9 min read"
   }

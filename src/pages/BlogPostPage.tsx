@@ -224,10 +224,24 @@ export function BlogPostPage() {
         />
       </div>
 
+      {/* Featured Image Header */}
+      {post.featuredImage && (
+        <section className="relative">
+          <div className="aspect-[21/9] md:aspect-[3/1] overflow-hidden">
+            <img
+              src={post.featuredImage}
+              alt={post.title}
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
+          </div>
+        </section>
+      )}
+
       {/* Article Header */}
-      <section className="bg-gradient-to-b from-purple-50 to-white dark:from-purple-950/20 dark:to-background py-12">
+      <section className={`bg-gradient-to-b from-purple-50 to-white dark:from-purple-950/20 dark:to-background ${post.featuredImage ? 'py-8 -mt-20 relative z-10' : 'py-12'}`}>
         <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto">
+          <div className={`max-w-3xl mx-auto ${post.featuredImage ? 'bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm rounded-2xl p-6 md:p-8 shadow-xl' : ''}`}>
             {/* Back Button */}
             <Button
               variant="ghost"
