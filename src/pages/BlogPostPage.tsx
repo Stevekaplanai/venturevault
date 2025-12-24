@@ -1,5 +1,5 @@
 import { useParams, Link, useNavigate } from "react-router-dom"
-import { ArrowLeft, Calendar, Clock, User, Share2, Twitter, Linkedin, Copy, Check } from "lucide-react"
+import { ArrowLeft, Calendar, Clock, User, Share2, Twitter, Linkedin, Copy, Check, Lightbulb, Target, TrendingUp, Rocket, Info, CheckCircle2, AlertCircle, BookOpen, Zap } from "lucide-react"
 import React, { useState, useEffect, useRef } from "react"
 import { Button } from "../components/ui/button"
 import { Badge } from "../components/ui/badge"
@@ -7,6 +7,128 @@ import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card"
 import { BlogCard } from "../components/BlogCard"
 import { NewsletterSignup } from "../components/NewsletterSignup"
 import { getBlogPostBySlug, getRelatedPosts } from "../data/blog-posts"
+
+// Inline CTA Component for mid-article signups
+function InlineNewsletterCTA({ variant = "default" }: { variant?: "default" | "tip" | "minimal" }) {
+  if (variant === "minimal") {
+    return (
+      <div className="my-8 p-4 rounded-xl bg-gradient-to-r from-purple-50 to-indigo-50 dark:from-purple-950/30 dark:to-indigo-950/30 border border-purple-200 dark:border-purple-800">
+        <div className="flex flex-col sm:flex-row items-center gap-4">
+          <div className="flex items-center gap-2 text-sm shrink-0">
+            <Rocket className="h-5 w-5 text-purple-500" />
+            <span className="font-medium">Get ideas like this daily</span>
+          </div>
+          <div className="flex-1 w-full">
+            <NewsletterSignup variant="compact" source="blog-inline-minimal" />
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  if (variant === "tip") {
+    return (
+      <div className="my-10 relative">
+        <div className="absolute -top-4 left-6 bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-xs font-semibold px-3 py-1 rounded-full flex items-center gap-1 z-10">
+          <Zap className="h-3 w-3" />
+          Pro Tip
+        </div>
+        <div className="p-6 pt-8 rounded-2xl bg-gradient-to-br from-purple-50 via-indigo-50 to-purple-50 dark:from-purple-950/40 dark:via-indigo-950/40 dark:to-purple-950/40 border-2 border-purple-200 dark:border-purple-800">
+          <h4 className="text-lg font-bold mb-2 flex items-center gap-2">
+            <Lightbulb className="h-5 w-5 text-yellow-500" />
+            Want More Startup Ideas?
+          </h4>
+          <p className="text-muted-foreground mb-4 text-sm">
+            Join 1,000+ founders getting curated startup ideas with market analysis, customer personas, and 90-day playbooks delivered daily.
+          </p>
+          <NewsletterSignup variant="compact" source="blog-inline-tip" />
+        </div>
+      </div>
+    )
+  }
+
+  return (
+    <div className="my-10 p-6 rounded-2xl bg-gradient-to-r from-purple-600 to-indigo-600 text-white">
+      <div className="flex flex-col md:flex-row items-center gap-6">
+        <div className="flex-1">
+          <h4 className="text-xl font-bold mb-2 flex items-center gap-2">
+            <Target className="h-5 w-5" />
+            Ready to Find Your Next Big Idea?
+          </h4>
+          <p className="text-purple-100 text-sm">
+            Get validated startup ideas delivered to your inbox every morning. Free forever.
+          </p>
+        </div>
+        <div className="w-full md:w-auto md:min-w-[300px]">
+          <NewsletterSignup variant="inline" source="blog-inline-default" />
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// Visual callout components
+function KeyTakeaway({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="my-8 p-5 rounded-xl bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-950/30 dark:to-emerald-950/30 border-l-4 border-green-500">
+      <div className="flex items-start gap-3">
+        <CheckCircle2 className="h-5 w-5 text-green-600 mt-0.5 shrink-0" />
+        <div>
+          <span className="font-semibold text-green-700 dark:text-green-300 text-sm uppercase tracking-wide">Key Takeaway</span>
+          <div className="mt-1 text-green-800 dark:text-green-200">{children}</div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function ProTip({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="my-8 p-5 rounded-xl bg-gradient-to-r from-amber-50 to-yellow-50 dark:from-amber-950/30 dark:to-yellow-950/30 border-l-4 border-amber-500">
+      <div className="flex items-start gap-3">
+        <Lightbulb className="h-5 w-5 text-amber-600 mt-0.5 shrink-0" />
+        <div>
+          <span className="font-semibold text-amber-700 dark:text-amber-300 text-sm uppercase tracking-wide">Pro Tip</span>
+          <div className="mt-1 text-amber-800 dark:text-amber-200">{children}</div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function InfoBox({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="my-8 p-5 rounded-xl bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-blue-950/30 dark:to-cyan-950/30 border-l-4 border-blue-500">
+      <div className="flex items-start gap-3">
+        <Info className="h-5 w-5 text-blue-600 mt-0.5 shrink-0" />
+        <div className="text-blue-800 dark:text-blue-200">{children}</div>
+      </div>
+    </div>
+  )
+}
+
+function WarningBox({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="my-8 p-5 rounded-xl bg-gradient-to-r from-red-50 to-orange-50 dark:from-red-950/30 dark:to-orange-950/30 border-l-4 border-red-500">
+      <div className="flex items-start gap-3">
+        <AlertCircle className="h-5 w-5 text-red-600 mt-0.5 shrink-0" />
+        <div>
+          <span className="font-semibold text-red-700 dark:text-red-300 text-sm uppercase tracking-wide">Important</span>
+          <div className="mt-1 text-red-800 dark:text-red-200">{children}</div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function StatCard({ stat, label }: { stat: string, label: string }) {
+  return (
+    <div className="text-center p-4 rounded-xl bg-gradient-to-br from-purple-50 to-indigo-50 dark:from-purple-950/30 dark:to-indigo-950/30 border border-purple-200 dark:border-purple-800">
+      <div className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent">{stat}</div>
+      <div className="text-sm text-muted-foreground mt-1">{label}</div>
+    </div>
+  )
+}
 
 function getCategoryColor(category: string) {
   switch (category) {
@@ -48,26 +170,53 @@ function formatDate(dateString: string) {
   })
 }
 
-// Simple markdown renderer for headings, lists, bold, etc.
-function renderMarkdown(content: string) {
+// Enhanced markdown renderer with better formatting, tables, blockquotes, and inline CTAs
+function renderMarkdown(content: string, slug: string) {
   const lines = content.split('\n')
   const elements: React.ReactElement[] = []
   let currentList: string[] = []
   let listType: 'ul' | 'ol' | null = null
+  let currentTable: string[][] = []
+  let inTable = false
   let key = 0
+  let h2Count = 0 // Track h2 headings for CTA insertion
+  let blockquoteLines: string[] = []
+
+  const flushBlockquote = () => {
+    if (blockquoteLines.length > 0) {
+      elements.push(
+        <blockquote key={key++} className="my-6 pl-6 border-l-4 border-purple-400 italic text-muted-foreground bg-purple-50/50 dark:bg-purple-950/20 py-4 pr-4 rounded-r-lg">
+          {blockquoteLines.map((line, i) => (
+            <p key={i} className="mb-2 last:mb-0" dangerouslySetInnerHTML={{ __html: processInline(line) }} />
+          ))}
+        </blockquote>
+      )
+      blockquoteLines = []
+    }
+  }
 
   const flushList = () => {
     if (currentList.length > 0 && listType) {
       if (listType === 'ul') {
         elements.push(
-          <ul key={key++} className="list-disc list-inside space-y-2 my-4 text-muted-foreground">
-            {currentList.map((item, i) => <li key={i}>{item}</li>)}
+          <ul key={key++} className="my-6 space-y-3 text-muted-foreground">
+            {currentList.map((item, i) => (
+              <li key={i} className="flex items-start gap-3">
+                <span className="mt-2 h-2 w-2 rounded-full bg-gradient-to-r from-purple-500 to-indigo-500 shrink-0" />
+                <span dangerouslySetInnerHTML={{ __html: processInline(item) }} />
+              </li>
+            ))}
           </ul>
         )
       } else {
         elements.push(
-          <ol key={key++} className="list-decimal list-inside space-y-2 my-4 text-muted-foreground">
-            {currentList.map((item, i) => <li key={i}>{item}</li>)}
+          <ol key={key++} className="my-6 space-y-3 text-muted-foreground counter-reset-item">
+            {currentList.map((item, i) => (
+              <li key={i} className="flex items-start gap-3">
+                <span className="flex items-center justify-center h-6 w-6 rounded-full bg-gradient-to-r from-purple-500 to-indigo-500 text-white text-sm font-semibold shrink-0">{i + 1}</span>
+                <span className="pt-0.5" dangerouslySetInnerHTML={{ __html: processInline(item) }} />
+              </li>
+            ))}
           </ol>
         )
       }
@@ -76,29 +225,116 @@ function renderMarkdown(content: string) {
     }
   }
 
-  const processInline = (text: string) => {
-    // Process bold and links
-    return text
-      .replace(/\*\*([^*]+)\*\*/g, '<strong class="font-semibold text-foreground">$1</strong>')
-      .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="text-purple-600 hover:underline">$1</a>')
+  const flushTable = () => {
+    if (currentTable.length > 1) {
+      const headers = currentTable[0]
+      const rows = currentTable.slice(1).filter(row => !row.every(cell => cell.match(/^[-|:]+$/)))
+
+      elements.push(
+        <div key={key++} className="my-8 overflow-x-auto rounded-xl border border-purple-200 dark:border-purple-800">
+          <table className="w-full text-sm">
+            <thead className="bg-gradient-to-r from-purple-50 to-indigo-50 dark:from-purple-950/50 dark:to-indigo-950/50">
+              <tr>
+                {headers.map((header, i) => (
+                  <th key={i} className="px-4 py-3 text-left font-semibold text-purple-900 dark:text-purple-100 border-b border-purple-200 dark:border-purple-800">
+                    {header.trim()}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-purple-100 dark:divide-purple-900">
+              {rows.map((row, i) => (
+                <tr key={i} className="hover:bg-purple-50/50 dark:hover:bg-purple-950/30 transition-colors">
+                  {row.map((cell, j) => (
+                    <td key={j} className="px-4 py-3 text-muted-foreground" dangerouslySetInnerHTML={{ __html: processInline(cell.trim()) }} />
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )
+      currentTable = []
+      inTable = false
+    }
   }
 
-  for (const line of lines) {
+  const processInline = (text: string) => {
+    return text
+      // Bold
+      .replace(/\*\*([^*]+)\*\*/g, '<strong class="font-semibold text-foreground">$1</strong>')
+      // Links
+      .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="text-purple-600 hover:text-purple-700 underline underline-offset-2 transition-colors">$1</a>')
+      // Inline code
+      .replace(/`([^`]+)`/g, '<code class="px-1.5 py-0.5 rounded bg-purple-100 dark:bg-purple-900/50 text-purple-700 dark:text-purple-300 text-sm font-mono">$1</code>')
+      // Market size pattern
+      .replace(/\*\*Market Size\*\*:\s*(\$[\d.]+[BMK])/g, '<span class="inline-flex items-center gap-1"><strong class="font-semibold text-foreground">Market Size</strong>: <span class="font-bold text-green-600 dark:text-green-400">$1</span></span>')
+  }
+
+  // Insert newsletter CTA helper
+  const maybeInsertCTA = () => {
+    if (h2Count === 2) {
+      elements.push(<InlineNewsletterCTA key={`cta-${key++}`} variant="tip" />)
+    } else if (h2Count === 4) {
+      elements.push(<InlineNewsletterCTA key={`cta-${key++}`} variant="default" />)
+    } else if (h2Count === 6) {
+      elements.push(<InlineNewsletterCTA key={`cta-${key++}`} variant="minimal" />)
+    }
+  }
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i]
+
+    // Blockquote
+    if (line.startsWith('> ')) {
+      flushList()
+      flushTable()
+      blockquoteLines.push(line.slice(2))
+      continue
+    } else if (blockquoteLines.length > 0) {
+      flushBlockquote()
+    }
+
+    // Table detection
+    if (line.includes('|') && line.trim().startsWith('|')) {
+      flushList()
+      const cells = line.split('|').slice(1, -1)
+      if (!inTable) {
+        inTable = true
+      }
+      currentTable.push(cells)
+      continue
+    } else if (inTable) {
+      flushTable()
+    }
+
     // Headers
     if (line.startsWith('# ')) {
       flushList()
       elements.push(
-        <h1 key={key++} className="text-3xl font-bold mt-8 mb-4">{line.slice(2)}</h1>
+        <h1 key={key++} className="text-3xl md:text-4xl font-bold mt-10 mb-6 bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent">{line.slice(2)}</h1>
       )
     } else if (line.startsWith('## ')) {
       flushList()
+      h2Count++
+      maybeInsertCTA()
+
       elements.push(
-        <h2 key={key++} className="text-2xl font-bold mt-8 mb-4">{line.slice(3)}</h2>
+        <div key={key++} className="mt-12 mb-6">
+          <div className="flex items-center gap-3 mb-2">
+            <div className="h-8 w-1 rounded-full bg-gradient-to-b from-purple-500 to-indigo-500" />
+            <h2 className="text-2xl font-bold">{line.slice(3)}</h2>
+          </div>
+          <div className="h-px bg-gradient-to-r from-purple-200 via-indigo-200 to-transparent dark:from-purple-800 dark:via-indigo-800" />
+        </div>
       )
     } else if (line.startsWith('### ')) {
       flushList()
       elements.push(
-        <h3 key={key++} className="text-xl font-semibold mt-6 mb-3">{line.slice(4)}</h3>
+        <h3 key={key++} className="text-xl font-semibold mt-8 mb-4 flex items-center gap-2">
+          <BookOpen className="h-5 w-5 text-purple-500" />
+          {line.slice(4)}
+        </h3>
       )
     }
     // Unordered list
@@ -113,6 +349,17 @@ function renderMarkdown(content: string) {
       listType = 'ol'
       currentList.push(line.replace(/^\d+\.\s/, ''))
     }
+    // Horizontal rule
+    else if (line.match(/^[-*_]{3,}$/)) {
+      flushList()
+      elements.push(
+        <div key={key++} className="my-10 flex items-center gap-4">
+          <div className="flex-1 h-px bg-gradient-to-r from-transparent via-purple-300 to-transparent dark:via-purple-700" />
+          <TrendingUp className="h-5 w-5 text-purple-400" />
+          <div className="flex-1 h-px bg-gradient-to-r from-transparent via-purple-300 to-transparent dark:via-purple-700" />
+        </div>
+      )
+    }
     // Empty line
     else if (line.trim() === '') {
       flushList()
@@ -120,10 +367,34 @@ function renderMarkdown(content: string) {
     // Regular paragraph
     else {
       flushList()
+
+      // Check for special patterns
+      const marketSizeMatch = line.match(/^\*\*Market Size\*\*:\s*(.+)/)
+      if (marketSizeMatch) {
+        elements.push(
+          <div key={key++} className="my-4 inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-800">
+            <TrendingUp className="h-4 w-4 text-green-600" />
+            <span className="font-semibold text-green-700 dark:text-green-300">Market Size:</span>
+            <span className="font-bold text-green-600 dark:text-green-400">{marketSizeMatch[1]}</span>
+          </div>
+        )
+        continue
+      }
+
+      // Check for "Remember:" or "Note:" patterns
+      if (line.startsWith('**Remember**:') || line.startsWith('Remember:')) {
+        elements.push(
+          <KeyTakeaway key={key++}>
+            <span dangerouslySetInnerHTML={{ __html: processInline(line.replace(/^\*\*Remember\*\*:|^Remember:/, '').trim()) }} />
+          </KeyTakeaway>
+        )
+        continue
+      }
+
       elements.push(
         <p
           key={key++}
-          className="text-muted-foreground my-4 leading-relaxed"
+          className="text-muted-foreground my-4 leading-relaxed text-base md:text-lg"
           dangerouslySetInnerHTML={{ __html: processInline(line) }}
         />
       )
@@ -131,6 +402,9 @@ function renderMarkdown(content: string) {
   }
 
   flushList()
+  flushTable()
+  flushBlockquote()
+
   return elements
 }
 
@@ -314,8 +588,8 @@ export function BlogPostPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Main Content */}
           <article ref={articleRef} className="lg:col-span-2">
-            <div className="prose prose-lg dark:prose-invert max-w-none">
-              {renderMarkdown(post.content)}
+            <div className="max-w-none">
+              {renderMarkdown(post.content, post.slug)}
             </div>
 
             {/* CTA Section */}

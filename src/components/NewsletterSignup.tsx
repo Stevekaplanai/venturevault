@@ -7,7 +7,7 @@ import { Input } from "./ui/input"
 import { Card, CardContent } from "./ui/card"
 
 interface NewsletterSignupProps {
-  variant?: "inline" | "card" | "hero"
+  variant?: "inline" | "card" | "hero" | "compact"
   source?: string
 }
 
@@ -245,6 +245,43 @@ export function NewsletterSignup({ variant = "inline", source = "website" }: New
           )}
         </CardContent>
       </Card>
+    )
+  }
+
+  // Compact variant - for inline article use
+  if (variant === "compact") {
+    return (
+      <div className="w-full">
+        <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-2">
+          <Input
+            ref={inputRef}
+            type="email"
+            placeholder="Your email"
+            className="flex-1 h-10 transition-all duration-200 focus:ring-2 focus:ring-purple-500/20"
+            value={email}
+            onChange={(e) => {
+              setEmail(e.target.value)
+              setError(null)
+            }}
+            disabled={isLoading}
+          />
+          <Button
+            type="submit"
+            size="sm"
+            className="h-10 px-4 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 transition-all duration-200 shrink-0"
+            disabled={isLoading}
+          >
+            {isLoading ? (
+              <Loader2 className="h-4 w-4 animate-spin" />
+            ) : (
+              "Subscribe Free"
+            )}
+          </Button>
+        </form>
+        {error && (
+          <p className="text-sm text-red-500 mt-1 animate-in fade-in duration-300">{error}</p>
+        )}
+      </div>
     )
   }
 
