@@ -82,7 +82,9 @@ function KeyTakeaway({ children }: { children: React.ReactNode }) {
   )
 }
 
-function ProTip({ children }: { children: React.ReactNode }) {
+// Reserved for future use - can be triggered by special markdown patterns
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function _ProTip({ children }: { children: React.ReactNode }) {
   return (
     <div className="my-8 p-5 rounded-xl bg-gradient-to-r from-amber-50 to-yellow-50 dark:from-amber-950/30 dark:to-yellow-950/30 border-l-4 border-amber-500">
       <div className="flex items-start gap-3">
@@ -96,7 +98,8 @@ function ProTip({ children }: { children: React.ReactNode }) {
   )
 }
 
-function InfoBox({ children }: { children: React.ReactNode }) {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function _InfoBox({ children }: { children: React.ReactNode }) {
   return (
     <div className="my-8 p-5 rounded-xl bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-blue-950/30 dark:to-cyan-950/30 border-l-4 border-blue-500">
       <div className="flex items-start gap-3">
@@ -107,7 +110,8 @@ function InfoBox({ children }: { children: React.ReactNode }) {
   )
 }
 
-function WarningBox({ children }: { children: React.ReactNode }) {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function _WarningBox({ children }: { children: React.ReactNode }) {
   return (
     <div className="my-8 p-5 rounded-xl bg-gradient-to-r from-red-50 to-orange-50 dark:from-red-950/30 dark:to-orange-950/30 border-l-4 border-red-500">
       <div className="flex items-start gap-3">
@@ -121,7 +125,8 @@ function WarningBox({ children }: { children: React.ReactNode }) {
   )
 }
 
-function StatCard({ stat, label }: { stat: string, label: string }) {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function _StatCard({ stat, label }: { stat: string, label: string }) {
   return (
     <div className="text-center p-4 rounded-xl bg-gradient-to-br from-purple-50 to-indigo-50 dark:from-purple-950/30 dark:to-indigo-950/30 border border-purple-200 dark:border-purple-800">
       <div className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent">{stat}</div>
@@ -171,7 +176,7 @@ function formatDate(dateString: string) {
 }
 
 // Enhanced markdown renderer with better formatting, tables, blockquotes, and inline CTAs
-function renderMarkdown(content: string, slug: string) {
+function renderMarkdown(content: string, _slug: string) {
   const lines = content.split('\n')
   const elements: React.ReactElement[] = []
   let currentList: string[] = []
