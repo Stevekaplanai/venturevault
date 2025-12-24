@@ -147,19 +147,21 @@ export function BrowsePage() {
             <Button type="submit">Search</Button>
           </form>
 
-          <div className="flex gap-2">
+          <div className="flex gap-2 overflow-x-auto scrollbar-hide -mx-2 px-2 sm:mx-0 sm:px-0">
             <Button
               variant={sortBy === "score" ? "secondary" : "ghost"}
               size="sm"
               onClick={() => setSortBy("score")}
+              className="flex-shrink-0"
             >
               <SortAsc className="h-4 w-4 mr-1" />
-              Top Rated
+              <span className="hidden xs:inline">Top </span>Rated
             </Button>
             <Button
               variant={sortBy === "trending" ? "secondary" : "ghost"}
               size="sm"
               onClick={() => setSortBy("trending")}
+              className="flex-shrink-0"
             >
               <Filter className="h-4 w-4 mr-1" />
               Trending
@@ -168,10 +170,11 @@ export function BrowsePage() {
               variant={sortBy === "recent" ? "secondary" : "ghost"}
               size="sm"
               onClick={() => setSortBy("recent")}
+              className="flex-shrink-0"
             >
               Recent
             </Button>
-            <div className="hidden md:flex border-l pl-2 gap-1">
+            <div className="hidden md:flex border-l pl-2 gap-1 flex-shrink-0">
               <Button
                 variant={viewMode === "grid" ? "secondary" : "ghost"}
                 size="icon"
@@ -190,18 +193,20 @@ export function BrowsePage() {
           </div>
         </div>
 
-        {/* Category Filter */}
-        <div className="flex flex-wrap gap-2 mb-8">
-          {categories.map((category) => (
-            <Badge
-              key={category}
-              variant={activeCategory === category ? "default" : "outline"}
-              className="cursor-pointer hover:bg-primary hover:text-primary-foreground transition-colors px-3 py-1.5"
-              onClick={() => handleCategoryChange(category)}
-            >
-              {category}
-            </Badge>
-          ))}
+        {/* Category Filter - Horizontal scroll on mobile */}
+        <div className="mb-8 -mx-4 px-4 overflow-x-auto scrollbar-hide">
+          <div className="flex gap-2 pb-2 min-w-max">
+            {categories.map((category) => (
+              <Badge
+                key={category}
+                variant={activeCategory === category ? "default" : "outline"}
+                className="cursor-pointer hover:bg-primary hover:text-primary-foreground transition-colors px-3 py-1.5 whitespace-nowrap flex-shrink-0"
+                onClick={() => handleCategoryChange(category)}
+              >
+                {category}
+              </Badge>
+            ))}
+          </div>
         </div>
 
         {/* Ideas Grid */}

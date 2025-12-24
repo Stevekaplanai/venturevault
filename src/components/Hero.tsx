@@ -63,10 +63,10 @@ export function Hero() {
           </form>
 
           {/* Stats */}
-          <div className="flex flex-wrap items-center justify-center lg:justify-start gap-8 text-sm">
+          <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 sm:gap-8 text-sm">
             <div className="flex items-center gap-2">
               <Brain className="h-5 w-5 text-purple-500" />
-              <span><strong>50+</strong> Validated Ideas</span>
+              <span><strong>1000+</strong> Curated Ideas</span>
             </div>
             <div className="flex items-center gap-2">
               <TrendingUp className="h-5 w-5 text-green-500" />

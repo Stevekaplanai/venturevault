@@ -109,7 +109,7 @@ export function IdeaCard({
               <button
                 onClick={handleBookmark}
                 disabled={isLoading}
-                className={`p-1.5 rounded-full transition-colors ${
+                className={`p-2 sm:p-1.5 rounded-full transition-colors touch-manipulation ${
                   isSaved
                     ? 'text-purple-600 bg-purple-100 dark:bg-purple-900/30'
                     : 'text-muted-foreground hover:text-purple-600 hover:bg-purple-50 dark:hover:bg-purple-900/20'
@@ -117,9 +117,9 @@ export function IdeaCard({
                 title={isSaved ? 'Remove from saved' : 'Save idea'}
               >
                 {isSaved ? (
-                  <BookmarkCheck className="h-4 w-4" />
+                  <BookmarkCheck className="h-5 w-5 sm:h-4 sm:w-4" />
                 ) : (
-                  <Bookmark className="h-4 w-4" />
+                  <Bookmark className="h-5 w-5 sm:h-4 sm:w-4" />
                 )}
               </button>
             )}
@@ -135,25 +135,25 @@ export function IdeaCard({
 
       <CardContent className="pb-3">
         {/* Metrics */}
-        <div className="grid grid-cols-3 gap-3 mb-4">
-          <div className="flex flex-col items-center p-2 rounded-lg bg-muted/50">
-            <TrendingUp className="h-4 w-4 mb-1 text-muted-foreground" />
-            <span className={`text-lg font-bold ${getScoreColor(marketScore)}`}>
+        <div className="grid grid-cols-3 gap-2 sm:gap-3 mb-4">
+          <div className="flex flex-col items-center p-1.5 sm:p-2 rounded-lg bg-muted/50">
+            <TrendingUp className="h-3.5 w-3.5 sm:h-4 sm:w-4 mb-1 text-muted-foreground" />
+            <span className={`text-base sm:text-lg font-bold ${getScoreColor(marketScore)}`}>
               {marketScore}
             </span>
-            <span className="text-xs text-muted-foreground">Score</span>
+            <span className="text-[10px] sm:text-xs text-muted-foreground">Score</span>
           </div>
-          <div className="flex flex-col items-center p-2 rounded-lg bg-muted/50">
-            <Users className="h-4 w-4 mb-1 text-muted-foreground" />
-            <Badge variant={getCompetitionColor(competitionLevel) as any} className="text-xs px-1.5">
+          <div className="flex flex-col items-center p-1.5 sm:p-2 rounded-lg bg-muted/50">
+            <Users className="h-3.5 w-3.5 sm:h-4 sm:w-4 mb-1 text-muted-foreground" />
+            <Badge variant={getCompetitionColor(competitionLevel) as any} className="text-[10px] sm:text-xs px-1 sm:px-1.5">
               {competitionLevel}
             </Badge>
-            <span className="text-xs text-muted-foreground mt-1">Competition</span>
+            <span className="text-[10px] sm:text-xs text-muted-foreground mt-1">Comp.</span>
           </div>
-          <div className="flex flex-col items-center p-2 rounded-lg bg-muted/50">
-            <DollarSign className="h-4 w-4 mb-1 text-muted-foreground" />
-            <span className="text-sm font-semibold">{potentialRevenue}</span>
-            <span className="text-xs text-muted-foreground">Revenue</span>
+          <div className="flex flex-col items-center p-1.5 sm:p-2 rounded-lg bg-muted/50">
+            <DollarSign className="h-3.5 w-3.5 sm:h-4 sm:w-4 mb-1 text-muted-foreground" />
+            <span className="text-xs sm:text-sm font-semibold">{potentialRevenue}</span>
+            <span className="text-[10px] sm:text-xs text-muted-foreground">Revenue</span>
           </div>
         </div>
 
