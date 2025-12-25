@@ -1,4 +1,10 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node'
+import { createClient } from '@supabase/supabase-js'
+
+const supabase = createClient(
+  process.env.SUPABASE_URL || '',
+  process.env.SUPABASE_SERVICE_ROLE_KEY || ''
+)
 
 // Import ideas data - we'll use static data for reliability
 const ideas = [
@@ -142,108 +148,40 @@ const ideas = [
 
 const categories = ["All", "FinTech", "HR Tech", "E-Commerce", "Creator Economy", "Pet Tech", "EdTech", "Local Services", "HealthTech", "PropTech", "FoodTech"]
 
-// OpenAPI specification for ChatGPT
-const openApiSpec = {
-  openapi: "3.1.0",
-  info: {
-    title: "VentureVault Startup Ideas API",
-    description: "Access curated startup ideas with AI-powered market analysis. Use this API to search, filter, and explore validated startup opportunities.",
-    version: "1.0.0",
-    contact: {
-      name: "VentureVault",
-      url: "https://venturevault.space"
+// Validate OAuth access token
+async function validateToken(authHeader: string | undefined): Promise<{ valid: boolean; userId?: string; error?: string }> {
+  if (!authHeader) {
+    return { valid: false, error: 'No authorization header' }
+  }
+
+  const parts = authHeader.split(' ')
+  if (parts.length !== 2 || parts[0].toLowerCase() !== 'bearer') {
+    return { valid: false, error: 'Invalid authorization format. Use: Bearer <token>' }
+  }
+
+  const token = parts[1]
+
+  try {
+    // Check if token exists and is not expired
+    const { data, error } = await supabase
+      .from('oauth_access_tokens')
+      .select('user_id, expires_at')
+      .eq('access_token', token)
+      .single()
+
+    if (error || !data) {
+      return { valid: false, error: 'Invalid or expired token' }
     }
-  },
-  servers: [
-    {
-      url: "https://venturevault.space/api",
-      description: "Production server"
+
+    // Check if token is expired
+    if (new Date(data.expires_at) < new Date()) {
+      return { valid: false, error: 'Token expired' }
     }
-  ],
-  paths: {
-    "/mcp": {
-      get: {
-        operationId: "getIdeas",
-        summary: "Get startup ideas",
-        description: "Retrieve startup ideas with optional filtering by category, search query, trending status, or specific ID.",
-        parameters: [
-          {
-            name: "action",
-            in: "query",
-            description: "The action to perform: 'list' for all ideas, 'search' for keyword search, 'get' for specific idea, 'categories' for category list, 'trending' for trending ideas, 'random' for a random idea, 'spec' for OpenAPI spec",
-            required: false,
-            schema: { type: "string", enum: ["list", "search", "get", "categories", "trending", "random", "spec"], default: "list" }
-          },
-          {
-            name: "category",
-            in: "query",
-            description: "Filter by category (e.g., 'FinTech', 'EdTech', 'Creator Economy')",
-            required: false,
-            schema: { type: "string" }
-          },
-          {
-            name: "q",
-            in: "query",
-            description: "Search query to find ideas by title, description, or tags",
-            required: false,
-            schema: { type: "string" }
-          },
-          {
-            name: "id",
-            in: "query",
-            description: "Specific idea ID to retrieve",
-            required: false,
-            schema: { type: "string" }
-          },
-          {
-            name: "limit",
-            in: "query",
-            description: "Maximum number of ideas to return (default: 10)",
-            required: false,
-            schema: { type: "integer", default: 10 }
-          }
-        ],
-        responses: {
-          "200": {
-            description: "Successful response",
-            content: {
-              "application/json": {
-                schema: {
-                  type: "object",
-                  properties: {
-                    success: { type: "boolean" },
-                    count: { type: "integer" },
-                    ideas: {
-                      type: "array",
-                      items: {
-                        type: "object",
-                        properties: {
-                          id: { type: "string" },
-                          title: { type: "string" },
-                          description: { type: "string" },
-                          category: { type: "string" },
-                          marketScore: { type: "integer", description: "AI-calculated market viability score (0-100)" },
-                          competitionLevel: { type: "string", enum: ["Low", "Medium", "High"] },
-                          potentialRevenue: { type: "string" },
-                          trending: { type: "boolean" },
-                          tags: { type: "array", items: { type: "string" } },
-                          targetAudience: { type: "string" },
-                          problemSolved: { type: "string" },
-                          marketSize: { type: "string" },
-                          growthRate: { type: "string" },
-                          timeToMVP: { type: "string" },
-                          initialInvestment: { type: "string" }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
+
+    return { valid: true, userId: data.user_id }
+  } catch (err) {
+    console.error('Token validation error:', err)
+    return { valid: false, error: 'Token validation failed' }
   }
 }
 
@@ -263,16 +201,37 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const id = req.query.id as string
   const limit = parseInt(req.query.limit as string) || 10
 
+  // Check for OAuth token (optional - allows both authenticated and unauthenticated access)
+  const authHeader = req.headers.authorization
+  let userId: string | undefined
+  let isAuthenticated = false
+
+  if (authHeader) {
+    const tokenResult = await validateToken(authHeader)
+    if (tokenResult.valid) {
+      userId = tokenResult.userId
+      isAuthenticated = true
+    } else {
+      // Return error for invalid tokens
+      return res.status(401).json({
+        success: false,
+        error: 'unauthorized',
+        error_description: tokenResult.error
+      })
+    }
+  }
+
   try {
     // Return OpenAPI spec
     if (action === 'spec') {
-      return res.status(200).json(openApiSpec)
+      return res.status(200).json(getOpenApiSpec())
     }
 
     // Return categories
     if (action === 'categories') {
       return res.status(200).json({
         success: true,
+        authenticated: isAuthenticated,
         categories: categories.filter(c => c !== 'All')
       })
     }
@@ -288,6 +247,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       }
       return res.status(200).json({
         success: true,
+        authenticated: isAuthenticated,
         idea
       })
     }
@@ -297,6 +257,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       const trendingIdeas = ideas.filter(i => i.trending).slice(0, limit)
       return res.status(200).json({
         success: true,
+        authenticated: isAuthenticated,
         count: trendingIdeas.length,
         ideas: trendingIdeas
       })
@@ -307,7 +268,34 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       const randomIdea = ideas[Math.floor(Math.random() * ideas.length)]
       return res.status(200).json({
         success: true,
+        authenticated: isAuthenticated,
         idea: randomIdea
+      })
+    }
+
+    // Get saved ideas (requires authentication)
+    if (action === 'saved') {
+      if (!isAuthenticated || !userId) {
+        return res.status(401).json({
+          success: false,
+          error: 'unauthorized',
+          error_description: 'Authentication required to view saved ideas'
+        })
+      }
+
+      const { data: savedIdeas } = await supabase
+        .from('saved_ideas')
+        .select('idea_id')
+        .eq('user_id', userId)
+
+      const savedIdeaIds = savedIdeas?.map(s => s.idea_id) || []
+      const userSavedIdeas = ideas.filter(i => savedIdeaIds.includes(i.id))
+
+      return res.status(200).json({
+        success: true,
+        authenticated: true,
+        count: userSavedIdeas.length,
+        ideas: userSavedIdeas
       })
     }
 
@@ -323,6 +311,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
       return res.status(200).json({
         success: true,
+        authenticated: isAuthenticated,
         query,
         count: results.length,
         ideas: results
@@ -344,6 +333,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     return res.status(200).json({
       success: true,
+      authenticated: isAuthenticated,
       count: filteredIdeas.length,
       total: ideas.length,
       categories: categories.filter(c => c !== 'All'),
@@ -356,5 +346,130 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       success: false,
       error: 'Internal server error'
     })
+  }
+}
+
+function getOpenApiSpec() {
+  return {
+    openapi: "3.1.0",
+    info: {
+      title: "VentureVault Startup Ideas API",
+      description: "Access curated startup ideas with AI-powered market analysis. Use this API to search, filter, and explore validated startup opportunities.",
+      version: "1.0.0",
+      contact: {
+        name: "VentureVault",
+        url: "https://venturevault.space"
+      }
+    },
+    servers: [
+      {
+        url: "https://venturevault.space/api",
+        description: "Production server"
+      }
+    ],
+    components: {
+      securitySchemes: {
+        oauth2: {
+          type: "oauth2",
+          flows: {
+            authorizationCode: {
+              authorizationUrl: "https://venturevault.space/api/oauth/authorize",
+              tokenUrl: "https://venturevault.space/api/oauth/token",
+              scopes: {
+                read: "Read access to startup ideas",
+                saved: "Access to saved ideas"
+              }
+            }
+          }
+        }
+      }
+    },
+    security: [
+      { oauth2: ["read"] }
+    ],
+    paths: {
+      "/mcp": {
+        get: {
+          operationId: "getIdeas",
+          summary: "Get startup ideas",
+          description: "Retrieve startup ideas with optional filtering by category, search query, trending status, or specific ID.",
+          security: [{ oauth2: ["read"] }],
+          parameters: [
+            {
+              name: "action",
+              in: "query",
+              description: "The action to perform",
+              required: false,
+              schema: { type: "string", enum: ["list", "search", "get", "categories", "trending", "random", "saved", "spec"], default: "list" }
+            },
+            {
+              name: "category",
+              in: "query",
+              description: "Filter by category (e.g., 'FinTech', 'EdTech', 'Creator Economy')",
+              required: false,
+              schema: { type: "string" }
+            },
+            {
+              name: "q",
+              in: "query",
+              description: "Search query to find ideas by title, description, or tags",
+              required: false,
+              schema: { type: "string" }
+            },
+            {
+              name: "id",
+              in: "query",
+              description: "Specific idea ID to retrieve",
+              required: false,
+              schema: { type: "string" }
+            },
+            {
+              name: "limit",
+              in: "query",
+              description: "Maximum number of ideas to return (default: 10)",
+              required: false,
+              schema: { type: "integer", default: 10 }
+            }
+          ],
+          responses: {
+            "200": {
+              description: "Successful response",
+              content: {
+                "application/json": {
+                  schema: {
+                    type: "object",
+                    properties: {
+                      success: { type: "boolean" },
+                      authenticated: { type: "boolean" },
+                      count: { type: "integer" },
+                      ideas: {
+                        type: "array",
+                        items: {
+                          type: "object",
+                          properties: {
+                            id: { type: "string" },
+                            title: { type: "string" },
+                            description: { type: "string" },
+                            category: { type: "string" },
+                            marketScore: { type: "integer" },
+                            competitionLevel: { type: "string" },
+                            potentialRevenue: { type: "string" },
+                            trending: { type: "boolean" },
+                            tags: { type: "array", items: { type: "string" } }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "401": {
+              description: "Unauthorized - Invalid or missing token"
+            }
+          }
+        }
+      }
+    }
   }
 }

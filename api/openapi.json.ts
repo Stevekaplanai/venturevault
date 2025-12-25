@@ -4,7 +4,7 @@ const openApiSpec = {
   openapi: "3.1.0",
   info: {
     title: "VentureVault Startup Ideas API",
-    description: "Access curated startup ideas with AI-powered market analysis. Search, filter, and explore validated startup opportunities for entrepreneurs, investors, and innovators.",
+    description: "Access curated startup ideas with AI-powered market analysis. Search, filter, and explore validated startup opportunities for entrepreneurs, investors, and innovators. Authenticate via OAuth to access saved ideas.",
     version: "1.0.0",
     contact: {
       name: "VentureVault",
@@ -17,12 +17,34 @@ const openApiSpec = {
       description: "Production server"
     }
   ],
+  components: {
+    securitySchemes: {
+      oauth2: {
+        type: "oauth2",
+        description: "OAuth 2.0 authorization code flow for accessing VentureVault API",
+        flows: {
+          authorizationCode: {
+            authorizationUrl: "https://venturevault.space/api/oauth/authorize",
+            tokenUrl: "https://venturevault.space/api/oauth/token",
+            scopes: {
+              read: "Read access to startup ideas and market analysis",
+              saved: "Access to user's saved ideas"
+            }
+          }
+        }
+      }
+    }
+  },
+  security: [
+    { oauth2: ["read"] }
+  ],
   paths: {
     "/mcp": {
       get: {
         operationId: "getStartupIdeas",
         summary: "Get startup ideas with filtering options",
-        description: "Retrieve curated startup ideas with AI-powered market analysis. Filter by category, search by keywords, get trending ideas, or explore random opportunities.",
+        description: "Retrieve curated startup ideas with AI-powered market analysis. Filter by category, search by keywords, get trending ideas, or explore random opportunities. Use action=saved to get authenticated user's saved ideas.",
+        security: [{ oauth2: ["read"] }],
         parameters: [
           {
             name: "action",
@@ -31,7 +53,7 @@ const openApiSpec = {
             required: false,
             schema: {
               type: "string",
-              enum: ["list", "search", "get", "categories", "trending", "random"],
+              enum: ["list", "search", "get", "categories", "trending", "random", "saved"],
               default: "list"
             }
           },
@@ -73,6 +95,7 @@ const openApiSpec = {
                   type: "object",
                   properties: {
                     success: { type: "boolean", description: "Whether the request was successful" },
+                    authenticated: { type: "boolean", description: "Whether the request is authenticated" },
                     count: { type: "integer", description: "Number of ideas returned" },
                     total: { type: "integer", description: "Total number of ideas available" },
                     categories: {
@@ -117,6 +140,21 @@ const openApiSpec = {
                         }
                       }
                     }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            description: "Unauthorized - Invalid or missing token",
+            content: {
+              "application/json": {
+                schema: {
+                  type: "object",
+                  properties: {
+                    success: { type: "boolean" },
+                    error: { type: "string" },
+                    error_description: { type: "string" }
                   }
                 }
               }
