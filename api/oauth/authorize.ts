@@ -28,21 +28,23 @@ function cleanupOldRequests() {
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   cleanupOldRequests()
 
-  const {
-    client_id,
-    redirect_uri,
-    response_type,
-    state,
-    code_challenge,
-    code_challenge_method,
-    scope
-  } = req.query
+  // Accept parameters from query string OR body (for POST requests)
+  const params = { ...req.query, ...req.body }
 
-  // Validate required parameters
-  if (!client_id || !redirect_uri || !response_type || !state) {
+  const client_id = params.client_id as string
+  const redirect_uri = params.redirect_uri as string
+  const response_type = params.response_type as string
+  const state = params.state as string || randomUUID() // Generate state if not provided
+  const code_challenge = params.code_challenge as string
+  const code_challenge_method = params.code_challenge_method as string
+  const scope = params.scope as string
+
+  // Validate required parameters (state is now optional)
+  if (!client_id || !redirect_uri || !response_type) {
     return res.status(400).json({
       error: 'invalid_request',
-      error_description: 'Missing required parameters: client_id, redirect_uri, response_type, state'
+      error_description: 'Missing required parameters: client_id, redirect_uri, response_type',
+      received: { client_id: !!client_id, redirect_uri: !!redirect_uri, response_type: !!response_type }
     })
   }
 
