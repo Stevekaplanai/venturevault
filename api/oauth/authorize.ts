@@ -391,10 +391,12 @@ function getLoginPageHtml(sessionId: string, scope: string | undefined, supabase
     });
 
     async function signInWithGoogle() {
+      // Always use non-www domain for Supabase OAuth callback
+      const baseUrl = 'https://venturevault.space';
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: window.location.origin + '/api/oauth/callback?session_id=' + SESSION_ID
+          redirectTo: baseUrl + '/api/oauth/callback?session_id=' + SESSION_ID
         }
       });
       if (error) {
@@ -404,10 +406,12 @@ function getLoginPageHtml(sessionId: string, scope: string | undefined, supabase
     }
 
     async function signInWithGitHub() {
+      // Always use non-www domain for Supabase OAuth callback
+      const baseUrl = 'https://venturevault.space';
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'github',
         options: {
-          redirectTo: window.location.origin + '/api/oauth/callback?session_id=' + SESSION_ID
+          redirectTo: baseUrl + '/api/oauth/callback?session_id=' + SESSION_ID
         }
       });
       if (error) {
