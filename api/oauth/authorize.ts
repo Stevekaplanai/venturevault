@@ -1,10 +1,9 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node'
-import { createClient } from '@supabase/supabase-js'
+import { randomUUID } from 'crypto'
 
-const supabase = createClient(
-  process.env.SUPABASE_URL || '',
-  process.env.SUPABASE_ANON_KEY || ''
-)
+// Environment variables
+const SUPABASE_URL = process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL || ''
+const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY || process.env.VITE_SUPABASE_ANON_KEY || ''
 
 // Store pending OAuth requests (in production, use Redis or database)
 const pendingRequests = new Map<string, {
@@ -88,7 +87,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   // Generate a unique session ID for this authorization request
-  const sessionId = crypto.randomUUID()
+  const sessionId = randomUUID()
 
   // Store the OAuth request details
   pendingRequests.set(sessionId, {
@@ -101,10 +100,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   })
 
   // Return the login page HTML
-  return res.status(200).send(getLoginPageHtml(sessionId, scope as string))
+  return res.status(200).send(getLoginPageHtml(sessionId, scope as string, SUPABASE_URL, SUPABASE_ANON_KEY))
 }
 
-function getLoginPageHtml(sessionId: string, scope?: string): string {
+function getLoginPageHtml(sessionId: string, scope: string | undefined, supabaseUrl: string, supabaseAnonKey: string): string {
   return `
 <!DOCTYPE html>
 <html>
@@ -339,8 +338,8 @@ function getLoginPageHtml(sessionId: string, scope?: string): string {
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
-    const SUPABASE_URL = '${process.env.SUPABASE_URL || ''}';
-    const SUPABASE_ANON_KEY = '${process.env.SUPABASE_ANON_KEY || ''}';
+    const SUPABASE_URL = '${supabaseUrl}';
+    const SUPABASE_ANON_KEY = '${supabaseAnonKey}';
     const SESSION_ID = '${sessionId}';
 
     const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);

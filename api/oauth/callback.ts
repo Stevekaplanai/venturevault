@@ -1,5 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node'
 import { createClient } from '@supabase/supabase-js'
+import { randomUUID } from 'crypto'
 
 const supabase = createClient(
   process.env.SUPABASE_URL || '',
@@ -80,7 +81,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
       if (!pendingData) {
         // Fallback: Use default ChatGPT redirect
-        const code = crypto.randomUUID()
+        const code = randomUUID()
 
         authorizationCodes.set(code, {
           user_id: user.id,
@@ -104,7 +105,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       }
 
       // Generate authorization code
-      const code = crypto.randomUUID()
+      const code = randomUUID()
 
       // Store the code with user info
       authorizationCodes.set(code, {

@@ -1,5 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node'
 import { createClient } from '@supabase/supabase-js'
+import { randomUUID } from 'crypto'
 
 const supabase = createClient(
   process.env.SUPABASE_URL || '',
@@ -77,8 +78,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       }
 
       // Generate new access token
-      const newAccessToken = crypto.randomUUID() + '-' + crypto.randomUUID()
-      const newRefreshToken = crypto.randomUUID() + '-' + crypto.randomUUID()
+      const newAccessToken = randomUUID() + '-' + randomUUID()
+      const newRefreshToken = randomUUID() + '-' + randomUUID()
       const expiresIn = 3600 // 1 hour
 
       // Store new tokens
@@ -185,8 +186,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     await supabase.from('oauth_codes').delete().eq('code', code)
 
     // Generate access token and refresh token
-    const accessToken = crypto.randomUUID() + '-' + crypto.randomUUID()
-    const newRefreshToken = crypto.randomUUID() + '-' + crypto.randomUUID()
+    const accessToken = randomUUID() + '-' + randomUUID()
+    const newRefreshToken = randomUUID() + '-' + randomUUID()
     const expiresIn = 3600 // 1 hour
 
     // Store access token
