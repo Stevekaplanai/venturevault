@@ -357,11 +357,37 @@ function getLoginPageHtml(sessionId: string, scope: string | undefined, supabase
     const SUPABASE_URL = '${supabaseUrl}';
     const SUPABASE_ANON_KEY = '${supabaseAnonKey}';
     const SESSION_ID = '${sessionId}';
+    const BASE_URL = 'https://venturevault.space';
 
-    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    let supabaseClient = null;
+
+    // Initialize Supabase after script loads
+    function initSupabase() {
+      if (window.supabase && window.supabase.createClient) {
+        supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        return true;
+      }
+      return false;
+    }
+
+    // Try to init immediately, retry if needed
+    if (!initSupabase()) {
+      setTimeout(initSupabase, 500);
+    }
+
+    function showError(msg) {
+      const errorEl = document.getElementById('error-message');
+      errorEl.textContent = msg;
+      errorEl.style.display = 'block';
+    }
 
     document.getElementById('login-form').addEventListener('submit', async (e) => {
       e.preventDefault();
+
+      if (!supabaseClient) {
+        showError('Authentication service not loaded. Please refresh the page.');
+        return;
+      }
 
       const email = document.getElementById('email').value;
       const password = document.getElementById('password').value;
@@ -373,7 +399,7 @@ function getLoginPageHtml(sessionId: string, scope: string | undefined, supabase
       submitBtn.textContent = 'Signing in...';
 
       try {
-        const { data, error } = await supabase.auth.signInWithPassword({
+        const { data, error } = await supabaseClient.auth.signInWithPassword({
           email,
           password
         });
@@ -381,42 +407,49 @@ function getLoginPageHtml(sessionId: string, scope: string | undefined, supabase
         if (error) throw error;
 
         // Redirect to callback with session token
-        window.location.href = '/api/oauth/callback?session_id=' + SESSION_ID + '&access_token=' + data.session.access_token;
+        window.location.href = BASE_URL + '/api/oauth/callback?session_id=' + SESSION_ID + '&access_token=' + data.session.access_token;
       } catch (error) {
-        errorEl.textContent = error.message || 'Failed to sign in';
-        errorEl.style.display = 'block';
+        showError(error.message || 'Failed to sign in');
         submitBtn.disabled = false;
         submitBtn.textContent = 'Sign In & Authorize';
       }
     });
 
     async function signInWithGoogle() {
-      // Always use non-www domain for Supabase OAuth callback
-      const baseUrl = 'https://venturevault.space';
-      const { error } = await supabase.auth.signInWithOAuth({
-        provider: 'google',
-        options: {
-          redirectTo: baseUrl + '/api/oauth/callback?session_id=' + SESSION_ID
-        }
-      });
-      if (error) {
-        document.getElementById('error-message').textContent = error.message;
-        document.getElementById('error-message').style.display = 'block';
+      if (!supabaseClient) {
+        showError('Authentication service not loaded. Please refresh the page.');
+        return;
+      }
+      try {
+        const { data, error } = await supabaseClient.auth.signInWithOAuth({
+          provider: 'google',
+          options: {
+            redirectTo: BASE_URL + '/api/oauth/callback?session_id=' + SESSION_ID
+          }
+        });
+        if (error) throw error;
+        // If no error, Supabase will redirect automatically
+      } catch (error) {
+        showError(error.message || 'Google sign-in failed. Make sure Google OAuth is enabled in Supabase.');
       }
     }
 
     async function signInWithGitHub() {
-      // Always use non-www domain for Supabase OAuth callback
-      const baseUrl = 'https://venturevault.space';
-      const { error } = await supabase.auth.signInWithOAuth({
-        provider: 'github',
-        options: {
-          redirectTo: baseUrl + '/api/oauth/callback?session_id=' + SESSION_ID
-        }
-      });
-      if (error) {
-        document.getElementById('error-message').textContent = error.message;
-        document.getElementById('error-message').style.display = 'block';
+      if (!supabaseClient) {
+        showError('Authentication service not loaded. Please refresh the page.');
+        return;
+      }
+      try {
+        const { data, error } = await supabaseClient.auth.signInWithOAuth({
+          provider: 'github',
+          options: {
+            redirectTo: BASE_URL + '/api/oauth/callback?session_id=' + SESSION_ID
+          }
+        });
+        if (error) throw error;
+        // If no error, Supabase will redirect automatically
+      } catch (error) {
+        showError(error.message || 'GitHub sign-in failed. Make sure GitHub OAuth is enabled in Supabase.');
       }
     }
   </script>
