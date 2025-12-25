@@ -9,6 +9,7 @@ import { Button } from "../components/ui/button"
 import { Badge } from "../components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../components/ui/tabs"
+import { ideas as staticIdeas } from "../data/ideas"
 import type { Idea } from "../data/ideas"
 import { IdeaCard } from "../components/IdeaCard"
 import { CustomerPersonas } from "../components/idea-detail/CustomerPersonas"
@@ -45,7 +46,7 @@ export function IdeaDetailPage() {
     return savedIdeas.includes(id)
   })
 
-  // Fetch idea from API
+  // Fetch idea from API with fallback to static data
   useEffect(() => {
     async function fetchIdea() {
       if (!id) return
@@ -54,19 +55,29 @@ export function IdeaDetailPage() {
       try {
         const response = await fetch(`${API_BASE}/api/get-idea?id=${encodeURIComponent(id)}`)
         if (!response.ok) {
-          if (response.status === 404) {
-            setError('Idea not found')
-          } else {
-            throw new Error('Failed to fetch idea')
-          }
-          return
+          throw new Error('Failed to fetch idea')
         }
         const data = await response.json()
-        setIdea(data.idea)
-        setRelatedIdeas(data.relatedIdeas || [])
+        if (data.idea) {
+          setIdea(data.idea)
+          setRelatedIdeas(data.relatedIdeas || [])
+        } else {
+          throw new Error('No idea in response')
+        }
       } catch (err) {
-        console.error('Error fetching idea:', err)
-        setError(err instanceof Error ? err.message : 'Failed to load idea')
+        console.error('Error fetching idea, using static data:', err)
+        // Fallback to static data
+        const staticIdea = staticIdeas.find(i => i.id === id)
+        if (staticIdea) {
+          setIdea(staticIdea)
+          // Get related ideas from same category
+          const related = staticIdeas
+            .filter(i => i.category === staticIdea.category && i.id !== id)
+            .slice(0, 3)
+          setRelatedIdeas(related)
+        } else {
+          setError('Idea not found')
+        }
       } finally {
         setLoading(false)
       }

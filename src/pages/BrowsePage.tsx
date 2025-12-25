@@ -5,7 +5,7 @@ import { Button } from "../components/ui/button"
 import { Input } from "../components/ui/input"
 import { Badge } from "../components/ui/badge"
 import { IdeaCard } from "../components/IdeaCard"
-import { categories } from "../data/ideas"
+import { categories, ideas as staticIdeas } from "../data/ideas"
 import type { Idea } from "../data/ideas"
 
 const API_URL = import.meta.env.PROD
@@ -25,7 +25,7 @@ export function BrowsePage() {
   const [sortBy, setSortBy] = useState<"score" | "trending" | "recent">("score")
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid")
 
-  // Fetch ideas from API
+  // Fetch ideas from API with fallback to static data
   useEffect(() => {
     async function fetchIdeas() {
       setLoading(true)
@@ -36,10 +36,16 @@ export function BrowsePage() {
           throw new Error('Failed to fetch ideas')
         }
         const data = await response.json()
-        setIdeas(data.ideas || [])
+        if (data.ideas && data.ideas.length > 0) {
+          setIdeas(data.ideas)
+        } else {
+          // Fallback to static data if API returns empty
+          setIdeas(staticIdeas)
+        }
       } catch (err) {
-        console.error('Error fetching ideas:', err)
-        setError(err instanceof Error ? err.message : 'Failed to load ideas')
+        console.error('Error fetching ideas, using static data:', err)
+        // Fallback to static data on error
+        setIdeas(staticIdeas)
       } finally {
         setLoading(false)
       }
