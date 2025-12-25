@@ -59,22 +59,36 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     })
   }
 
-  // Validate redirect_uri (must be ChatGPT's callback URL)
-  const validRedirectUris = [
-    'https://chat.openai.com/aip/',
-    'https://chatgpt.com/aip/',
-    process.env.OAUTH_REDIRECT_URI
-  ].filter(Boolean)
-
+  // Validate redirect_uri (must be OpenAI/ChatGPT callback URL)
   const redirectUriStr = redirect_uri as string
-  const isValidRedirect = validRedirectUris.some(uri =>
-    uri && redirectUriStr.startsWith(uri)
-  )
+  const validDomains = [
+    'chat.openai.com',
+    'chatgpt.com',
+    'platform.openai.com',
+    'openai.com',
+    'auth.openai.com',
+    'auth0.openai.com'
+  ]
+
+  let isValidRedirect = false
+  try {
+    const url = new URL(redirectUriStr)
+    isValidRedirect = validDomains.some(domain =>
+      url.hostname === domain || url.hostname.endsWith('.' + domain)
+    )
+  } catch {
+    isValidRedirect = false
+  }
+
+  // Also allow custom redirect URI from env
+  if (process.env.OAUTH_REDIRECT_URI && redirectUriStr.startsWith(process.env.OAUTH_REDIRECT_URI)) {
+    isValidRedirect = true
+  }
 
   if (!isValidRedirect) {
     return res.status(400).json({
       error: 'invalid_redirect_uri',
-      error_description: 'Invalid redirect_uri'
+      error_description: 'Invalid redirect_uri: ' + redirectUriStr
     })
   }
 
