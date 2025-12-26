@@ -105,28 +105,28 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Links - Resources */}
+          {/* Links - Compare */}
           <div className="hidden md:block">
-            <h4 className="font-semibold mb-4 text-sm uppercase tracking-wider text-muted-foreground">Resources</h4>
+            <h4 className="font-semibold mb-4 text-sm uppercase tracking-wider text-muted-foreground">Compare</h4>
             <ul className="space-y-3 text-sm">
               <li>
-                <Link to="/blog/mvp-in-30-days" className="text-muted-foreground hover:text-purple-600 transition-colors duration-300 flex items-center gap-1 group">
-                  <span className="group-hover:translate-x-1 transition-transform duration-300">30-Day MVP Guide</span>
+                <Link to="/ideabrowser-alternative" className="text-muted-foreground hover:text-green-600 transition-colors duration-300 flex items-center gap-1 group">
+                  <span className="group-hover:translate-x-1 transition-transform duration-300">IdeaBrowser Alternative</span>
                 </Link>
               </li>
               <li>
-                <Link to="/blog/how-to-validate-startup-idea" className="text-muted-foreground hover:text-purple-600 transition-colors duration-300 flex items-center gap-1 group">
-                  <span className="group-hover:translate-x-1 transition-transform duration-300">Idea Validation</span>
+                <Link to="/vs-ideabrowser" className="text-muted-foreground hover:text-green-600 transition-colors duration-300 flex items-center gap-1 group">
+                  <span className="group-hover:translate-x-1 transition-transform duration-300">VentureVault vs IdeaBrowser</span>
                 </Link>
               </li>
               <li>
-                <Link to="/blog/saas-pricing-strategies" className="text-muted-foreground hover:text-purple-600 transition-colors duration-300 flex items-center gap-1 group">
-                  <span className="group-hover:translate-x-1 transition-transform duration-300">SaaS Pricing Guide</span>
+                <Link to="/pricing" className="text-muted-foreground hover:text-green-600 transition-colors duration-300 flex items-center gap-1 group">
+                  <span className="group-hover:translate-x-1 transition-transform duration-300">Pricing (100% FREE)</span>
                 </Link>
               </li>
               <li>
-                <Link to="/blog/finding-first-10-customers" className="text-muted-foreground hover:text-purple-600 transition-colors duration-300 flex items-center gap-1 group">
-                  <span className="group-hover:translate-x-1 transition-transform duration-300">First 10 Customers</span>
+                <Link to="/blog" className="text-muted-foreground hover:text-purple-600 transition-colors duration-300 flex items-center gap-1 group">
+                  <span className="group-hover:translate-x-1 transition-transform duration-300">Startup Blog</span>
                 </Link>
               </li>
             </ul>

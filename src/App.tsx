@@ -22,6 +22,8 @@ import { RoadmapPage } from './pages/RoadmapPage'
 import { IdeaGeneratorPage } from './pages/IdeaGeneratorPage'
 import { BlogPage } from './pages/BlogPage'
 import { BlogPostPage } from './pages/BlogPostPage'
+import { IdeaBrowserAlternativePage } from './pages/IdeaBrowserAlternativePage'
+import { VsIdeaBrowserPage } from './pages/VsIdeaBrowserPage'
 
 function App() {
   return (
@@ -61,6 +63,8 @@ function App() {
               <Route path="/idea-generator" element={<IdeaGeneratorPage />} />
               <Route path="/blog" element={<BlogPage />} />
               <Route path="/blog/:slug" element={<BlogPostPage />} />
+              <Route path="/ideabrowser-alternative" element={<IdeaBrowserAlternativePage />} />
+              <Route path="/vs-ideabrowser" element={<VsIdeaBrowserPage />} />
             </Routes>
           </main>
           <Footer />
