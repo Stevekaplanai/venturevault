@@ -1,0 +1,236 @@
+# Customise this file, documentation can be found here:
+# https://docs.fastlane.tools/actions
+# VentureVault iOS Fastlane Configuration
+
+default_platform(:ios)
+
+platform :ios do
+
+  # ============================================
+  # SETUP & PREPARATION
+  # ============================================
+
+  desc "Install certificates and provisioning profiles"
+  lane :setup_signing do
+    # Create a temporary keychain for CI
+    if is_ci
+      create_keychain(
+        name: "ci_keychain",
+        password: ENV["KEYCHAIN_PASSWORD"],
+        default_keychain: true,
+        unlock: true,
+        timeout: 3600,
+        lock_when_sleeps: false
+      )
+    end
+
+    # Install the distribution certificate
+    import_certificate(
+      certificate_path: ENV["CERTIFICATE_PATH"],
+      certificate_password: ENV["CERTIFICATE_PASSWORD"],
+      keychain_name: is_ci ? "ci_keychain" : "login",
+      keychain_password: is_ci ? ENV["KEYCHAIN_PASSWORD"] : nil
+    )
+
+    # Install the provisioning profile
+    install_provisioning_profile(
+      path: ENV["PROVISIONING_PROFILE_PATH"]
+    )
+  end
+
+  desc "Setup signing using App Store Connect API"
+  lane :setup_api_signing do
+    app_store_connect_api_key(
+      key_id: ENV["ASC_KEY_ID"],
+      issuer_id: ENV["ASC_ISSUER_ID"],
+      key_content: ENV["ASC_KEY_CONTENT"],
+      is_key_content_base64: true,
+      in_house: false
+    )
+
+    # Create a temporary keychain for CI
+    if is_ci
+      create_keychain(
+        name: "ci_keychain",
+        password: ENV["KEYCHAIN_PASSWORD"] || "temppass123",
+        default_keychain: true,
+        unlock: true,
+        timeout: 3600,
+        lock_when_sleeps: false
+      )
+    end
+  end
+
+  # ============================================
+  # BUILD LANES
+  # ============================================
+
+  desc "Build the app for development/testing"
+  lane :build_dev do
+    # Increment build number for uniqueness
+    increment_build_number(
+      build_number: ENV["BUILD_NUMBER"] || Time.now.strftime("%Y%m%d%H%M"),
+      xcodeproj: "App/App.xcodeproj"
+    )
+
+    build_app(
+      workspace: "App/App.xcworkspace",
+      scheme: "App",
+      configuration: "Debug",
+      export_method: "development",
+      output_directory: "./build",
+      output_name: "VentureVault-Dev.ipa",
+      clean: true
+    )
+  end
+
+  desc "Build the app for App Store distribution"
+  lane :build_release do |options|
+    # Set version if provided
+    if options[:version]
+      increment_version_number(
+        version_number: options[:version],
+        xcodeproj: "App/App.xcodeproj"
+      )
+    end
+
+    # Increment build number
+    build_number = options[:build_number] || ENV["BUILD_NUMBER"] || Time.now.strftime("%Y%m%d%H%M")
+    increment_build_number(
+      build_number: build_number,
+      xcodeproj: "App/App.xcodeproj"
+    )
+
+    build_app(
+      workspace: "App/App.xcworkspace",
+      scheme: "App",
+      configuration: "Release",
+      export_method: "app-store",
+      output_directory: "./build",
+      output_name: "VentureVault.ipa",
+      clean: true,
+      include_bitcode: false,
+      xcargs: "-allowProvisioningUpdates"
+    )
+  end
+
+  # ============================================
+  # DEPLOYMENT LANES
+  # ============================================
+
+  desc "Upload to TestFlight"
+  lane :beta do |options|
+    # Setup API authentication
+    setup_api_signing
+
+    # Build if no IPA provided
+    unless options[:skip_build]
+      build_release(
+        version: options[:version],
+        build_number: options[:build_number]
+      )
+    end
+
+    # Upload to TestFlight
+    upload_to_testflight(
+      skip_waiting_for_build_processing: true,
+      changelog: options[:changelog] || "Bug fixes and improvements"
+    )
+
+    # Notify on Slack if webhook is configured
+    if ENV["SLACK_WEBHOOK_URL"]
+      slack(
+        message: "VentureVault iOS build uploaded to TestFlight!",
+        success: true,
+        default_payloads: [:git_branch, :git_author]
+      )
+    end
+  end
+
+  desc "Deploy to App Store"
+  lane :release do |options|
+    # Setup API authentication
+    setup_api_signing
+
+    # Build if no IPA provided
+    unless options[:skip_build]
+      build_release(
+        version: options[:version],
+        build_number: options[:build_number]
+      )
+    end
+
+    # Upload to App Store Connect
+    deliver(
+      submit_for_review: options[:submit] || false,
+      automatic_release: false,
+      force: true, # Skip verification prompts
+      skip_screenshots: true,
+      skip_metadata: options[:skip_metadata] || false,
+      precheck_include_in_app_purchases: false
+    )
+
+    # Notify on Slack if webhook is configured
+    if ENV["SLACK_WEBHOOK_URL"]
+      slack(
+        message: "VentureVault iOS #{options[:version]} uploaded to App Store Connect!",
+        success: true,
+        default_payloads: [:git_branch, :git_author]
+      )
+    end
+  end
+
+  # ============================================
+  # UTILITY LANES
+  # ============================================
+
+  desc "Sync code signing certificates and profiles (using match)"
+  lane :sync_certs do
+    match(
+      type: "appstore",
+      app_identifier: "space.venturevault.app",
+      readonly: is_ci
+    )
+  end
+
+  desc "Register new device"
+  lane :register_device do |options|
+    device_name = options[:name]
+    device_udid = options[:udid]
+
+    register_devices(
+      devices: {
+        device_name => device_udid
+      }
+    )
+  end
+
+  desc "Take screenshots for App Store"
+  lane :screenshots do
+    capture_screenshots(
+      workspace: "App/App.xcworkspace",
+      scheme: "App"
+    )
+  end
+
+  desc "Clean build artifacts"
+  lane :clean do
+    clear_derived_data
+    sh("rm -rf ../build")
+  end
+
+  # ============================================
+  # ERROR HANDLING
+  # ============================================
+
+  error do |lane, exception|
+    if ENV["SLACK_WEBHOOK_URL"]
+      slack(
+        message: "iOS build failed in lane #{lane}: #{exception.message}",
+        success: false,
+        default_payloads: [:git_branch, :git_author]
+      )
+    end
+  end
+
+end

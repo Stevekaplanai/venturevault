@@ -7,7 +7,16 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "cap:sync": "npx cap sync",
+    "cap:sync:ios": "npx cap sync ios",
+    "cap:sync:android": "npx cap sync android",
+    "ios:open": "npx cap open ios",
+    "ios:build": "npm run build && npm run cap:sync:ios",
+    "ios:run": "npm run ios:build && npx cap run ios",
+    "android:open": "npx cap open android",
+    "android:build": "npm run build && npm run cap:sync:android",
+    "android:run": "npm run android:build && npx cap run android"
   },
   "dependencies": {
     "@capacitor/android": "^8.0.0",
@@ -34,6 +43,7 @@
   "devDependencies": {
     "@capacitor/assets": "^3.0.5",
     "@eslint/js": "^9.39.1",
+    "@playwright/test": "^1.57.0",
     "@tailwindcss/vite": "^4.1.18",
     "@types/canvas-confetti": "^1.9.0",
     "@types/node": "^24.10.4",
