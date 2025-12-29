@@ -108,15 +108,26 @@ jobs:
       - name: Sync Capacitor
         run: npx cap sync android
 
+      - name: Check if signing is configured
+        id: check-signing
+        env:
+          KEYSTORE_SECRET: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+        run: |
+          if [ -n "$KEYSTORE_SECRET" ]; then
+            echo "signing_configured=true" >> $GITHUB_OUTPUT
+          else
+            echo "signing_configured=false" >> $GITHUB_OUTPUT
+          fi
+
       - name: Decode Keystore
-        if: ${{ secrets.ANDROID_KEYSTORE_BASE64 != '' }}
+        if: steps.check-signing.outputs.signing_configured == 'true'
         env:
           ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
         run: |
           echo "$ANDROID_KEYSTORE_BASE64" | base64 --decode > android/app/release-keystore.jks
 
       - name: Build Debug APK (unsigned)
-        if: ${{ secrets.ANDROID_KEYSTORE_BASE64 == '' }}
+        if: steps.check-signing.outputs.signing_configured == 'false'
         working-directory: android
         run: |
           ./gradlew assembleDebug
@@ -124,7 +135,7 @@ jobs:
           cp app/build/outputs/apk/debug/*.apk build-output/
 
       - name: Build Release AAB (signed)
-        if: ${{ secrets.ANDROID_KEYSTORE_BASE64 != '' }}
+        if: steps.check-signing.outputs.signing_configured == 'true'
         working-directory: android
         env:
           ANDROID_KEYSTORE_FILE: ${{ github.workspace }}/android/app/release-keystore.jks
@@ -139,7 +150,7 @@ jobs:
           cp app/build/outputs/bundle/release/*.aab build-output/
 
       - name: Build Release APK (signed)
-        if: ${{ secrets.ANDROID_KEYSTORE_BASE64 != '' }}
+        if: steps.check-signing.outputs.signing_configured == 'true'
         working-directory: android
         env:
           ANDROID_KEYSTORE_FILE: ${{ github.workspace }}/android/app/release-keystore.jks
