@@ -108,6 +108,9 @@ jobs:
       - name: Sync Capacitor
         run: npx cap sync android
 
+      - name: Make gradlew executable
+        run: chmod +x android/gradlew
+
       - name: Check if signing is configured
         id: check-signing
         env:
