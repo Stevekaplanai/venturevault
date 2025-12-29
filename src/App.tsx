@@ -24,6 +24,7 @@ import { BlogPage } from './pages/BlogPage'
 import { BlogPostPage } from './pages/BlogPostPage'
 import { IdeaBrowserAlternativePage } from './pages/IdeaBrowserAlternativePage'
 import { VsIdeaBrowserPage } from './pages/VsIdeaBrowserPage'
+import { IdeaBrowserFreePage } from './pages/IdeaBrowserFreePage'
 
 function App() {
   return (
@@ -65,6 +66,7 @@ function App() {
               <Route path="/blog/:slug" element={<BlogPostPage />} />
               <Route path="/ideabrowser-alternative" element={<IdeaBrowserAlternativePage />} />
               <Route path="/vs-ideabrowser" element={<VsIdeaBrowserPage />} />
+              <Route path="/ideabrowser-free" element={<IdeaBrowserFreePage />} />
             </Routes>
           </main>
           <Footer />

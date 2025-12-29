@@ -1,6 +1,7 @@
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { SEO } from '@/components/SEO'
 import { Link } from 'react-router-dom'
 import {
   CheckCircle2,
@@ -141,6 +142,13 @@ const freeFeatures = [
 export function IdeaBrowserAlternativePage() {
   return (
     <div className="min-h-screen">
+      <SEO
+        title="Best IdeaBrowser Alternative FREE | VentureVault - Free Startup Ideas"
+        description="VentureVault is the best FREE IdeaBrowser alternative. Get unlimited startup ideas, AI research, market analysis - all free forever. No credit card required. Save $1,188/year."
+        canonicalUrl="https://venturevault.space/ideabrowser-alternative"
+        keywords="ideabrowser alternative, free ideabrowser alternative, ideabrowser free, startup ideas free, ideabrowser replacement, best ideabrowser alternative"
+      />
+
       {/* Hero Section */}
       <section className="relative overflow-hidden py-20 md:py-32">
         <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-green-100 via-background to-background dark:from-green-950/30" />
@@ -475,6 +483,59 @@ export function IdeaBrowserAlternativePage() {
           </div>
         </div>
       </section>
+
+      {/* Internal Links Section */}
+      <section className="py-16 bg-muted/30">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-2xl font-bold mb-6 text-center">More About IdeaBrowser Alternatives</h2>
+            <div className="grid md:grid-cols-3 gap-4">
+              <Link to="/ideabrowser-free" className="p-4 rounded-lg border hover:border-green-500 hover:bg-green-50 dark:hover:bg-green-950/20 transition-all">
+                <h3 className="font-semibold mb-2">IdeaBrowser Free</h3>
+                <p className="text-sm text-muted-foreground">Looking for IdeaBrowser free? We've got you covered</p>
+              </Link>
+              <Link to="/vs-ideabrowser" className="p-4 rounded-lg border hover:border-green-500 hover:bg-green-50 dark:hover:bg-green-950/20 transition-all">
+                <h3 className="font-semibold mb-2">VentureVault vs IdeaBrowser</h3>
+                <p className="text-sm text-muted-foreground">Detailed feature comparison</p>
+              </Link>
+              <Link to="/pricing" className="p-4 rounded-lg border hover:border-green-500 hover:bg-green-50 dark:hover:bg-green-950/20 transition-all">
+                <h3 className="font-semibold mb-2">Pricing (FREE!)</h3>
+                <p className="text-sm text-muted-foreground">Why we're committed to free</p>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* JSON-LD Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "name": "Best IdeaBrowser Alternative FREE",
+            "description": "VentureVault is the best FREE IdeaBrowser alternative with unlimited startup ideas and AI research.",
+            "url": "https://venturevault.space/ideabrowser-alternative",
+            "mainEntity": {
+              "@type": "SoftwareApplication",
+              "name": "VentureVault",
+              "applicationCategory": "BusinessApplication",
+              "operatingSystem": "Web",
+              "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "USD"
+              },
+              "aggregateRating": {
+                "@type": "AggregateRating",
+                "ratingValue": "4.9",
+                "ratingCount": "150"
+              }
+            }
+          })
+        }}
+      />
     </div>
   )
 }

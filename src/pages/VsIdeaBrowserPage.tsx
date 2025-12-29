@@ -1,6 +1,7 @@
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { SEO } from '@/components/SEO'
 import { Link } from 'react-router-dom'
 import {
   CheckCircle2,
@@ -201,6 +202,13 @@ const switchReasons = [
 export function VsIdeaBrowserPage() {
   return (
     <div className="min-h-screen">
+      <SEO
+        title="VentureVault vs IdeaBrowser | FREE Alternative Comparison 2025"
+        description="Compare VentureVault vs IdeaBrowser: VentureVault is FREE forever, IdeaBrowser costs $99/month. See the full feature comparison and why founders are switching to the free IdeaBrowser alternative."
+        canonicalUrl="https://venturevault.space/vs-ideabrowser"
+        keywords="venturevault vs ideabrowser, ideabrowser comparison, ideabrowser free alternative, free vs paid startup tools, ideabrowser review"
+      />
+
       {/* Hero Section */}
       <section className="relative overflow-hidden py-20 md:py-32">
         <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-purple-100 via-background to-background dark:from-purple-950/30" />
@@ -587,6 +595,61 @@ export function VsIdeaBrowserPage() {
           </div>
         </div>
       </section>
+
+      {/* Internal Links Section */}
+      <section className="py-16 bg-muted/30">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-2xl font-bold mb-6 text-center">Related IdeaBrowser Resources</h2>
+            <div className="grid md:grid-cols-3 gap-4">
+              <Link to="/ideabrowser-free" className="p-4 rounded-lg border hover:border-green-500 hover:bg-green-50 dark:hover:bg-green-950/20 transition-all">
+                <h3 className="font-semibold mb-2">IdeaBrowser Free</h3>
+                <p className="text-sm text-muted-foreground">The free IdeaBrowser alternative you've been searching for</p>
+              </Link>
+              <Link to="/ideabrowser-alternative" className="p-4 rounded-lg border hover:border-green-500 hover:bg-green-50 dark:hover:bg-green-950/20 transition-all">
+                <h3 className="font-semibold mb-2">IdeaBrowser Alternative</h3>
+                <p className="text-sm text-muted-foreground">Why VentureVault is the best alternative</p>
+              </Link>
+              <Link to="/browse" className="p-4 rounded-lg border hover:border-green-500 hover:bg-green-50 dark:hover:bg-green-950/20 transition-all">
+                <h3 className="font-semibold mb-2">Browse Ideas FREE</h3>
+                <p className="text-sm text-muted-foreground">Start exploring startup ideas now</p>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* JSON-LD Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "name": "VentureVault vs IdeaBrowser Comparison",
+            "description": "Complete comparison between VentureVault (FREE) and IdeaBrowser (Paid) startup idea platforms.",
+            "url": "https://venturevault.space/vs-ideabrowser",
+            "mainEntity": {
+              "@type": "ItemList",
+              "name": "Startup Idea Platforms Comparison",
+              "itemListElement": [
+                {
+                  "@type": "SoftwareApplication",
+                  "name": "VentureVault",
+                  "applicationCategory": "BusinessApplication",
+                  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+                },
+                {
+                  "@type": "SoftwareApplication",
+                  "name": "IdeaBrowser",
+                  "applicationCategory": "BusinessApplication",
+                  "offers": { "@type": "Offer", "price": "99", "priceCurrency": "USD" }
+                }
+              ]
+            }
+          })
+        }}
+      />
     </div>
   )
 }

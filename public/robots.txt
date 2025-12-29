@@ -1,0 +1,29 @@
+# VentureVault Robots.txt
+# https://venturevault.space
+
+User-agent: *
+Allow: /
+
+# Important SEO pages
+Allow: /ideabrowser-free
+Allow: /ideabrowser-alternative
+Allow: /vs-ideabrowser
+Allow: /browse
+Allow: /trending
+Allow: /ai-research
+Allow: /discover
+Allow: /idea-generator
+Allow: /pricing
+Allow: /about
+Allow: /blog
+
+# Sitemap
+Sitemap: https://venturevault.space/sitemap.xml
+
+# Disallow auth and user-specific pages from indexing
+Disallow: /auth/callback
+Disallow: /saved
+Disallow: /forgot-password
+
+# Crawl-delay for politeness
+Crawl-delay: 1

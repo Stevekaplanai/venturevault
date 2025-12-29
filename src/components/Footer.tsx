@@ -110,6 +110,11 @@ export function Footer() {
             <h4 className="font-semibold mb-4 text-sm uppercase tracking-wider text-muted-foreground">Compare</h4>
             <ul className="space-y-3 text-sm">
               <li>
+                <Link to="/ideabrowser-free" className="text-muted-foreground hover:text-green-600 transition-colors duration-300 flex items-center gap-1 group">
+                  <span className="group-hover:translate-x-1 transition-transform duration-300">IdeaBrowser Free</span>
+                </Link>
+              </li>
+              <li>
                 <Link to="/ideabrowser-alternative" className="text-muted-foreground hover:text-green-600 transition-colors duration-300 flex items-center gap-1 group">
                   <span className="group-hover:translate-x-1 transition-transform duration-300">IdeaBrowser Alternative</span>
                 </Link>
@@ -122,11 +127,6 @@ export function Footer() {
               <li>
                 <Link to="/pricing" className="text-muted-foreground hover:text-green-600 transition-colors duration-300 flex items-center gap-1 group">
                   <span className="group-hover:translate-x-1 transition-transform duration-300">Pricing (100% FREE)</span>
-                </Link>
-              </li>
-              <li>
-                <Link to="/blog" className="text-muted-foreground hover:text-purple-600 transition-colors duration-300 flex items-center gap-1 group">
-                  <span className="group-hover:translate-x-1 transition-transform duration-300">Startup Blog</span>
                 </Link>
               </li>
             </ul>
