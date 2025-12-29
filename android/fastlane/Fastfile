@@ -1,0 +1,173 @@
+# VentureVault Android Fastlane Configuration
+# https://docs.fastlane.tools
+
+default_platform(:android)
+
+platform :android do
+
+  # ============================================
+  # BUILD LANES
+  # ============================================
+
+  desc "Build debug APK"
+  lane :build_debug do
+    gradle(
+      task: "assemble",
+      build_type: "Debug"
+    )
+  end
+
+  desc "Build release APK"
+  lane :build_release_apk do
+    gradle(
+      task: "assemble",
+      build_type: "Release"
+    )
+  end
+
+  desc "Build release AAB (Android App Bundle)"
+  lane :build_release do |options|
+    # Set version if provided
+    if options[:version_code] || options[:version_name]
+      ENV["VERSION_CODE"] = options[:version_code].to_s if options[:version_code]
+      ENV["VERSION_NAME"] = options[:version_name] if options[:version_name]
+    end
+
+    gradle(
+      task: "bundle",
+      build_type: "Release"
+    )
+  end
+
+  # ============================================
+  # DEPLOYMENT LANES
+  # ============================================
+
+  desc "Deploy to internal testing track"
+  lane :internal do |options|
+    # Build if not skipping
+    unless options[:skip_build]
+      build_release(
+        version_code: options[:version_code],
+        version_name: options[:version_name]
+      )
+    end
+
+    upload_to_play_store(
+      track: "internal",
+      aab: options[:aab] || lane_context[SharedValues::GRADLE_AAB_OUTPUT_PATH],
+      skip_upload_metadata: true,
+      skip_upload_images: true,
+      skip_upload_screenshots: true,
+      release_status: "completed"
+    )
+  end
+
+  desc "Deploy to alpha testing track"
+  lane :alpha do |options|
+    unless options[:skip_build]
+      build_release(
+        version_code: options[:version_code],
+        version_name: options[:version_name]
+      )
+    end
+
+    upload_to_play_store(
+      track: "alpha",
+      aab: options[:aab] || lane_context[SharedValues::GRADLE_AAB_OUTPUT_PATH],
+      skip_upload_metadata: true,
+      skip_upload_images: true,
+      skip_upload_screenshots: true,
+      release_status: "completed"
+    )
+  end
+
+  desc "Deploy to beta testing track"
+  lane :beta do |options|
+    unless options[:skip_build]
+      build_release(
+        version_code: options[:version_code],
+        version_name: options[:version_name]
+      )
+    end
+
+    upload_to_play_store(
+      track: "beta",
+      aab: options[:aab] || lane_context[SharedValues::GRADLE_AAB_OUTPUT_PATH],
+      skip_upload_metadata: true,
+      skip_upload_images: true,
+      skip_upload_screenshots: true,
+      release_status: "completed"
+    )
+  end
+
+  desc "Deploy to production"
+  lane :production do |options|
+    unless options[:skip_build]
+      build_release(
+        version_code: options[:version_code],
+        version_name: options[:version_name]
+      )
+    end
+
+    upload_to_play_store(
+      track: "production",
+      aab: options[:aab] || lane_context[SharedValues::GRADLE_AAB_OUTPUT_PATH],
+      skip_upload_metadata: options[:skip_metadata] || true,
+      skip_upload_images: true,
+      skip_upload_screenshots: true,
+      release_status: options[:rollout] ? "inProgress" : "completed",
+      rollout: options[:rollout] # e.g., 0.1 for 10% rollout
+    )
+  end
+
+  desc "Promote internal to production"
+  lane :promote_to_production do
+    upload_to_play_store(
+      track: "internal",
+      track_promote_to: "production",
+      skip_upload_aab: true,
+      skip_upload_metadata: true,
+      skip_upload_images: true,
+      skip_upload_screenshots: true
+    )
+  end
+
+  # ============================================
+  # UTILITY LANES
+  # ============================================
+
+  desc "Validate Google Play credentials"
+  lane :validate_credentials do
+    validate_play_store_json_key(
+      json_key: ENV["SUPPLY_JSON_KEY"] || "play-store-credentials.json"
+    )
+  end
+
+  desc "Fetch current version codes from Play Store"
+  lane :fetch_version_codes do
+    google_play_track_version_codes(
+      track: "internal"
+    )
+  end
+
+  desc "Clean build artifacts"
+  lane :clean do
+    gradle(task: "clean")
+  end
+
+  # ============================================
+  # ERROR HANDLING
+  # ============================================
+
+  error do |lane, exception|
+    if ENV["SLACK_WEBHOOK_URL"]
+      slack(
+        message: "Android build failed in lane #{lane}: #{exception.message}",
+        success: false,
+        default_payloads: [:git_branch, :git_author]
+      )
+    end
+  end
+
+end

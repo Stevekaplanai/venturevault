@@ -32,5 +32,11 @@ dist-ssr
 
 # Android
 android/local.properties
+android/keystore.properties
+android/play-store-credentials.json
+android/app/*.jks
+android/app/*.keystore
 *.apk
+*.aab
 *.keystore
+*.jks
